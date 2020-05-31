@@ -6,10 +6,8 @@
 
   <groupId>ru.otus</groupId>
   <artifactId>otus-spring</artifactId>
-  <modules>
-    <module>hw01-xml-config</module>
-  </modules>
   <version>1.0-SNAPSHOT</version>
+
   <packaging>pom</packaging>
 
   <build>
@@ -23,6 +21,10 @@
       </plugins>
     </pluginManagement>
   </build>
+
+  <modules>
+    <module>hw01-xml-config</module>
+  </modules>
 
   <dependencies>
     <dependency>
@@ -45,12 +47,13 @@
   </dependencies>
 
   <properties>
-    <spring-context.version>5.2.6.RELEASE</spring-context.version>
     <lombok.version>1.18.12</lombok.version>
-    <spring-boot-starter-test.version>2.3.0.RELEASE</spring-boot-starter-test.version>
     <maven-assembly-plugin.version>3.3.0</maven-assembly-plugin.version>
     <maven.compiler.source>11</maven.compiler.source>
     <maven.compiler.target>11</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <spring-boot-starter-test.version>2.3.0.RELEASE</spring-boot-starter-test.version>
+    <spring-context.version>5.2.6.RELEASE</spring-context.version>
   </properties>
+
 </project>
