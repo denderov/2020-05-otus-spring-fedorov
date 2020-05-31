@@ -1,28 +1,27 @@
 package ru.otus.homework.dao;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import ru.otus.homework.domain.QuizItem;
 
+@RequiredArgsConstructor
 public class QuizDaoImpl implements QuizDao {
 
   private static final List<String> TRUE_VALUES = List.of("1", "TRUE");
 
   private final String defaultQuizPath;
 
-  public QuizDaoImpl(String defaultQuizPath) {
-    this.defaultQuizPath = defaultQuizPath;
-  }
-
   @SneakyThrows
   @Override
   public List<QuizItem> processQuizItemsFromDefaultPath() {
-    return getQuizItemsFromReader(new FileReader(defaultQuizPath));
+    return getQuizItemsFromReader(new InputStreamReader(
+        this.getClass().getResourceAsStream("/" + defaultQuizPath)));
   }
 
   @Override
