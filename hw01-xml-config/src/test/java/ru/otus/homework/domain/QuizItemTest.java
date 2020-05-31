@@ -4,30 +4,23 @@ import static org.assertj.core.api.Assertions.entry;
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-import java.util.Map;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import ru.otus.homework.TestHelper;
 
 @DisplayName("Класс QuizItem")
 class QuizItemTest {
 
-  private static final String QUESTION = "Question";
-  private static final String ANSWER_1 = "Correct answer";
-  private static final boolean IS_CORRECT_ANSWER_1 = true;
-  private static final String ANSWER_2 = "Incorrect answer";
-  private static final boolean IS_CORRECT_ANSWER_2 = false;
-  private static final Map<String, Boolean> ANSWERS =
-      Map.of(ANSWER_1, IS_CORRECT_ANSWER_1, ANSWER_2, IS_CORRECT_ANSWER_2);
-
   @DisplayName("корректно создается билдером")
   @Test
   void shouldHaveBeenCorrectDoneByBuilder() {
-    QuizItem quizItem = QuizItem.builder().question(QUESTION).answers(ANSWERS).build();
+    QuizItem quizItem = QuizItem.builder().question(TestHelper.QUESTION_1)
+        .answers(TestHelper.ANSWERS).build();
     assertAll(
-        () -> assertThat(quizItem.getQuestion()).isEqualTo(QUESTION),
+        () -> assertThat(quizItem.getQuestion()).isEqualTo(TestHelper.QUESTION_1),
         () -> assertThat(quizItem.getAnswers())
-            .containsExactly(entry(ANSWER_1, IS_CORRECT_ANSWER_1),
-                entry(ANSWER_2, IS_CORRECT_ANSWER_2))
+            .contains(entry(TestHelper.ANSWER_1, TestHelper.IS_CORRECT_ANSWER),
+                entry(TestHelper.ANSWER_2, TestHelper.IS_INCORRECT_ANSWER))
     );
   }
 
@@ -35,27 +28,27 @@ class QuizItemTest {
   @Test
   void shouldHaveBeenCorrectDoneBySingularityBuilder() {
     QuizItem quizItem = QuizItem.builder()
-        .question(QUESTION)
-        .answer(ANSWER_1, IS_CORRECT_ANSWER_1)
-        .answer(ANSWER_2, IS_CORRECT_ANSWER_2)
+        .question(TestHelper.QUESTION_1)
+        .answer(TestHelper.ANSWER_1, TestHelper.IS_CORRECT_ANSWER)
+        .answer(TestHelper.ANSWER_2, TestHelper.IS_INCORRECT_ANSWER)
         .build();
     assertAll(
-        () -> assertThat(quizItem.getQuestion()).isEqualTo(QUESTION),
+        () -> assertThat(quizItem.getQuestion()).isEqualTo(TestHelper.QUESTION_1),
         () -> assertThat(quizItem.getAnswers())
-            .containsExactly(entry(ANSWER_1, IS_CORRECT_ANSWER_1),
-                entry(ANSWER_2, IS_CORRECT_ANSWER_2))
+            .contains(entry(TestHelper.ANSWER_1, TestHelper.IS_CORRECT_ANSWER),
+                entry(TestHelper.ANSWER_2, TestHelper.IS_INCORRECT_ANSWER))
     );
   }
 
   @DisplayName("корректно создается конструктором")
   @Test
   void shouldHaveBeenCorrectDoneByConstructor() {
-    QuizItem quizItem = new QuizItem(QUESTION, ANSWERS);
+    QuizItem quizItem = new QuizItem(TestHelper.QUESTION_1, TestHelper.ANSWERS);
     assertAll(
-        () -> assertThat(quizItem.getQuestion()).isEqualTo(QUESTION),
+        () -> assertThat(quizItem.getQuestion()).isEqualTo(TestHelper.QUESTION_1),
         () -> assertThat(quizItem.getAnswers())
-            .containsExactly(entry(ANSWER_1, IS_CORRECT_ANSWER_1),
-                entry(ANSWER_2, IS_CORRECT_ANSWER_2))
+            .contains(entry(TestHelper.ANSWER_1, TestHelper.IS_CORRECT_ANSWER),
+                entry(TestHelper.ANSWER_2, TestHelper.IS_INCORRECT_ANSWER))
     );
   }
 
