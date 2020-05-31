@@ -13,7 +13,7 @@ public class QuizServiceImpl implements QuizService {
 
   @Override
   public void readQuiz() {
-    quizItems = quizDao.processQuizItemsFromDefaultPath();
+    quizItems = quizDao.processQuizItemsFromDefaultCsv();
   }
 
   @Override

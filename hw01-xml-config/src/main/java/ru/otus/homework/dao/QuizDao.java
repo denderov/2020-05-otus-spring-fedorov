@@ -7,7 +7,7 @@ import ru.otus.homework.domain.QuizItem;
 
 public interface QuizDao {
 
-  List<QuizItem> processQuizItemsFromDefaultPath();
+  List<QuizItem> processQuizItemsFromDefaultCsv();
 
   List<QuizItem> getQuizItemsFromReader(Reader reader) throws IOException;
 }

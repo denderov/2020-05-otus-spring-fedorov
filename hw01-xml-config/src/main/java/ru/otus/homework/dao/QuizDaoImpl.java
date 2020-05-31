@@ -15,13 +15,13 @@ public class QuizDaoImpl implements QuizDao {
 
   private static final List<String> TRUE_VALUES = List.of("1", "TRUE");
 
-  private final String defaultQuizPath;
+  private final String defaultQuizCsv;
 
   @SneakyThrows
   @Override
-  public List<QuizItem> processQuizItemsFromDefaultPath() {
+  public List<QuizItem> processQuizItemsFromDefaultCsv() {
     return getQuizItemsFromReader(new InputStreamReader(
-        this.getClass().getResourceAsStream("/" + defaultQuizPath)));
+        this.getClass().getResourceAsStream("/" + defaultQuizCsv)));
   }
 
   @Override

@@ -2,10 +2,11 @@ package ru.otus.homework;
 
 import java.util.List;
 import java.util.Map;
+import lombok.experimental.UtilityClass;
 import ru.otus.homework.domain.QuizItem;
 
+@UtilityClass
 public class TestHelper {
-
 
   public static final String QUESTION_1 = "Question1";
   public static final String QUESTION_2 = "Question2";
