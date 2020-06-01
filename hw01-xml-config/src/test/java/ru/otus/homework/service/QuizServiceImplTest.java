@@ -39,7 +39,7 @@ class QuizServiceImplTest {
   @Test
   void shouldCorrectPrintQuestions() {
 
-    given(quizDao.processQuizItemsFromDefaultCsv()).willReturn(TestHelper.QUIZ_ITEMS_FROM_BUILDER);
+    given(quizDao.loadQuizItems()).willReturn(TestHelper.QUIZ_ITEMS_FROM_BUILDER);
 
     QuizService quizService = new QuizServiceImpl(quizDao);
     quizService.readQuiz();
