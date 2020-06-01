@@ -1,4 +1,4 @@
-package ru.otus.homework.dao;
+package ru.otus.homework.quiz.dao;
 
 public class QuizLoadingException extends RuntimeException {
 

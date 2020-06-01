@@ -1,4 +1,4 @@
-package ru.otus.homework.service;
+package ru.otus.homework.quiz.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
@@ -13,7 +13,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ru.otus.homework.TestHelper;
-import ru.otus.homework.dao.QuizDao;
+import ru.otus.homework.quiz.dao.QuizDao;
 
 @DisplayName("Класс QuizService")
 @ExtendWith(MockitoExtension.class)
@@ -39,7 +39,7 @@ class QuizServiceImplTest {
   @Test
   void shouldCorrectPrintQuestions() {
 
-    given(quizDao.loadQuizItems()).willReturn(TestHelper.QUIZ_ITEMS_FROM_BUILDER);
+    given(quizDao.loadQuizItems()).willReturn(TestHelper.TEST_QUIZ_QUESTIONS);
 
     QuizService quizService = new QuizServiceImpl(quizDao);
     quizService.readQuiz();

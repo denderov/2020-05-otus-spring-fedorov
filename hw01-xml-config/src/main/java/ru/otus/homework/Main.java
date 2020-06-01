@@ -1,7 +1,7 @@
 package ru.otus.homework;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import ru.otus.homework.service.QuizService;
+import ru.otus.homework.quiz.service.QuizService;
 
 public class Main {
 

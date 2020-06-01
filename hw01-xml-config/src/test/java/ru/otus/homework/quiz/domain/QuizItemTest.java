@@ -1,4 +1,4 @@
-package ru.otus.homework.domain;
+package ru.otus.homework.quiz.domain;
 
 import static org.assertj.core.api.Assertions.entry;
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
@@ -15,7 +15,7 @@ class QuizItemTest {
   @Test
   void shouldHaveBeenCorrectDoneByBuilder() {
     QuizItem quizItem = QuizItem.builder().question(TestHelper.QUESTION_1)
-        .answers(TestHelper.ANSWERS).build();
+        .answers(TestHelper.ITEM_ANSWERS).build();
     assertAll(
         () -> assertThat(quizItem.getQuestion()).isEqualTo(TestHelper.QUESTION_1),
         () -> assertThat(quizItem.getAnswers())
@@ -43,7 +43,7 @@ class QuizItemTest {
   @DisplayName("корректно создается конструктором")
   @Test
   void shouldHaveBeenCorrectDoneByConstructor() {
-    QuizItem quizItem = new QuizItem(TestHelper.QUESTION_1, TestHelper.ANSWERS);
+    QuizItem quizItem = new QuizItem(TestHelper.QUESTION_1, TestHelper.ITEM_ANSWERS);
     assertAll(
         () -> assertThat(quizItem.getQuestion()).isEqualTo(TestHelper.QUESTION_1),
         () -> assertThat(quizItem.getAnswers())

@@ -1,4 +1,4 @@
-package ru.otus.homework.domain;
+package ru.otus.homework.quiz.domain;
 
 import java.util.Map;
 import lombok.Builder;
@@ -7,6 +7,7 @@ import lombok.Value;
 
 @Value
 @Builder
+@Deprecated
 public class QuizItem {
 
   String question;

@@ -1,4 +1,4 @@
-package ru.otus.homework.dao;
+package ru.otus.homework.quiz.dao;
 
 import static org.assertj.core.api.AssertionsForClassTypes.catchThrowable;
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
@@ -8,7 +8,7 @@ import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import ru.otus.homework.TestHelper;
-import ru.otus.homework.domain.QuizItem;
+import ru.otus.homework.quiz.domain.QuizQuestion;
 
 @DisplayName("Класс QuizDaoImpl")
 class QuizDaoImplTest {
@@ -23,9 +23,9 @@ class QuizDaoImplTest {
 
     QuizDao quizDao = new QuizDaoImpl(new StringReader(csvString));
 
-    List<QuizItem> quizItemsFromDao = quizDao.loadQuizItems();
+    List<QuizQuestion> quizQuestionsFromDao = quizDao.loadQuizItems();
 
-    assertThat(quizItemsFromDao).isEqualTo(TestHelper.QUIZ_ITEMS_FROM_BUILDER);
+    assertThat(quizQuestionsFromDao).isEqualTo(TestHelper.TEST_QUIZ_QUESTIONS);
 
   }
 

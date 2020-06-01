@@ -1,4 +1,4 @@
-package ru.otus.homework.dao;
+package ru.otus.homework.quiz.dao;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -6,7 +6,8 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
-import ru.otus.homework.domain.QuizItem;
+import ru.otus.homework.quiz.domain.QuizAnswer;
+import ru.otus.homework.quiz.domain.QuizQuestion;
 
 public class QuizDaoImpl implements QuizDao {
 
@@ -24,22 +25,22 @@ public class QuizDaoImpl implements QuizDao {
   }
 
   @Override
-  public List<QuizItem> loadQuizItems() {
+  public List<QuizQuestion> loadQuizItems() {
     return getQuizItemsFromReader(reader);
   }
 
-  private List<QuizItem> getQuizItemsFromReader(Reader reader) {
+  private List<QuizQuestion> getQuizItemsFromReader(Reader reader) {
 
-    List<QuizItem> quizItems = new ArrayList<>();
+    List<QuizQuestion> quizQuestions = new ArrayList<>();
 
     try (BufferedReader br = new BufferedReader(reader)) {
 
       String line;
-      final var quizItemBuilder = QuizItem.builder();
 
       while ((line = br.readLine()) != null) {
 
         String[] values = line.split(",");
+        List<QuizAnswer> answers = new ArrayList<>();
 
         if (values.length % 2 == 0) {
           throw new QuizLoadingException("Проверка четности. "
@@ -47,12 +48,11 @@ public class QuizDaoImpl implements QuizDao {
               + "флаг корректности ответа, разделенные запятыми.");
         }
 
-        quizItemBuilder.question(values[0]);
         for (int i = 1; i < values.length; i = i + 2) {
           boolean isCorrectAnswer = TRUE_VALUES.contains(values[i + 1].toUpperCase());
-          quizItemBuilder.answer(values[i], isCorrectAnswer);
+          answers.add(new QuizAnswer(values[i], isCorrectAnswer));
         }
-        quizItems.add(quizItemBuilder.build());
+        quizQuestions.add(new QuizQuestion(values[0], answers));
 
       }
     } catch (IOException original) {
@@ -61,7 +61,7 @@ public class QuizDaoImpl implements QuizDao {
       throw e;
     }
 
-    return quizItems;
+    return quizQuestions;
 
   }
 
