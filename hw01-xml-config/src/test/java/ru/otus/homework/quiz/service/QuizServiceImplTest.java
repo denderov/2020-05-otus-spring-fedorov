@@ -5,8 +5,6 @@ import static org.mockito.BDDMockito.given;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,29 +17,20 @@ import ru.otus.homework.quiz.dao.QuizDao;
 @ExtendWith(MockitoExtension.class)
 class QuizServiceImplTest {
 
-  private final PrintStream systemOut = System.out;
   @Mock
   private QuizDao quizDao;
+
   private ByteArrayOutputStream testOut;
-
-  @BeforeEach
-  void setUpOutput() {
-    testOut = new ByteArrayOutputStream();
-    System.setOut(new PrintStream(testOut));
-  }
-
-  @AfterEach
-  void restoreOutput() {
-    System.setOut(systemOut);
-  }
 
   @DisplayName("корректно печатает вопросы, полученные из DAO")
   @Test
   void shouldCorrectPrintQuestions() {
 
+    testOut = new ByteArrayOutputStream();
+
     given(quizDao.loadQuizItems()).willReturn(TestHelper.TEST_QUIZ_QUESTIONS);
 
-    QuizService quizService = new QuizServiceImpl(quizDao);
+    QuizService quizService = new QuizServiceImpl(quizDao, new PrintStream(testOut));
     quizService.readQuiz();
     quizService.printQuizQuestions();
 
