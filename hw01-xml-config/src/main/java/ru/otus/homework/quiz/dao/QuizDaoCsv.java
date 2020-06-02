@@ -11,13 +11,13 @@ import ru.otus.homework.quiz.domain.QuizAnswer;
 import ru.otus.homework.quiz.domain.QuizQuestion;
 
 @RequiredArgsConstructor
-public class QuizDaoImpl implements QuizDao {
+public class QuizDaoCsv implements QuizDao {
 
   private static final List<String> TRUE_VALUES = List.of("1", "TRUE");
 
   private final Reader reader;
 
-  QuizDaoImpl(String defaultQuizCsv) {
+  QuizDaoCsv(String defaultQuizCsv) {
     this.reader = new InputStreamReader(
         this.getClass().getResourceAsStream("/" + defaultQuizCsv));
   }

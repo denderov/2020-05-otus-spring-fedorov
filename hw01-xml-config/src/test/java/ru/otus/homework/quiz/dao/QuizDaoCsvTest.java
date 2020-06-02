@@ -11,7 +11,7 @@ import ru.otus.homework.TestHelper;
 import ru.otus.homework.quiz.domain.QuizQuestion;
 
 @DisplayName("Класс QuizDaoImpl")
-class QuizDaoImplTest {
+class QuizDaoCsvTest {
 
   @DisplayName("корректно читает вопросы из ридера в QuizItem")
   @Test
@@ -21,7 +21,7 @@ class QuizDaoImplTest {
         + "\n"
         + "Question2,Answer1,0,Answer2,1";
 
-    QuizDao quizDao = new QuizDaoImpl(new StringReader(csvString));
+    QuizDao quizDao = new QuizDaoCsv(new StringReader(csvString));
 
     List<QuizQuestion> quizQuestionsFromDao = quizDao.loadQuizItems();
 
@@ -37,7 +37,7 @@ class QuizDaoImplTest {
         + "\n"
         + "Question2,Answer1,0,Answer2";
 
-    QuizDao quizDao = new QuizDaoImpl(new StringReader(csvString));
+    QuizDao quizDao = new QuizDaoCsv(new StringReader(csvString));
 
     Throwable thrown = catchThrowable(quizDao::loadQuizItems);
 
