@@ -4,12 +4,15 @@
   xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+  <bean class="ru.otus.homework.common.ConsoleServiceImpl" id="consoleService"/>
+
   <bean class="ru.otus.homework.quiz.dao.QuizDaoCsv" id="quizDao">
     <constructor-arg name="defaultQuizCsv" value="quiz.csv"/>
   </bean>
 
   <bean class="ru.otus.homework.quiz.service.QuizServiceImpl" id="personService">
     <constructor-arg name="quizDao" ref="quizDao"/>
+    <constructor-arg name="consoleService" ref="consoleService"/>
   </bean>
 
 </beans>
