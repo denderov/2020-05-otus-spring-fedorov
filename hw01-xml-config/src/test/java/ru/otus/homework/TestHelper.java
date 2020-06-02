@@ -1,10 +1,8 @@
 package ru.otus.homework;
 
 import java.util.List;
-import java.util.Map;
 import lombok.experimental.UtilityClass;
 import ru.otus.homework.quiz.domain.QuizAnswer;
-import ru.otus.homework.quiz.domain.QuizItem;
 import ru.otus.homework.quiz.domain.QuizQuestion;
 
 @UtilityClass
@@ -30,18 +28,5 @@ public class TestHelper {
           new QuizQuestion(QUESTION_2, ANSWERS_2)
       );
 
-  public static final Map<String, Boolean> ITEM_ANSWERS =
-      Map.of(ANSWER_1, IS_CORRECT_ANSWER, ANSWER_2, IS_INCORRECT_ANSWER);
-
-  public static final List<QuizItem> QUIZ_ITEMS_FROM_BUILDER = List.of(
-      QuizItem.builder()
-          .question(QUESTION_1)
-          .answers(Map.of(ANSWER_1, IS_CORRECT_ANSWER, ANSWER_2, IS_INCORRECT_ANSWER))
-          .build(),
-      QuizItem.builder()
-          .question(QUESTION_2)
-          .answers(Map.of(ANSWER_1, IS_INCORRECT_ANSWER, ANSWER_2, IS_CORRECT_ANSWER))
-          .build()
-  );
-
+  public static final String TEST_MESSAGE = "Test message";
 }
