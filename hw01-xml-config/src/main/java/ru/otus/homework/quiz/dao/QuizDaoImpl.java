@@ -6,9 +6,11 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.RequiredArgsConstructor;
 import ru.otus.homework.quiz.domain.QuizAnswer;
 import ru.otus.homework.quiz.domain.QuizQuestion;
 
+@RequiredArgsConstructor
 public class QuizDaoImpl implements QuizDao {
 
   private static final List<String> TRUE_VALUES = List.of("1", "TRUE");
@@ -18,10 +20,6 @@ public class QuizDaoImpl implements QuizDao {
   QuizDaoImpl(String defaultQuizCsv) {
     this.reader = new InputStreamReader(
         this.getClass().getResourceAsStream("/" + defaultQuizCsv));
-  }
-
-  QuizDaoImpl(Reader reader) {
-    this.reader = reader;
   }
 
   @Override
