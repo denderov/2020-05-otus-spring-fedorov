@@ -2,7 +2,7 @@ package ru.otus.homework.quiz.service;
 
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import ru.otus.homework.common.ConsoleService;
+import ru.otus.homework.common.IOService;
 import ru.otus.homework.quiz.dao.QuizDao;
 import ru.otus.homework.quiz.domain.QuizQuestion;
 
@@ -10,7 +10,7 @@ import ru.otus.homework.quiz.domain.QuizQuestion;
 public class QuizServiceImpl implements QuizService {
 
   private final QuizDao quizDao;
-  private final ConsoleService consoleService;
+  private final IOService ioService;
   private List<QuizQuestion> quizQuestions;
 
   @Override
@@ -22,7 +22,7 @@ public class QuizServiceImpl implements QuizService {
   public void printQuizQuestions() {
     for (QuizQuestion quizQuestion :
         quizQuestions) {
-      consoleService.println(quizQuestion.getQuestion());
+      ioService.println(quizQuestion.getQuestion());
     }
   }
 }

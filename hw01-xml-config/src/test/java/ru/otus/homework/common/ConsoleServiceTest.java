@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import ru.otus.homework.TestHelper;
 
 @DisplayName("Класс ConsoleServiceImpl")
-class ConsoleServiceImplTest {
+class ConsoleServiceTest {
 
   private ByteArrayOutputStream testOut;
 
@@ -17,8 +17,8 @@ class ConsoleServiceImplTest {
   @Test
   void println() {
     testOut = new ByteArrayOutputStream();
-    ConsoleService consoleService = new ConsoleServiceImpl(new PrintStream(testOut));
-    consoleService.println(TestHelper.TEST_MESSAGE);
+    IOService IOService = new ConsoleService(new PrintStream(testOut));
+    IOService.println(TestHelper.TEST_MESSAGE);
     assertThat(testOut.toString()).contains(TestHelper.TEST_MESSAGE);
   }
 }

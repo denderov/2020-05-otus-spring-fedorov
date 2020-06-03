@@ -12,7 +12,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ru.otus.homework.TestHelper;
 import ru.otus.homework.common.ConsoleService;
-import ru.otus.homework.common.ConsoleServiceImpl;
+import ru.otus.homework.common.IOService;
 import ru.otus.homework.quiz.dao.QuizDao;
 
 @DisplayName("Класс QuizService")
@@ -23,18 +23,18 @@ class QuizServiceImplTest {
   private QuizDao quizDao;
 
   private ByteArrayOutputStream testOut;
-  private ConsoleService consoleService;
+  private IOService IOService;
 
   @DisplayName("корректно печатает вопросы, полученные из DAO")
   @Test
   void shouldCorrectPrintQuestions() {
 
     testOut = new ByteArrayOutputStream();
-    consoleService = new ConsoleServiceImpl(new PrintStream(testOut));
+    IOService = new ConsoleService(new PrintStream(testOut));
 
     given(quizDao.loadQuizItems()).willReturn(TestHelper.TEST_QUIZ_QUESTIONS);
 
-    QuizService quizService = new QuizServiceImpl(quizDao, consoleService);
+    QuizService quizService = new QuizServiceImpl(quizDao, IOService);
     quizService.readQuiz();
     quizService.printQuizQuestions();
 
