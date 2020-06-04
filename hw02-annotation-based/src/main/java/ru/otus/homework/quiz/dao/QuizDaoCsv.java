@@ -6,27 +6,24 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Repository;
-import ru.otus.homework.common.IOService;
+import lombok.RequiredArgsConstructor;
 import ru.otus.homework.quiz.domain.QuizAnswer;
 import ru.otus.homework.quiz.domain.QuizQuestion;
 
-@Repository
+@RequiredArgsConstructor
 public class QuizDaoCsv implements QuizDao {
 
   private static final List<String> TRUE_VALUES = List.of("1", "TRUE");
 
-  private final IOService ioService;
-  private Reader reader;
+  private final Reader reader;
 
-  public QuizDaoCsv(@Qualifier("ioDaoService") IOService ioService) {
-    this.ioService = ioService;
+  QuizDaoCsv(String defaultQuizCsv) {
+    this.reader = new InputStreamReader(
+        this.getClass().getResourceAsStream("/" + defaultQuizCsv));
   }
 
   @Override
   public List<QuizQuestion> loadQuizItems() {
-    reader = new InputStreamReader(ioService.in());
     return getQuizItemsFromReader(reader);
   }
 
