@@ -7,9 +7,13 @@ import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Repository;
 import ru.otus.homework.quiz.domain.QuizAnswer;
 import ru.otus.homework.quiz.domain.QuizQuestion;
 
+@Repository
 @RequiredArgsConstructor
 public class QuizDaoCsv implements QuizDao {
 
@@ -17,7 +21,8 @@ public class QuizDaoCsv implements QuizDao {
 
   private final Reader reader;
 
-  QuizDaoCsv(String defaultQuizCsv) {
+  @Autowired
+  QuizDaoCsv(@Value("${csv.name}") String defaultQuizCsv) {
     this.reader = new InputStreamReader(
         this.getClass().getResourceAsStream("/" + defaultQuizCsv));
   }
