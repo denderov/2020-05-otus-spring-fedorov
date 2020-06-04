@@ -2,10 +2,12 @@ package ru.otus.homework.quiz.service;
 
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 import ru.otus.homework.common.IOService;
 import ru.otus.homework.quiz.dao.QuizDao;
 import ru.otus.homework.quiz.domain.QuizQuestion;
 
+@Service
 @RequiredArgsConstructor
 public class QuizServiceImpl implements QuizService {
 
