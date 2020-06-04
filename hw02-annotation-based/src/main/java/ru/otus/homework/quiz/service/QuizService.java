@@ -6,5 +6,4 @@ public interface QuizService {
 
   void printQuizQuestions();
 
-  void runTest();
 }

@@ -5,7 +5,6 @@ import static org.mockito.BDDMockito.given;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,32 +15,26 @@ import ru.otus.homework.common.ConsoleService;
 import ru.otus.homework.common.IOService;
 import ru.otus.homework.quiz.dao.QuizDao;
 
-@DisplayName("Класс QuizServiceImpl")
+@DisplayName("Класс QuizService")
 @ExtendWith(MockitoExtension.class)
 class QuizServiceImplTest {
 
-  private static final int DEFAULT_TEST_QUESTIONS_COUNT = 5;
-  private static final int DEFAULT_PASS_PERCENT = 80;
   @Mock
-  private static QuizDao quizDao;
-  private static ByteArrayOutputStream testOut;
-  private static IOService IOService;
+  private QuizDao quizDao;
 
-  @BeforeAll
-  static void initIO() {
-    testOut = new ByteArrayOutputStream();
-    IOService = new ConsoleService(System.in, new PrintStream(testOut));
-  }
+  private ByteArrayOutputStream testOut;
+  private IOService IOService;
 
   @DisplayName("корректно печатает вопросы, полученные из DAO")
   @Test
   void shouldCorrectPrintQuestions() {
 
+    testOut = new ByteArrayOutputStream();
+    IOService = new ConsoleService(new PrintStream(testOut));
+
     given(quizDao.loadQuizItems()).willReturn(TestHelper.TEST_QUIZ_QUESTIONS);
 
-    QuizTestService quizTestService = new QuizTestServiceImpl(IOService,
-        DEFAULT_TEST_QUESTIONS_COUNT, DEFAULT_PASS_PERCENT);
-    QuizService quizService = new QuizServiceImpl(IOService, quizDao, quizTestService);
+    QuizService quizService = new QuizServiceImpl(quizDao, IOService);
     quizService.readQuiz();
     quizService.printQuizQuestions();
 
@@ -49,5 +42,4 @@ class QuizServiceImplTest {
         + "\n"
         + TestHelper.QUESTION_2);
   }
-
 }
