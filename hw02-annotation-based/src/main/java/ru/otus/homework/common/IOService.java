@@ -1,7 +1,12 @@
 package ru.otus.homework.common;
 
+import java.io.InputStream;
+import java.io.PrintStream;
+
 public interface IOService {
 
-  void println(String x);
+  InputStream in();
+
+  PrintStream out();
 
 }

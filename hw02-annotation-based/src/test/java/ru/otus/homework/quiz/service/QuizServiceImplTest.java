@@ -30,7 +30,7 @@ class QuizServiceImplTest {
   void shouldCorrectPrintQuestions() {
 
     testOut = new ByteArrayOutputStream();
-    IOService = new ConsoleService(new PrintStream(testOut));
+    IOService = new ConsoleService(System.in, new PrintStream(testOut));
 
     given(quizDao.loadQuizItems()).willReturn(TestHelper.TEST_QUIZ_QUESTIONS);
 
