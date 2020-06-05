@@ -1,5 +1,7 @@
 package ru.otus.homework.config;
 
+import java.io.InputStream;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -18,6 +20,13 @@ public class AppConfig {
 
   @Bean
   public IOService ioService() {
-    return new ConsoleService(System.out);
+    return new ConsoleService(System.in, System.out);
   }
+
+  @Bean
+  public IOService ioDaoService(@Value("${csv.name}") String defaultQuizCsv) {
+    InputStream inputStream = this.getClass().getResourceAsStream("/" + defaultQuizCsv);
+    return new ConsoleService(inputStream, System.out);
+  }
+
 }
