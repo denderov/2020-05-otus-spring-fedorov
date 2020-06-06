@@ -10,7 +10,6 @@ import ru.otus.homework.TestHelper;
 @DisplayName("Класс QuizQuestion")
 class TestRoomTest {
 
-
   @DisplayName("корректно создается конструктором")
   @Test
   void shouldHaveBeenCorrectDoneByConstructor() {
