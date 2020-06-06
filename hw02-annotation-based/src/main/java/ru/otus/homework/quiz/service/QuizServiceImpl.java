@@ -26,9 +26,6 @@ public class QuizServiceImpl implements QuizService {
 
   @Override
   public void printQuizQuestions() {
-    for (QuizQuestion quizQuestion :
-        quizQuestions) {
-      ioService.out().println(quizQuestion.getQuestion());
-    }
+    quizQuestions.forEach(quizQuestion -> ioService.out().println(quizQuestion.getQuestion()));
   }
 }
