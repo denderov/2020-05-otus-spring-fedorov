@@ -15,7 +15,7 @@ public class Main {
     QuizService quizService = context.getBean(QuizService.class);
 
     quizService.readQuiz();
-    quizService.printQuizQuestions();
+    quizService.runTest();
 
   }
 
