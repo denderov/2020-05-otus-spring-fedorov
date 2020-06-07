@@ -5,7 +5,6 @@ import static org.mockito.BDDMockito.given;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.util.stream.Collectors;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -16,9 +15,8 @@ import ru.otus.homework.TestHelper;
 import ru.otus.homework.common.ConsoleService;
 import ru.otus.homework.common.IOService;
 import ru.otus.homework.quiz.dao.QuizDao;
-import ru.otus.homework.quiz.domain.TestQuestion;
 
-@DisplayName("Класс QuizService")
+@DisplayName("Класс QuizServiceImpl")
 @ExtendWith(MockitoExtension.class)
 class QuizServiceImplTest {
 
@@ -52,19 +50,4 @@ class QuizServiceImplTest {
         + TestHelper.QUESTION_2);
   }
 
-  @DisplayName("корректно создает комнату для тестов")
-  @Test
-  void shouldCorrectCreateTestRoom() {
-    given(quizDao.loadQuizItems()).willReturn(TestHelper.TEST_QUIZ_QUESTIONS);
-    QuizTestServiceImpl quizTestService = new QuizTestServiceImpl(IOService,
-        DEFAULT_TEST_QUESTIONS_COUNT, DEFAULT_PASS_PERCENT);
-    QuizServiceImpl quizService = new QuizServiceImpl(IOService, quizDao, quizTestService);
-    quizService.readQuiz();
-    quizTestService.createTestRoom(TestHelper.FIRST_NAME, TestHelper.LAST_NAME,
-        quizService.getQuizQuestions());
-    assertThat(
-        quizTestService.getTestRoom().getTestQuestions().stream().map(TestQuestion::getQuizQuestion)
-            .collect(Collectors.toList()))
-        .containsExactlyInAnyOrderElementsOf(TestHelper.TEST_QUIZ_QUESTIONS);
-  }
 }
