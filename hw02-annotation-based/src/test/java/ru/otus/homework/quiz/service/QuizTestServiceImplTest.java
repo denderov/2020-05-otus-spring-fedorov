@@ -5,6 +5,7 @@ import static org.mockito.BDDMockito.given;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.stream.Collectors;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,19 +14,19 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ru.otus.homework.TestHelper;
 import ru.otus.homework.common.ConsoleService;
-import ru.otus.homework.common.IOService;
 import ru.otus.homework.quiz.dao.QuizDao;
+import ru.otus.homework.quiz.domain.TestQuestion;
 
-@DisplayName("Класс QuizServiceImpl")
+@DisplayName("Класс QuizTestServiceImpl")
 @ExtendWith(MockitoExtension.class)
-class QuizServiceImplTest {
+class QuizTestServiceImplTest {
 
   private static final int DEFAULT_TEST_QUESTIONS_COUNT = 5;
   private static final int DEFAULT_PASS_PERCENT = 80;
   @Mock
   private static QuizDao quizDao;
   private static ByteArrayOutputStream testOut;
-  private static IOService IOService;
+  private static ru.otus.homework.common.IOService IOService;
 
   @BeforeAll
   static void initIO() {
@@ -33,21 +34,20 @@ class QuizServiceImplTest {
     IOService = new ConsoleService(System.in, new PrintStream(testOut));
   }
 
-  @DisplayName("корректно печатает вопросы, полученные из DAO")
+  @DisplayName("корректно создает комнату для тестов")
   @Test
-  void shouldCorrectPrintQuestions() {
-
+  void shouldCorrectCreateTestRoom() {
     given(quizDao.loadQuizItems()).willReturn(TestHelper.TEST_QUIZ_QUESTIONS);
-
-    QuizTestService quizTestService = new QuizTestServiceImpl(IOService,
+    QuizTestServiceImpl quizTestService = new QuizTestServiceImpl(IOService,
         DEFAULT_TEST_QUESTIONS_COUNT, DEFAULT_PASS_PERCENT);
-    QuizService quizService = new QuizServiceImpl(IOService, quizDao, quizTestService);
+    QuizServiceImpl quizService = new QuizServiceImpl(IOService, quizDao, quizTestService);
     quizService.readQuiz();
-    quizService.printQuizQuestions();
-
-    assertThat(testOut.toString()).contains(TestHelper.QUESTION_1
-        + "\n"
-        + TestHelper.QUESTION_2);
+    quizTestService.createTestRoom(TestHelper.FIRST_NAME, TestHelper.LAST_NAME,
+        quizService.getQuizQuestions());
+    assertThat(
+        quizTestService.getTestRoom().getTestQuestions().stream().map(TestQuestion::getQuizQuestion)
+            .collect(Collectors.toList()))
+        .containsExactlyInAnyOrderElementsOf(TestHelper.TEST_QUIZ_QUESTIONS);
   }
 
 }
