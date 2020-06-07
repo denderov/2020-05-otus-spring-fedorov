@@ -51,6 +51,7 @@ public class QuizServiceImpl implements QuizService {
     quizQuestions = quizDao.loadQuizItems();
   }
 
+  @Override
   public void printQuizQuestions() {
     quizQuestions.forEach(quizQuestion -> ioService.out().println(quizQuestion.getQuestion()));
   }
