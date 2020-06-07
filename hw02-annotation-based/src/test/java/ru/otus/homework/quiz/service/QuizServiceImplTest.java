@@ -41,8 +41,9 @@ class QuizServiceImplTest {
 
     given(quizDao.loadQuizItems()).willReturn(TestHelper.TEST_QUIZ_QUESTIONS);
 
-    QuizService quizService = new QuizServiceImpl(quizDao, IOService, DEFAULT_TEST_QUESTIONS_COUNT,
-        DEFAULT_PASS_PERCENT);
+    QuizTestService quizTestService = new QuizTestServiceImpl(IOService,
+        DEFAULT_TEST_QUESTIONS_COUNT, DEFAULT_PASS_PERCENT);
+    QuizService quizService = new QuizServiceImpl(IOService, quizDao, quizTestService);
     quizService.readQuiz();
     quizService.printQuizQuestions();
 
@@ -55,12 +56,14 @@ class QuizServiceImplTest {
   @Test
   void shouldCorrectCreateTestRoom() {
     given(quizDao.loadQuizItems()).willReturn(TestHelper.TEST_QUIZ_QUESTIONS);
-    QuizServiceImpl quizService = new QuizServiceImpl(quizDao, IOService,
+    QuizTestServiceImpl quizTestService = new QuizTestServiceImpl(IOService,
         DEFAULT_TEST_QUESTIONS_COUNT, DEFAULT_PASS_PERCENT);
+    QuizServiceImpl quizService = new QuizServiceImpl(IOService, quizDao, quizTestService);
     quizService.readQuiz();
-    quizService.createTestRoom(TestHelper.FIRST_NAME, TestHelper.LAST_NAME);
+    quizTestService.createTestRoom(TestHelper.FIRST_NAME, TestHelper.LAST_NAME,
+        quizService.getQuizQuestions());
     assertThat(
-        quizService.getTestRoom().getTestQuestions().stream().map(TestQuestion::getQuizQuestion)
+        quizTestService.getTestRoom().getTestQuestions().stream().map(TestQuestion::getQuizQuestion)
             .collect(Collectors.toList()))
         .containsExactlyInAnyOrderElementsOf(TestHelper.TEST_QUIZ_QUESTIONS);
   }
