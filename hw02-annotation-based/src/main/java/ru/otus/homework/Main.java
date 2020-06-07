@@ -2,8 +2,10 @@ package ru.otus.homework;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import ru.otus.homework.quiz.service.QuizService;
 
+@EnableAspectJAutoProxy
 @ComponentScan
 public class Main {
 
