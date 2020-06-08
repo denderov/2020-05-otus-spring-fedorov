@@ -39,9 +39,9 @@ class QuizServiceImplTest {
 
     given(quizDao.loadQuizItems()).willReturn(TestHelper.TEST_QUIZ_QUESTIONS);
 
-    QuizTestService quizTestService = new QuizTestServiceImpl(IOService,
+    QuizTestingService quizTestingService = new QuizTestingServiceImpl(IOService,
         DEFAULT_TEST_QUESTIONS_COUNT, DEFAULT_PASS_PERCENT);
-    QuizService quizService = new QuizServiceImpl(IOService, quizDao, quizTestService);
+    QuizService quizService = new QuizServiceImpl(IOService, quizDao, quizTestingService);
     quizService.readQuiz();
     quizService.printQuizQuestions();
 

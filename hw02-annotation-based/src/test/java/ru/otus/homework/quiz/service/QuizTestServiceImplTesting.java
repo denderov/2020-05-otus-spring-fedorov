@@ -19,7 +19,7 @@ import ru.otus.homework.quiz.domain.TestQuestion;
 
 @DisplayName("Класс QuizTestServiceImpl")
 @ExtendWith(MockitoExtension.class)
-class QuizTestServiceImplTest {
+class QuizTestServiceImplTesting {
 
   private static final int DEFAULT_TEST_QUESTIONS_COUNT = 5;
   private static final int DEFAULT_PASS_PERCENT = 80;
@@ -38,7 +38,7 @@ class QuizTestServiceImplTest {
   @Test
   void shouldCorrectCreateTestRoom() {
     given(quizDao.loadQuizItems()).willReturn(TestHelper.TEST_QUIZ_QUESTIONS);
-    QuizTestServiceImpl quizTestService = new QuizTestServiceImpl(IOService,
+    QuizTestingServiceImpl quizTestService = new QuizTestingServiceImpl(IOService,
         DEFAULT_TEST_QUESTIONS_COUNT, DEFAULT_PASS_PERCENT);
     QuizServiceImpl quizService = new QuizServiceImpl(IOService, quizDao, quizTestService);
     quizService.readQuiz();

@@ -14,15 +14,15 @@ public class QuizServiceImpl implements QuizService {
 
   private final QuizDao quizDao;
   private final IOService ioService;
-  private final QuizTestService quizTestService;
+  private final QuizTestingService quizTestingService;
 
   private List<QuizQuestion> quizQuestions;
 
   public QuizServiceImpl(@Qualifier("ioService") IOService ioService, QuizDao quizDao,
-      QuizTestService quizTestService) {
+      QuizTestingService quizTestingService) {
     this.ioService = ioService;
     this.quizDao = quizDao;
-    this.quizTestService = quizTestService;
+    this.quizTestingService = quizTestingService;
   }
 
   @Override
@@ -37,7 +37,7 @@ public class QuizServiceImpl implements QuizService {
 
   @Override
   public void runTest() {
-    quizTestService.runTest(quizQuestions);
+    quizTestingService.runTest(quizQuestions);
   }
 
 }

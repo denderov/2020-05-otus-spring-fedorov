@@ -22,7 +22,7 @@ import ru.otus.homework.quiz.domain.TestRoom;
 
 @Service
 @Getter
-public class QuizTestServiceImpl implements QuizTestService {
+public class QuizTestingServiceImpl implements QuizTestingService {
 
   private final IOService ioService;
   private final int testQuestionsCount;
@@ -32,7 +32,7 @@ public class QuizTestServiceImpl implements QuizTestService {
 
   private TestRoom testRoom;
 
-  public QuizTestServiceImpl(@Qualifier("ioService") IOService ioService,
+  public QuizTestingServiceImpl(@Qualifier("ioService") IOService ioService,
       @Value("${test.questionCount}") int testQuestionsCount,
       @Value("${test.passPercent}") int passPercent) {
     this.ioService = ioService;
