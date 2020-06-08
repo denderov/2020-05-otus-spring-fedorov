@@ -12,8 +12,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ru.otus.homework.TestHelper;
-import ru.otus.homework.common.ConsoleService;
 import ru.otus.homework.common.IOService;
+import ru.otus.homework.common.IOServiceImpl;
 import ru.otus.homework.quiz.dao.QuizDao;
 
 @DisplayName("Класс QuizServiceImpl")
@@ -30,7 +30,7 @@ class QuizServiceImplTest {
   @BeforeAll
   static void initIO() {
     testOut = new ByteArrayOutputStream();
-    IOService = new ConsoleService(System.in, new PrintStream(testOut));
+    IOService = new IOServiceImpl(System.in, new PrintStream(testOut));
   }
 
   @DisplayName("корректно печатает вопросы, полученные из DAO")

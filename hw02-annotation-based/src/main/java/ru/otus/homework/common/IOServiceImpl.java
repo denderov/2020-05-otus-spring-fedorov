@@ -5,7 +5,7 @@ import java.io.PrintStream;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class ConsoleService implements IOService {
+public class IOServiceImpl implements IOService {
 
   private final InputStream inputStream;
   private final PrintStream printStream;

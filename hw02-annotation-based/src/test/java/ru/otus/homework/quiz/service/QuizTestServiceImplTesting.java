@@ -13,7 +13,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ru.otus.homework.TestHelper;
-import ru.otus.homework.common.ConsoleService;
+import ru.otus.homework.common.IOServiceImpl;
 import ru.otus.homework.quiz.dao.QuizDao;
 import ru.otus.homework.quiz.domain.TestQuestion;
 
@@ -31,7 +31,7 @@ class QuizTestServiceImplTesting {
   @BeforeAll
   static void initIO() {
     testOut = new ByteArrayOutputStream();
-    IOService = new ConsoleService(System.in, new PrintStream(testOut));
+    IOService = new IOServiceImpl(System.in, new PrintStream(testOut));
   }
 
   @DisplayName("корректно создает комнату для тестов")

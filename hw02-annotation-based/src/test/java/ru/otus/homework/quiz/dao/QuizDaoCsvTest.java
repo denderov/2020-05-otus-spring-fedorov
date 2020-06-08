@@ -8,8 +8,8 @@ import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import ru.otus.homework.TestHelper;
-import ru.otus.homework.common.ConsoleService;
 import ru.otus.homework.common.IOService;
+import ru.otus.homework.common.IOServiceImpl;
 import ru.otus.homework.quiz.domain.QuizQuestion;
 
 @DisplayName("Класс QuizDaoImpl")
@@ -17,7 +17,7 @@ class QuizDaoCsvTest {
 
   private IOService getIoService(String csvString) {
     ByteArrayInputStream inputStream = new ByteArrayInputStream(csvString.getBytes());
-    return new ConsoleService(inputStream, System.out);
+    return new IOServiceImpl(inputStream, System.out);
   }
 
   @DisplayName("корректно читает вопросы из ридера в QuizItem")

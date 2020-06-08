@@ -6,8 +6,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
-import ru.otus.homework.common.ConsoleService;
 import ru.otus.homework.common.IOService;
+import ru.otus.homework.common.IOServiceImpl;
 
 @Configuration
 @PropertySource("classpath:application.properties")
@@ -20,13 +20,13 @@ public class AppConfig {
 
   @Bean
   public IOService ioService() {
-    return new ConsoleService(System.in, System.out);
+    return new IOServiceImpl(System.in, System.out);
   }
 
   @Bean
   public IOService ioDaoService(@Value("${csv.name}") String defaultQuizCsv) {
     InputStream inputStream = this.getClass().getResourceAsStream("/" + defaultQuizCsv);
-    return new ConsoleService(inputStream, System.out);
+    return new IOServiceImpl(inputStream, System.out);
   }
 
 }
