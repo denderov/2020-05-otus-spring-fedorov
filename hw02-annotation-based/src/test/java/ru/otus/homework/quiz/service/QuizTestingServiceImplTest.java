@@ -17,9 +17,9 @@ import ru.otus.homework.common.IOServiceImpl;
 import ru.otus.homework.quiz.dao.QuizDao;
 import ru.otus.homework.quiz.domain.TestQuestion;
 
-@DisplayName("Класс QuizTestServiceImpl")
+@DisplayName("Класс QuizTestingServiceImpl")
 @ExtendWith(MockitoExtension.class)
-class QuizTestServiceImplTesting {
+class QuizTestingServiceImplTest {
 
   private static final int DEFAULT_TEST_QUESTIONS_COUNT = 5;
   private static final int DEFAULT_PASS_PERCENT = 80;
