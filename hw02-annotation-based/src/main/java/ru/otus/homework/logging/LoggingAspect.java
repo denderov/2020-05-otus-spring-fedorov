@@ -14,7 +14,7 @@ public class LoggingAspect {
 
   private static final Logger logger = LoggerFactory.getLogger(LoggingAspect.class);
 
-  @Before("execution(* ru.otus.homework.quiz.service.*.*(..))")
+  @Before("@annotation(ru.otus.homework.logging.Loggable)")
   public void logBeforeInvokeFromService(JoinPoint joinPoint) {
     Object[] args = joinPoint.getArgs();
     if (args.length > 0) {

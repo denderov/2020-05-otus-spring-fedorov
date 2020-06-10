@@ -17,6 +17,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import ru.otus.homework.TestHelper;
 import ru.otus.homework.common.IOService;
 import ru.otus.homework.common.IOServiceImpl;
+import ru.otus.homework.config.QuizTestProperties;
 import ru.otus.homework.quiz.dao.QuizDao;
 import ru.otus.homework.quiz.domain.TestQuestion;
 
@@ -42,8 +43,11 @@ class QuizTestingServiceImplTest {
   @Test
   void shouldCorrectCreateTestRoom() {
     given(quizDao.loadQuizItems()).willReturn(TestHelper.TEST_QUIZ_QUESTIONS);
+    QuizTestProperties quizTestProperties = new QuizTestProperties(DEFAULT_TEST_QUESTIONS_COUNT,
+        DEFAULT_PASS_PERCENT);
+
     QuizTestingServiceImpl quizTestService = new QuizTestingServiceImpl(
-        ioService, DEFAULT_TEST_QUESTIONS_COUNT, DEFAULT_PASS_PERCENT);
+        ioService, quizTestProperties);
     QuizServiceImpl quizService = new QuizServiceImpl(ioService, quizDao, quizTestService);
     quizService.readQuiz();
     quizTestService.createTestRoom(TestHelper.FIRST_NAME, TestHelper.LAST_NAME,

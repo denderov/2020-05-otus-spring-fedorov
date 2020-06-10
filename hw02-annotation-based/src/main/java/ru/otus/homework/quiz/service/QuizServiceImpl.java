@@ -4,6 +4,7 @@ import java.util.List;
 import lombok.Getter;
 import org.springframework.stereotype.Service;
 import ru.otus.homework.common.IOService;
+import ru.otus.homework.logging.Loggable;
 import ru.otus.homework.quiz.dao.QuizDao;
 import ru.otus.homework.quiz.domain.QuizQuestion;
 
@@ -25,6 +26,7 @@ public class QuizServiceImpl implements QuizService {
     this.quizTestingService = quizTestingService;
   }
 
+  @Loggable
   @Override
   public void readQuiz() {
     quizQuestions = quizDao.loadQuizItems();

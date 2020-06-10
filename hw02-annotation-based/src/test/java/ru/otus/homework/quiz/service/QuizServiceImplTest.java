@@ -16,6 +16,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import ru.otus.homework.TestHelper;
 import ru.otus.homework.common.IOService;
 import ru.otus.homework.common.IOServiceImpl;
+import ru.otus.homework.config.QuizTestProperties;
 import ru.otus.homework.quiz.dao.QuizDao;
 
 @DisplayName("Класс QuizServiceImpl")
@@ -28,7 +29,7 @@ class QuizServiceImplTest {
   private static QuizDao quizDao;
   private static ByteArrayOutputStream testOut;
   private static IOService ioService;
-  private static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+  private static final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
   @BeforeAll
   static void initIO() {
@@ -42,8 +43,11 @@ class QuizServiceImplTest {
 
     given(quizDao.loadQuizItems()).willReturn(TestHelper.TEST_QUIZ_QUESTIONS);
 
+    QuizTestProperties quizTestProperties = new QuizTestProperties(DEFAULT_TEST_QUESTIONS_COUNT,
+        DEFAULT_PASS_PERCENT);
+
     QuizTestingService quizTestingService = new QuizTestingServiceImpl(
-        ioService, DEFAULT_TEST_QUESTIONS_COUNT, DEFAULT_PASS_PERCENT);
+        ioService, quizTestProperties);
     QuizService quizService = new QuizServiceImpl(ioService, quizDao, quizTestingService);
     quizService.readQuiz();
     quizService.printQuizQuestions();

@@ -3,6 +3,7 @@ package ru.otus.homework.common;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintStream;
+import ru.otus.homework.logging.Loggable;
 
 public class IOServiceImpl implements IOService {
 
@@ -14,11 +15,13 @@ public class IOServiceImpl implements IOService {
     this.printStream = printStream;
   }
 
+  @Loggable
   @Override
   public void println(String line) {
     printStream.println(line);
   }
 
+  @Loggable
   @Override
   public String readLine() {
     String ln;

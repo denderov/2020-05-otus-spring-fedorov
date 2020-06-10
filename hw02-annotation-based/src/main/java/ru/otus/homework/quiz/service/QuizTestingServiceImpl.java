@@ -6,9 +6,10 @@ import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import lombok.Getter;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import ru.otus.homework.common.IOService;
+import ru.otus.homework.config.QuizTestProperties;
+import ru.otus.homework.logging.Loggable;
 import ru.otus.homework.quiz.domain.QuizAnswer;
 import ru.otus.homework.quiz.domain.QuizQuestion;
 import ru.otus.homework.quiz.domain.TestQuestion;
@@ -25,13 +26,13 @@ public class QuizTestingServiceImpl implements QuizTestingService {
   private TestRoom testRoom;
 
   public QuizTestingServiceImpl(IOService ioService,
-      @Value("${test.questionCount}") int testQuestionsCount,
-      @Value("${test.passPercent}") int passPercent) {
+      QuizTestProperties quizTestProperties) {
     this.ioService = ioService;
-    this.testQuestionsCount = testQuestionsCount;
-    this.passPercent = passPercent;
+    this.testQuestionsCount = quizTestProperties.getTestQuestionsCount();
+    this.passPercent = quizTestProperties.getPassPercent();
   }
 
+  @Loggable
   @Override
   public void runTest(List<QuizQuestion> quizQuestions) {
 
@@ -48,6 +49,7 @@ public class QuizTestingServiceImpl implements QuizTestingService {
 
   }
 
+  @Loggable
   public void createTestRoom(String firstName, String lastName, List<QuizQuestion> quizQuestions) {
 
     List<TestQuestion> testQuestions = new Random()
