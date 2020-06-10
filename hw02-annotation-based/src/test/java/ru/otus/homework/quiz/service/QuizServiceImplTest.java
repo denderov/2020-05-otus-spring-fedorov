@@ -3,7 +3,9 @@ package ru.otus.homework.quiz.service;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
+import java.io.InputStreamReader;
 import java.io.PrintStream;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -25,12 +27,13 @@ class QuizServiceImplTest {
   @Mock
   private static QuizDao quizDao;
   private static ByteArrayOutputStream testOut;
-  private static IOService IOService;
+  private static IOService ioService;
+  private static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
   @BeforeAll
   static void initIO() {
     testOut = new ByteArrayOutputStream();
-    IOService = new IOServiceImpl(System.in, new PrintStream(testOut));
+    ioService = new IOServiceImpl(reader, new PrintStream(testOut));
   }
 
   @DisplayName("корректно печатает вопросы, полученные из DAO")
@@ -39,9 +42,9 @@ class QuizServiceImplTest {
 
     given(quizDao.loadQuizItems()).willReturn(TestHelper.TEST_QUIZ_QUESTIONS);
 
-    QuizTestingService quizTestingService = new QuizTestingServiceImpl(IOService,
-        DEFAULT_TEST_QUESTIONS_COUNT, DEFAULT_PASS_PERCENT);
-    QuizService quizService = new QuizServiceImpl(IOService, quizDao, quizTestingService);
+    QuizTestingService quizTestingService = new QuizTestingServiceImpl(
+        ioService, DEFAULT_TEST_QUESTIONS_COUNT, DEFAULT_PASS_PERCENT);
+    QuizService quizService = new QuizServiceImpl(ioService, quizDao, quizTestingService);
     quizService.readQuiz();
     quizService.printQuizQuestions();
 

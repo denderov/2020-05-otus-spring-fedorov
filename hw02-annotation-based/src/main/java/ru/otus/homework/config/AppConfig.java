@@ -1,7 +1,7 @@
 package ru.otus.homework.config;
 
-import java.io.InputStream;
-import org.springframework.beans.factory.annotation.Value;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -20,13 +20,8 @@ public class AppConfig {
 
   @Bean
   public IOService ioService() {
-    return new IOServiceImpl(System.in, System.out);
-  }
-
-  @Bean
-  public IOService ioDaoService(@Value("${csv.name}") String defaultQuizCsv) {
-    InputStream inputStream = this.getClass().getResourceAsStream("/" + defaultQuizCsv);
-    return new IOServiceImpl(inputStream, System.out);
+    BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+    return new IOServiceImpl(reader, System.out);
   }
 
 }

@@ -1,22 +1,32 @@
 package ru.otus.homework.common;
 
-import java.io.InputStream;
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.PrintStream;
-import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
 public class IOServiceImpl implements IOService {
 
-  private final InputStream inputStream;
+  private final BufferedReader bufferedReader;
   private final PrintStream printStream;
 
-  @Override
-  public InputStream in() {
-    return inputStream;
+  public IOServiceImpl(BufferedReader bufferedReader, PrintStream printStream) {
+    this.bufferedReader = bufferedReader;
+    this.printStream = printStream;
   }
 
   @Override
-  public PrintStream out() {
-    return printStream;
+  public void println(String line) {
+    printStream.println(line);
+  }
+
+  @Override
+  public String readLine() {
+    String ln;
+    try {
+      ln = bufferedReader.readLine();
+    } catch (IOException e) {
+      throw new IOServiceException("Ошибка ввода-вывода.", e);
+    }
+    return ln;
   }
 }

@@ -2,7 +2,6 @@ package ru.otus.homework.quiz.service;
 
 import java.util.List;
 import lombok.Getter;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import ru.otus.homework.common.IOService;
 import ru.otus.homework.quiz.dao.QuizDao;
@@ -18,10 +17,11 @@ public class QuizServiceImpl implements QuizService {
 
   private List<QuizQuestion> quizQuestions;
 
-  public QuizServiceImpl(@Qualifier("ioService") IOService ioService, QuizDao quizDao,
+  public QuizServiceImpl(IOService ioService, QuizDao quizDao,
       QuizTestingService quizTestingService) {
-    this.ioService = ioService;
+
     this.quizDao = quizDao;
+    this.ioService = ioService;
     this.quizTestingService = quizTestingService;
   }
 
@@ -32,7 +32,7 @@ public class QuizServiceImpl implements QuizService {
 
   @Override
   public void printQuizQuestions() {
-    quizQuestions.forEach(quizQuestion -> ioService.out().println(quizQuestion.getQuestion()));
+    quizQuestions.forEach(quizQuestion -> ioService.println(quizQuestion.getQuestion()));
   }
 
   @Override

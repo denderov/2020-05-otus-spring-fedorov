@@ -1,17 +1,11 @@
 package ru.otus.homework.quiz.service;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.PrintStream;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import lombok.Getter;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import ru.otus.homework.common.IOService;
@@ -27,39 +21,31 @@ public class QuizTestingServiceImpl implements QuizTestingService {
   private final IOService ioService;
   private final int testQuestionsCount;
   private final int passPercent;
-  private final InputStream in;
-  private final PrintStream out;
 
   private TestRoom testRoom;
 
-  public QuizTestingServiceImpl(@Qualifier("ioService") IOService ioService,
+  public QuizTestingServiceImpl(IOService ioService,
       @Value("${test.questionCount}") int testQuestionsCount,
       @Value("${test.passPercent}") int passPercent) {
     this.ioService = ioService;
     this.testQuestionsCount = testQuestionsCount;
     this.passPercent = passPercent;
-    this.in = ioService.in();
-    this.out = ioService.out();
   }
 
   @Override
   public void runTest(List<QuizQuestion> quizQuestions) {
+
     String firstName;
     String lastName;
 
-    try (BufferedReader br = new BufferedReader(new InputStreamReader(in))) {
-      out.println("Enter yor first name:");
-      firstName = br.readLine();
-      out.println("Enter yor last name:");
-      lastName = br.readLine();
-      createTestRoom(firstName, lastName, quizQuestions);
-      processTest(br);
-      evaluateResult();
-    } catch (IOException original) {
-      var e = new QuizTestingException("Ошибка ввода-вывода.");
-      e.initCause(original);
-      throw e;
-    }
+    ioService.println("Enter yor first name:");
+    firstName = ioService.readLine();
+    ioService.println("Enter yor last name:");
+    lastName = ioService.readLine();
+    createTestRoom(firstName, lastName, quizQuestions);
+    processTest();
+    evaluateResult();
+
   }
 
   public void createTestRoom(String firstName, String lastName, List<QuizQuestion> quizQuestions) {
@@ -83,13 +69,13 @@ public class QuizTestingServiceImpl implements QuizTestingService {
     return String.format("%s\n%s", quizQuestion.getQuestion(), formattedAnswers);
   }
 
-  private void processTest(BufferedReader br) throws IOException {
+  private void processTest() {
     for (TestQuestion testQuestion :
         testRoom.getTestQuestions()
     ) {
       QuizQuestion quizQuestion = testQuestion.getQuizQuestion();
-      out.println(formatQuestion(quizQuestion));
-      String received = br.readLine();
+      ioService.println(formatQuestion(quizQuestion));
+      String received = ioService.readLine();
       var receivedAnswers = received.split("\\D+");
       Arrays.stream(receivedAnswers).map(Integer::valueOf)
           .forEach(testQuestion::addReceivedAnswer);
@@ -112,12 +98,12 @@ public class QuizTestingServiceImpl implements QuizTestingService {
         correctCount++;
       }
     }
-    out.println(String
+    ioService.println(String
         .format("Overall count: %s. Correct count: %s.", overallCount, correctCount));
     if (correctCount * 100 / overallCount >= passPercent) {
-      out.println("Congrats! You passed the test.");
+      ioService.println("Congrats! You passed the test.");
     } else {
-      out.println("Sorry. Try again.");
+      ioService.println("Sorry. Try again.");
     }
   }
 

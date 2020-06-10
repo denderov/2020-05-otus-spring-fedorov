@@ -3,7 +3,8 @@ package ru.otus.homework.quiz.dao;
 import static org.assertj.core.api.AssertionsForClassTypes.catchThrowable;
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
-import java.io.ByteArrayInputStream;
+import java.io.BufferedReader;
+import java.io.StringReader;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -16,8 +17,8 @@ import ru.otus.homework.quiz.domain.QuizQuestion;
 class QuizDaoCsvTest {
 
   private IOService getIoService(String csvString) {
-    ByteArrayInputStream inputStream = new ByteArrayInputStream(csvString.getBytes());
-    return new IOServiceImpl(inputStream, System.out);
+    BufferedReader reader = new BufferedReader(new StringReader(csvString));
+    return new IOServiceImpl(reader, System.out);
   }
 
   @DisplayName("корректно читает вопросы из ридера в QuizItem")
@@ -28,9 +29,9 @@ class QuizDaoCsvTest {
         + "\n"
         + "Question2,Answer1,0,Answer2,1";
 
-    IOService ioDaoService = getIoService(csvString);
+    IOService ioService = getIoService(csvString);
 
-    QuizDao quizDao = new QuizDaoCsv(ioDaoService);
+    QuizDao quizDao = new QuizDaoCsv(ioService);
 
     List<QuizQuestion> quizQuestionsFromDao = quizDao.loadQuizItems();
 
@@ -46,9 +47,9 @@ class QuizDaoCsvTest {
         + "\n"
         + "Question2,Answer1,0,Answer2";
 
-    IOService ioDaoService = getIoService(csvString);
+    IOService ioService = getIoService(csvString);
 
-    QuizDao quizDao = new QuizDaoCsv(ioDaoService);
+    QuizDao quizDao = new QuizDaoCsv(ioService);
 
     Throwable thrown = catchThrowable(quizDao::loadQuizItems);
 

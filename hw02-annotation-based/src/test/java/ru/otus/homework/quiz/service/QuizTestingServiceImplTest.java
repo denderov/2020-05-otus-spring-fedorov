@@ -3,7 +3,9 @@ package ru.otus.homework.quiz.service;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
+import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.util.stream.Collectors;
 import org.junit.jupiter.api.BeforeAll;
@@ -13,6 +15,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ru.otus.homework.TestHelper;
+import ru.otus.homework.common.IOService;
 import ru.otus.homework.common.IOServiceImpl;
 import ru.otus.homework.quiz.dao.QuizDao;
 import ru.otus.homework.quiz.domain.TestQuestion;
@@ -26,21 +29,22 @@ class QuizTestingServiceImplTest {
   @Mock
   private static QuizDao quizDao;
   private static ByteArrayOutputStream testOut;
-  private static ru.otus.homework.common.IOService IOService;
+  private static IOService ioService;
+  private static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
   @BeforeAll
   static void initIO() {
     testOut = new ByteArrayOutputStream();
-    IOService = new IOServiceImpl(System.in, new PrintStream(testOut));
+    ioService = new IOServiceImpl(reader, new PrintStream(testOut));
   }
 
   @DisplayName("корректно создает комнату для тестов")
   @Test
   void shouldCorrectCreateTestRoom() {
     given(quizDao.loadQuizItems()).willReturn(TestHelper.TEST_QUIZ_QUESTIONS);
-    QuizTestingServiceImpl quizTestService = new QuizTestingServiceImpl(IOService,
-        DEFAULT_TEST_QUESTIONS_COUNT, DEFAULT_PASS_PERCENT);
-    QuizServiceImpl quizService = new QuizServiceImpl(IOService, quizDao, quizTestService);
+    QuizTestingServiceImpl quizTestService = new QuizTestingServiceImpl(
+        ioService, DEFAULT_TEST_QUESTIONS_COUNT, DEFAULT_PASS_PERCENT);
+    QuizServiceImpl quizService = new QuizServiceImpl(ioService, quizDao, quizTestService);
     quizService.readQuiz();
     quizTestService.createTestRoom(TestHelper.FIRST_NAME, TestHelper.LAST_NAME,
         quizService.getQuizQuestions());
