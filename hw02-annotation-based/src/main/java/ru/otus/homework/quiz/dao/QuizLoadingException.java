@@ -10,4 +10,9 @@ public class QuizLoadingException extends RuntimeException {
     super(ex);
   }
 
+  public QuizLoadingException(String msg, Throwable original) {
+    this(msg);
+    initCause(original);
+  }
+
 }
