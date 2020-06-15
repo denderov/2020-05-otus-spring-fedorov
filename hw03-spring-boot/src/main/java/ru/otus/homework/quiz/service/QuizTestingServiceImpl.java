@@ -39,9 +39,9 @@ public class QuizTestingServiceImpl implements QuizTestingService {
     String firstName;
     String lastName;
 
-    ioService.println("Enter yor first name:");
+    ioService.println("Enter your first name:");
     firstName = ioService.readLine();
-    ioService.println("Enter yor last name:");
+    ioService.println("Enter your last name:");
     lastName = ioService.readLine();
     createTestRoom(firstName, lastName, quizQuestions);
     processTest();
