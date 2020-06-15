@@ -13,23 +13,32 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import ru.otus.homework.TestHelper;
 import ru.otus.homework.common.IOService;
 import ru.otus.homework.common.IOServiceImpl;
+import ru.otus.homework.config.QuizProperties;
 import ru.otus.homework.config.QuizTestProperties;
 import ru.otus.homework.quiz.dao.QuizDao;
 
 @DisplayName("Класс QuizServiceImpl")
+@SpringBootTest
 @ExtendWith(MockitoExtension.class)
 class QuizServiceImplTest {
+
+  private static ByteArrayOutputStream testOut;
 
   private static final int DEFAULT_TEST_QUESTIONS_COUNT = 5;
   private static final int DEFAULT_PASS_PERCENT = 80;
   private static final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+  private static IOService ioService;
+  @Autowired
+  private QuizProperties quizProperties;
+
   @Mock
   private static QuizDao quizDao;
-  private static ByteArrayOutputStream testOut;
-  private static IOService ioService;
+
 
   @BeforeAll
   static void initIO() {
@@ -47,7 +56,7 @@ class QuizServiceImplTest {
         DEFAULT_PASS_PERCENT);
 
     QuizTestingService quizTestingService = new QuizTestingServiceImpl(
-        ioService, quizTestProperties);
+        ioService, quizProperties);
     QuizService quizService = new QuizServiceImpl(ioService, quizDao, quizTestingService);
     quizService.readQuiz();
     quizService.printQuizQuestions();

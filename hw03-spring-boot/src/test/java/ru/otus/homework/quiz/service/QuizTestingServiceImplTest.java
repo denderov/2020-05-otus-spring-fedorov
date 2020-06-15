@@ -8,14 +8,21 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import ru.otus.homework.TestHelper;
 import ru.otus.homework.common.IOService;
+import ru.otus.homework.config.QuizProperties;
 import ru.otus.homework.config.QuizTestProperties;
 import ru.otus.homework.quiz.domain.TestQuestion;
 
 @DisplayName("Класс QuizTestingServiceImpl")
+@SpringBootTest
 @ExtendWith(MockitoExtension.class)
 class QuizTestingServiceImplTest {
+
+  @Autowired
+  private QuizProperties quizProperties;
 
   private static final int DEFAULT_TEST_QUESTIONS_COUNT = 5;
   private static final int DEFAULT_PASS_PERCENT = 80;
@@ -29,7 +36,7 @@ class QuizTestingServiceImplTest {
         DEFAULT_PASS_PERCENT);
 
     QuizTestingServiceImpl quizTestService = new QuizTestingServiceImpl(
-        ioService, quizTestProperties);
+        ioService, quizProperties);
     quizTestService.createTestRoom(TestHelper.FIRST_NAME, TestHelper.LAST_NAME,
         TestHelper.TEST_QUIZ_QUESTIONS);
     assertThat(

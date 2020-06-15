@@ -8,7 +8,7 @@ import java.util.stream.IntStream;
 import lombok.Getter;
 import org.springframework.stereotype.Service;
 import ru.otus.homework.common.IOService;
-import ru.otus.homework.config.QuizTestProperties;
+import ru.otus.homework.config.QuizProperties;
 import ru.otus.homework.logging.Loggable;
 import ru.otus.homework.quiz.domain.QuizAnswer;
 import ru.otus.homework.quiz.domain.QuizQuestion;
@@ -26,10 +26,10 @@ public class QuizTestingServiceImpl implements QuizTestingService {
   private TestRoom testRoom;
 
   public QuizTestingServiceImpl(IOService ioService,
-      QuizTestProperties quizTestProperties) {
+      QuizProperties quizProperties) {
     this.ioService = ioService;
-    this.testQuestionsCount = quizTestProperties.getTestQuestionsCount();
-    this.passPercent = quizTestProperties.getPassPercent();
+    this.testQuestionsCount = quizProperties.getQuestionCount();
+    this.passPercent = quizProperties.getPassPercent();
   }
 
   @Loggable
