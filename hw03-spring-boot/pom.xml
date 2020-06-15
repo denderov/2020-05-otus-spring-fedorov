@@ -4,6 +4,24 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 
   <artifactId>hw03-spring-boot</artifactId>
+  <description>Homework 3</description>
+  <groupId>ru.otus</groupId>
+  <modelVersion>4.0.0</modelVersion>
+  <name>hw03-spring-boot</name>
+  <parent>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <groupId>org.springframework.boot</groupId>
+    <relativePath/>
+    <version>2.3.1.RELEASE</version>
+  </parent>
+
+  <properties>
+    <java.version>11</java.version>
+    <spring-boot-starter-aop.version>2.3.1.RELEASE</spring-boot-starter-aop.version>
+  </properties>
+
+  <version>0.0.1-SNAPSHOT</version>
+
   <dependencies>
     <dependency>
       <artifactId>spring-boot-starter</artifactId>
@@ -41,23 +59,6 @@
     </dependency>
 
   </dependencies>
-  <description>Homework 3</description>
-  <groupId>ru.otus</groupId>
-  <modelVersion>4.0.0</modelVersion>
-
-  <name>hw03-spring-boot</name>
-
-  <parent>
-    <artifactId>spring-boot-starter-parent</artifactId>
-    <groupId>org.springframework.boot</groupId>
-    <relativePath/>
-    <version>2.3.1.RELEASE</version>
-  </parent>
-
-  <properties>
-    <java.version>11</java.version>
-    <spring-boot-starter-aop.version>2.3.1.RELEASE</spring-boot-starter-aop.version>
-  </properties>
 
   <build>
     <plugins>
@@ -67,7 +68,5 @@
       </plugin>
     </plugins>
   </build>
-
-  <version>0.0.1-SNAPSHOT</version>
 
 </project>
