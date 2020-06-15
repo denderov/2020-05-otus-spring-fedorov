@@ -19,7 +19,6 @@ import ru.otus.homework.TestHelper;
 import ru.otus.homework.common.IOService;
 import ru.otus.homework.common.IOServiceImpl;
 import ru.otus.homework.config.QuizProperties;
-import ru.otus.homework.config.QuizTestProperties;
 import ru.otus.homework.quiz.dao.QuizDao;
 
 @DisplayName("Класс QuizServiceImpl")
@@ -29,8 +28,6 @@ class QuizServiceImplTest {
 
   private static ByteArrayOutputStream testOut;
 
-  private static final int DEFAULT_TEST_QUESTIONS_COUNT = 5;
-  private static final int DEFAULT_PASS_PERCENT = 80;
   private static final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
   private static IOService ioService;
   @Autowired
@@ -51,9 +48,6 @@ class QuizServiceImplTest {
   void shouldCorrectPrintQuestions() {
 
     given(quizDao.loadQuizItems()).willReturn(TestHelper.TEST_QUIZ_QUESTIONS);
-
-    QuizTestProperties quizTestProperties = new QuizTestProperties(DEFAULT_TEST_QUESTIONS_COUNT,
-        DEFAULT_PASS_PERCENT);
 
     QuizTestingService quizTestingService = new QuizTestingServiceImpl(
         ioService, quizProperties);

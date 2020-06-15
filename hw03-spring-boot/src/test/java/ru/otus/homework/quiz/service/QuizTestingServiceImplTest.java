@@ -13,7 +13,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import ru.otus.homework.TestHelper;
 import ru.otus.homework.common.IOService;
 import ru.otus.homework.config.QuizProperties;
-import ru.otus.homework.config.QuizTestProperties;
 import ru.otus.homework.quiz.domain.TestQuestion;
 
 @DisplayName("Класс QuizTestingServiceImpl")
@@ -24,16 +23,12 @@ class QuizTestingServiceImplTest {
   @Autowired
   private QuizProperties quizProperties;
 
-  private static final int DEFAULT_TEST_QUESTIONS_COUNT = 5;
-  private static final int DEFAULT_PASS_PERCENT = 80;
   @Mock
   private static IOService ioService;
 
   @DisplayName("корректно создает комнату для тестов")
   @Test
   void shouldCorrectCreateTestRoom() {
-    QuizTestProperties quizTestProperties = new QuizTestProperties(DEFAULT_TEST_QUESTIONS_COUNT,
-        DEFAULT_PASS_PERCENT);
 
     QuizTestingServiceImpl quizTestService = new QuizTestingServiceImpl(
         ioService, quizProperties);

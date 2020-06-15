@@ -4,13 +4,11 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import ru.otus.homework.common.IOService;
 import ru.otus.homework.common.IOServiceImpl;
 
 @Configuration
-@PropertySource("classpath:application.properties")
 public class AppConfig {
 
   @Bean
