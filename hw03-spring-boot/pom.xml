@@ -32,7 +32,7 @@
         </exclusion>
       </exclusions>
       <groupId>org.springframework.boot</groupId>
-      <!--      <scope>test</scope>-->
+      <scope>test</scope>
     </dependency>
 
     <dependency>
