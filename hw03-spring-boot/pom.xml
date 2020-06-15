@@ -2,15 +2,8 @@
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns="http://maven.apache.org/POM/4.0.0"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
   <artifactId>hw03-spring-boot</artifactId>
-  <build>
-    <plugins>
-      <plugin>
-        <artifactId>spring-boot-maven-plugin</artifactId>
-        <groupId>org.springframework.boot</groupId>
-      </plugin>
-    </plugins>
-  </build>
   <dependencies>
     <dependency>
       <artifactId>spring-boot-starter</artifactId>
@@ -25,14 +18,14 @@
     </dependency>
     <dependency>
       <artifactId>spring-boot-starter-test</artifactId>
+      <groupId>org.springframework.boot</groupId>
+      <scope>test</scope>
       <exclusions>
         <exclusion>
           <artifactId>junit-vintage-engine</artifactId>
           <groupId>org.junit.vintage</groupId>
         </exclusion>
       </exclusions>
-      <groupId>org.springframework.boot</groupId>
-      <scope>test</scope>
     </dependency>
 
     <dependency>
@@ -51,6 +44,7 @@
   <description>Homework 3</description>
   <groupId>ru.otus</groupId>
   <modelVersion>4.0.0</modelVersion>
+
   <name>hw03-spring-boot</name>
 
   <parent>
@@ -64,6 +58,15 @@
     <java.version>11</java.version>
     <spring-boot-starter-aop.version>2.3.1.RELEASE</spring-boot-starter-aop.version>
   </properties>
+
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <groupId>org.springframework.boot</groupId>
+      </plugin>
+    </plugins>
+  </build>
 
   <version>0.0.1-SNAPSHOT</version>
 
