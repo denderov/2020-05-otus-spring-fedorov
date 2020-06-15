@@ -15,6 +15,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.MessageSource;
 import ru.otus.homework.TestHelper;
 import ru.otus.homework.common.IOService;
 import ru.otus.homework.common.IOServiceImpl;
@@ -32,6 +33,8 @@ class QuizServiceImplTest {
   private static IOService ioService;
   @Autowired
   private QuizProperties quizProperties;
+  @Autowired
+  private MessageSource messageSource;
 
   @Mock
   private static QuizDao quizDao;
@@ -50,7 +53,7 @@ class QuizServiceImplTest {
     given(quizDao.loadQuizItems()).willReturn(TestHelper.TEST_QUIZ_QUESTIONS);
 
     QuizTestingService quizTestingService = new QuizTestingServiceImpl(
-        ioService, quizProperties);
+        ioService, quizProperties, messageSource);
     QuizService quizService = new QuizServiceImpl(ioService, quizDao, quizTestingService);
     quizService.readQuiz();
     quizService.printQuizQuestions();

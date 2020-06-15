@@ -2,10 +2,12 @@ package ru.otus.homework.quiz.service;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import lombok.Getter;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import ru.otus.homework.common.IOService;
 import ru.otus.homework.config.QuizProperties;
@@ -22,14 +24,18 @@ public class QuizTestingServiceImpl implements QuizTestingService {
   private final IOService ioService;
   private final int testQuestionsCount;
   private final int passPercent;
+  private final Locale locale;
+  private final MessageSource messageSource;
 
   private TestRoom testRoom;
 
   public QuizTestingServiceImpl(IOService ioService,
-      QuizProperties quizProperties) {
+      QuizProperties quizProperties, MessageSource messageSource) {
     this.ioService = ioService;
     this.testQuestionsCount = quizProperties.getQuestionCount();
     this.passPercent = quizProperties.getPassPercent();
+    this.locale = quizProperties.getLocale();
+    this.messageSource = messageSource;
   }
 
   @Loggable
@@ -39,9 +45,9 @@ public class QuizTestingServiceImpl implements QuizTestingService {
     String firstName;
     String lastName;
 
-    ioService.println("Enter your first name:");
+    ioService.println(messageSource.getMessage("message.firstName", null, locale));
     firstName = ioService.readLine();
-    ioService.println("Enter your last name:");
+    ioService.println(messageSource.getMessage("message.lastName", null, locale));
     lastName = ioService.readLine();
     createTestRoom(firstName, lastName, quizQuestions);
     processTest();
@@ -100,12 +106,14 @@ public class QuizTestingServiceImpl implements QuizTestingService {
         correctCount++;
       }
     }
-    ioService.println(String
-        .format("Overall count: %s. Correct count: %s.", overallCount, correctCount));
+    ioService.println(
+        messageSource
+            .getMessage("message.count",
+                new String[]{String.valueOf(overallCount), String.valueOf(correctCount)}, locale));
     if (correctCount * 100 / overallCount >= passPercent) {
-      ioService.println("Congrats! You passed the test.");
+      ioService.println(messageSource.getMessage("message.congrats", null, locale));
     } else {
-      ioService.println("Sorry. Try again.");
+      ioService.println(messageSource.getMessage("message.sorry", null, locale));
     }
   }
 

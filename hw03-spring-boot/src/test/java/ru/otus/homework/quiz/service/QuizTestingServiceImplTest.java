@@ -10,6 +10,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.MessageSource;
 import ru.otus.homework.TestHelper;
 import ru.otus.homework.common.IOService;
 import ru.otus.homework.config.QuizProperties;
@@ -22,6 +23,8 @@ class QuizTestingServiceImplTest {
 
   @Autowired
   private QuizProperties quizProperties;
+  @Autowired
+  private MessageSource messageSource;
 
   @Mock
   private static IOService ioService;
@@ -31,7 +34,7 @@ class QuizTestingServiceImplTest {
   void shouldCorrectCreateTestRoom() {
 
     QuizTestingServiceImpl quizTestService = new QuizTestingServiceImpl(
-        ioService, quizProperties);
+        ioService, quizProperties, messageSource);
     quizTestService.createTestRoom(TestHelper.FIRST_NAME, TestHelper.LAST_NAME,
         TestHelper.TEST_QUIZ_QUESTIONS);
     assertThat(

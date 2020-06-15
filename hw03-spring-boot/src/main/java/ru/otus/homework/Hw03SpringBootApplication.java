@@ -3,12 +3,11 @@ package ru.otus.homework;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import ru.otus.homework.config.CsvProperties;
 import ru.otus.homework.config.QuizProperties;
 import ru.otus.homework.quiz.service.QuizService;
 
 @SpringBootApplication
-@EnableConfigurationProperties({CsvProperties.class, QuizProperties.class})
+@EnableConfigurationProperties({QuizProperties.class})
 public class Hw03SpringBootApplication {
 
 	public static void main(String[] args) {

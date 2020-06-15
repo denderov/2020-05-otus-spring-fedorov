@@ -5,22 +5,20 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.stereotype.Repository;
-import ru.otus.homework.config.CsvProperties;
 import ru.otus.homework.quiz.domain.QuizAnswer;
 import ru.otus.homework.quiz.domain.QuizQuestion;
 
-@Repository
 public class QuizDaoCsv implements QuizDao {
 
   private static final List<String> TRUE_VALUES = List.of("1", "TRUE");
 
   private final BufferedReader reader;
 
-  public QuizDaoCsv(CsvProperties csvProperties) {
+  public QuizDaoCsv(String csvFileName) {
     reader = new BufferedReader(
         new InputStreamReader(
-            this.getClass().getResourceAsStream("/" + csvProperties.getFileName())));
+            this.getClass()
+                .getResourceAsStream("/" + csvFileName)));
   }
 
   @Override

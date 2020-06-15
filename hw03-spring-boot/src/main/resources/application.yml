@@ -1,5 +1,7 @@
-csv:
-  fileName: quiz.csv
 quiz:
   questionCount: 5
   passPercent: 80
+  locale: ru
+spring:
+  messages:
+    basename: il8n.bundle
