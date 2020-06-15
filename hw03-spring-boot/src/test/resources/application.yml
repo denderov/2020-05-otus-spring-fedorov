@@ -1,0 +1,5 @@
+csv:
+  fileName: correct_test.csv
+quiz:
+  questionCount: 5
+  passPercent: 80

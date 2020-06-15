@@ -5,9 +5,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
+import ru.otus.homework.config.CsvProperties;
 import ru.otus.homework.quiz.domain.QuizAnswer;
 import ru.otus.homework.quiz.domain.QuizQuestion;
 
@@ -18,11 +17,10 @@ public class QuizDaoCsv implements QuizDao {
 
   private final BufferedReader reader;
 
-  @Autowired
-  public QuizDaoCsv(@Value("${csv.name}") String defaultQuizCsv) {
+  public QuizDaoCsv(CsvProperties csvProperties) {
     reader = new BufferedReader(
-        new InputStreamReader(this.getClass().getResourceAsStream("/" + defaultQuizCsv)));
-
+        new InputStreamReader(
+            this.getClass().getResourceAsStream("/" + csvProperties.getFileName())));
   }
 
   @Override

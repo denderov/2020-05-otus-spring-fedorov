@@ -20,6 +20,7 @@
     <dependency>
       <artifactId>lombok</artifactId>
       <groupId>org.projectlombok</groupId>
+      <scope>provided</scope>
       <optional>true</optional>
     </dependency>
     <dependency>
@@ -31,13 +32,19 @@
         </exclusion>
       </exclusions>
       <groupId>org.springframework.boot</groupId>
-      <scope>test</scope>
+      <!--      <scope>test</scope>-->
     </dependency>
 
     <dependency>
       <artifactId>spring-boot-starter-aop</artifactId>
       <groupId>org.springframework.boot</groupId>
       <version>${spring-boot-starter-aop.version}</version>
+    </dependency>
+
+    <dependency>
+      <artifactId>spring-boot-configuration-processor</artifactId>
+      <groupId>org.springframework.boot</groupId>
+      <optional>true</optional>
     </dependency>
 
   </dependencies>
@@ -50,7 +57,7 @@
     <artifactId>spring-boot-starter-parent</artifactId>
     <groupId>org.springframework.boot</groupId>
     <relativePath/>
-    <version>2.3.1.RELEASE</version> <!-- lookup parent from repository -->
+    <version>2.3.1.RELEASE</version>
   </parent>
 
   <properties>
