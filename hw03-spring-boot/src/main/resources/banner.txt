@@ -1,0 +1,6 @@
+${AnsiColor.WHITE}_______________________ ___  _________
+${AnsiColor.WHITE}\_____  \__    ___/    |   \/   _____/
+${AnsiColor.BLUE} /   |   \|    |  |    |   /\_____  \
+${AnsiColor.BLUE}/    |    \    |  |    |  / /        \
+${AnsiColor.RED}\_______  /____|  |______/ /_______  /
+${AnsiColor.RED}        \/                         \/
