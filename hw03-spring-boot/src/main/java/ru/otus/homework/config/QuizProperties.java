@@ -11,4 +11,5 @@ public class QuizProperties {
   int questionCount;
   int passPercent;
   Locale locale;
+  String name;
 }

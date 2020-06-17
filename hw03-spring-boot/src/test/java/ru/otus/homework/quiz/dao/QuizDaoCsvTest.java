@@ -18,7 +18,7 @@ class QuizDaoCsvTest {
   @Test
   void shouldCorrectReadQuiz() {
 
-    QuizDao quizDao = new QuizDaoCsv("correct_test.csv");
+    QuizDao quizDao = new QuizDaoCsv("correct_test_en.csv");
 
     List<QuizQuestion> quizQuestionsFromDao = quizDao.loadQuizItems();
 

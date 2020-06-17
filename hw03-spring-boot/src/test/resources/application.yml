@@ -1,7 +1,8 @@
 quiz:
   questionCount: 5
   passPercent: 80
-  locale: ru
+  locale: en
+  name: correct_test
 spring:
   messages:
     basename: bundle
