@@ -5,11 +5,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.util.stream.Collectors;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.MessageSource;
 import ru.otus.homework.TestHelper;
 import ru.otus.homework.common.IOService;
@@ -18,7 +16,6 @@ import ru.otus.homework.quiz.domain.TestQuestion;
 
 @DisplayName("Класс QuizTestingServiceImpl")
 @SpringBootTest
-@ExtendWith(MockitoExtension.class)
 class QuizTestingServiceImplTest {
 
   @Autowired
@@ -26,7 +23,7 @@ class QuizTestingServiceImplTest {
   @Autowired
   private MessageSource messageSource;
 
-  @Mock
+  @MockBean
   private static IOService ioService;
 
   @DisplayName("корректно создает комнату для тестов")

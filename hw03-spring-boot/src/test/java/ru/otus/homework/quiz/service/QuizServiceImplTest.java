@@ -10,11 +10,9 @@ import java.io.PrintStream;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.MessageSource;
 import ru.otus.homework.TestHelper;
 import ru.otus.homework.common.IOService;
@@ -24,7 +22,6 @@ import ru.otus.homework.quiz.dao.QuizDao;
 
 @DisplayName("Класс QuizServiceImpl")
 @SpringBootTest
-@ExtendWith(MockitoExtension.class)
 class QuizServiceImplTest {
 
   private static ByteArrayOutputStream testOut;
@@ -36,9 +33,8 @@ class QuizServiceImplTest {
   @Autowired
   private MessageSource messageSource;
 
-  @Mock
+  @MockBean
   private static QuizDao quizDao;
-
 
   @BeforeAll
   static void initIO() {
