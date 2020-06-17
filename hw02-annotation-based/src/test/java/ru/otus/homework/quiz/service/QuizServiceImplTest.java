@@ -1,11 +1,11 @@
 package ru.otus.homework.quiz.service;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,7 +13,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ru.otus.homework.TestHelper;
 import ru.otus.homework.common.IOService;
-import ru.otus.homework.common.IOServiceImpl;
 import ru.otus.homework.config.QuizTestProperties;
 import ru.otus.homework.quiz.dao.QuizDao;
 
@@ -26,13 +25,8 @@ class QuizServiceImplTest {
   @Mock
   private static QuizDao quizDao;
   private static ByteArrayOutputStream testOut;
+  @Mock
   private static IOService ioService;
-
-  @BeforeAll
-  static void initIO() {
-    testOut = new ByteArrayOutputStream();
-    ioService = new IOServiceImpl(System.in, new PrintStream(testOut));
-  }
 
   @DisplayName("корректно печатает вопросы, полученные из DAO")
   @Test
@@ -49,9 +43,10 @@ class QuizServiceImplTest {
     quizService.readQuiz();
     quizService.printQuizQuestions();
 
-    assertThat(testOut.toString()).contains(TestHelper.QUESTION_1
-        + "\n"
-        + TestHelper.QUESTION_2);
+    verify(ioService, times(2)).println(anyString());
+    verify(ioService, times(1)).println(TestHelper.QUESTION_1);
+    verify(ioService, times(1)).println(TestHelper.QUESTION_2);
+
   }
 
 }
