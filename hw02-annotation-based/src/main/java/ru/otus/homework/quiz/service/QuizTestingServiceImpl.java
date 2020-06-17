@@ -1,6 +1,5 @@
 package ru.otus.homework.quiz.service;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -40,9 +39,9 @@ public class QuizTestingServiceImpl implements QuizTestingService {
     String lastName;
 
     ioService.println("Enter yor first name:");
-    firstName = ioService.readLine();
+    firstName = ioService.nextLine();
     ioService.println("Enter yor last name:");
-    lastName = ioService.readLine();
+    lastName = ioService.nextLine();
     createTestRoom(firstName, lastName, quizQuestions);
     processTest();
     evaluateResult();
@@ -77,10 +76,7 @@ public class QuizTestingServiceImpl implements QuizTestingService {
     ) {
       QuizQuestion quizQuestion = testQuestion.getQuizQuestion();
       ioService.println(formatQuestion(quizQuestion));
-      String received = ioService.readLine();
-      var receivedAnswers = received.split("\\D+");
-      Arrays.stream(receivedAnswers).map(Integer::valueOf)
-          .forEach(testQuestion::addReceivedAnswer);
+      testQuestion.addReceivedAnswer(ioService.nextInt());
     }
   }
 

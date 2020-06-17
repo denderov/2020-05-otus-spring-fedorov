@@ -2,16 +2,14 @@ package ru.otus.homework.common;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
-import java.io.InputStreamReader;
 import java.io.PrintStream;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import ru.otus.homework.TestHelper;
 
 @DisplayName("Класс IOServiceImpl")
-class IOServiceDelImplTest {
+class IOServiceImplTest {
 
   private ByteArrayOutputStream testOut;
 
@@ -19,8 +17,7 @@ class IOServiceDelImplTest {
   @Test
   void println() {
     testOut = new ByteArrayOutputStream();
-    BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-    IOService ioService = new IOServiceImpl(reader, new PrintStream(testOut));
+    IOService ioService = new IOServiceImpl(System.in, new PrintStream(testOut));
     ioService.println(TestHelper.TEST_MESSAGE);
     assertThat(testOut.toString()).contains(TestHelper.TEST_MESSAGE);
   }

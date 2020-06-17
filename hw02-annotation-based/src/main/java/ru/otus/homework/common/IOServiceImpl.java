@@ -1,18 +1,18 @@
 package ru.otus.homework.common;
 
-import java.io.BufferedReader;
-import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintStream;
+import java.util.Scanner;
 import ru.otus.homework.logging.Loggable;
 
 public class IOServiceImpl implements IOService {
 
-  private final BufferedReader bufferedReader;
   private final PrintStream printStream;
+  private final Scanner scanner;
 
-  public IOServiceImpl(BufferedReader bufferedReader, PrintStream printStream) {
-    this.bufferedReader = bufferedReader;
+  public IOServiceImpl(InputStream inputStream, PrintStream printStream) {
     this.printStream = printStream;
+    this.scanner = new Scanner(inputStream);
   }
 
   @Loggable
@@ -21,15 +21,14 @@ public class IOServiceImpl implements IOService {
     printStream.println(line);
   }
 
-  @Loggable
   @Override
-  public String readLine() {
-    String ln;
-    try {
-      ln = bufferedReader.readLine();
-    } catch (IOException e) {
-      throw new IOServiceException("Ошибка ввода-вывода.", e);
-    }
-    return ln;
+  public String nextLine() {
+    return scanner.nextLine();
   }
+
+  @Override
+  public int nextInt() {
+    return scanner.nextInt();
+  }
+
 }

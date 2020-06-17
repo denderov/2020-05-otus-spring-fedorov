@@ -3,9 +3,7 @@ package ru.otus.homework.quiz.service;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 
-import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
-import java.io.InputStreamReader;
 import java.io.PrintStream;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -29,12 +27,11 @@ class QuizServiceImplTest {
   private static QuizDao quizDao;
   private static ByteArrayOutputStream testOut;
   private static IOService ioService;
-  private static final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
   @BeforeAll
   static void initIO() {
     testOut = new ByteArrayOutputStream();
-    ioService = new IOServiceImpl(reader, new PrintStream(testOut));
+    ioService = new IOServiceImpl(System.in, new PrintStream(testOut));
   }
 
   @DisplayName("корректно печатает вопросы, полученные из DAO")

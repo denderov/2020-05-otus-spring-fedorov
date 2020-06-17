@@ -4,6 +4,8 @@ public interface IOService {
 
   void println(String line);
 
-  String readLine();
+  String nextLine();
+
+  int nextInt();
 
 }
