@@ -1,5 +1,7 @@
-csv:
-  fileName: correct_test.csv
 quiz:
   questionCount: 5
   passPercent: 80
+  locale: ru
+spring:
+  messages:
+    basename: bundle
