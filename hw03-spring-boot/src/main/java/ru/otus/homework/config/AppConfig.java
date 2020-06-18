@@ -1,6 +1,5 @@
 package ru.otus.homework.config;
 
-import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import ru.otus.homework.common.IOService;
@@ -15,11 +14,9 @@ public class AppConfig {
   public IOService ioService() {
     return new IOServiceImpl(System.in, System.out);
   }
-  @Bean
-  public QuizDao quizDao(QuizProperties quizProperties, MessageSource messageSource) {
 
-    String csvFileName = String
-        .format("%s_%s.csv", quizProperties.getName(), quizProperties.getLocale());
-    return new QuizDaoCsv(csvFileName);
+  @Bean
+  public QuizDao quizDao(QuizProperties quizProperties) {
+    return new QuizDaoCsv(quizProperties.getCsvFileName());
   }
 }

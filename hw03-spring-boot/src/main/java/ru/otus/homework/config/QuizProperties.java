@@ -12,4 +12,8 @@ public class QuizProperties {
   private int passPercent;
   private Locale locale;
   private String name;
+
+  public String getCsvFileName() {
+    return String.format("%s_%s.csv", this.getName(), this.getLocale());
+  }
 }
