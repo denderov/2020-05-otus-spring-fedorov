@@ -6,3 +6,6 @@ quiz:
 spring:
   messages:
     basename: bundle
+  shell:
+    interactive:
+      enabled: false
