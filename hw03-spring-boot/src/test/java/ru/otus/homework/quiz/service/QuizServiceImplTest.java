@@ -19,9 +19,9 @@ import ru.otus.homework.quiz.dao.QuizDao;
 class QuizServiceImplTest {
 
   @MockBean
-  private static IOService ioService;
+  private IOService ioService;
   @MockBean
-  private static QuizDao quizDao;
+  private QuizDao quizDao;
 
   @Autowired
   private QuizService quizService;
