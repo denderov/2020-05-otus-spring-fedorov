@@ -4,6 +4,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.catchThrowable;
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
 import java.util.List;
+import java.util.Locale;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,7 +19,7 @@ class QuizDaoCsvTest {
   @Test
   void shouldCorrectReadQuiz() {
 
-    QuizDao quizDao = new QuizDaoCsv("correct_test_en_US.csv");
+    QuizDao quizDao = new QuizDaoCsv("correct_test", Locale.US);
 
     List<QuizQuestion> quizQuestionsFromDao = quizDao.loadQuizItems();
 
@@ -30,7 +31,7 @@ class QuizDaoCsvTest {
   @Test
   void shouldCorrectThrowExceptionThenIncorrectCsvFormat() {
 
-    QuizDao quizDao = new QuizDaoCsv("incorrect_test.csv");
+    QuizDao quizDao = new QuizDaoCsv("incorrect_test", Locale.US);
 
     Throwable thrown = catchThrowable(quizDao::loadQuizItems);
 

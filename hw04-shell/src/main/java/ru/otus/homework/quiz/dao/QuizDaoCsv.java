@@ -5,24 +5,48 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+import lombok.Setter;
 import ru.otus.homework.quiz.domain.QuizAnswer;
 import ru.otus.homework.quiz.domain.QuizQuestion;
 
+@Setter
 public class QuizDaoCsv implements QuizDao {
 
   private static final List<String> TRUE_VALUES = List.of("1", "TRUE");
 
-  private final BufferedReader reader;
+  private final Locale locale;
+  private BufferedReader reader;
+  private String defaultQuizName;
 
-  public QuizDaoCsv(String csvFileName) {
-    reader = new BufferedReader(
+  public QuizDaoCsv(String defaultQuizName, Locale locale) {
+    this.defaultQuizName = defaultQuizName;
+    this.locale = locale;
+  }
+
+  private BufferedReader getReaderOfFile(String quizName) {
+    String csvFileName = String
+        .format("%s_%s.csv", quizName, locale);
+    BufferedReader bufferedReader = new BufferedReader(
         new InputStreamReader(
             this.getClass()
                 .getResourceAsStream("/" + csvFileName)));
+    return bufferedReader;
   }
 
   @Override
   public List<QuizQuestion> loadQuizItems() {
+    this.setReader(getReaderOfFile(defaultQuizName));
+    return getQuizItemsFromReader();
+  }
+
+  @Override
+  public List<QuizQuestion> loadQuizItems(String name) {
+    if (name == null || name.isEmpty()) {
+      this.setReader(getReaderOfFile(defaultQuizName));
+    } else {
+      this.setReader(getReaderOfFile(name));
+    }
     return getQuizItemsFromReader();
   }
 

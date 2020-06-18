@@ -3,6 +3,7 @@ package ru.otus.homework.quiz.shell;
 import lombok.RequiredArgsConstructor;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
+import org.springframework.shell.standard.ShellOption;
 import ru.otus.homework.quiz.service.QuizService;
 
 @ShellComponent
@@ -11,9 +12,9 @@ public class QuizCommands {
 
   private final QuizService quizService;
 
-  @ShellMethod(value = "Read quiz", key = {"r", "read"})
-  public String readQuiz() {
-    quizService.readQuiz();
+  @ShellMethod(value = "Load quiz", key = {"l", "load"})
+  public String readQuiz(@ShellOption(defaultValue = "") String quizName) {
+    quizService.readQuiz(quizName);
     return "Quiz loaded";
   }
 

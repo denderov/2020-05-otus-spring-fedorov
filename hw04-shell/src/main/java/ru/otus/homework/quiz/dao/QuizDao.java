@@ -7,4 +7,5 @@ public interface QuizDao {
 
   List<QuizQuestion> loadQuizItems();
 
+  List<QuizQuestion> loadQuizItems(String name);
 }
