@@ -1,7 +1,5 @@
 package ru.otus.homework.config;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,8 +13,7 @@ public class AppConfig {
 
   @Bean
   public IOService ioService() {
-    BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-    return new IOServiceImpl(reader, System.out);
+    return new IOServiceImpl(System.in, System.out);
   }
   @Bean
   public QuizDao quizDao(QuizProperties quizProperties, MessageSource messageSource) {
