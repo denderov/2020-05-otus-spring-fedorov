@@ -1,13 +1,10 @@
 package ru.otus.homework.quiz.service;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
-import java.io.InputStreamReader;
-import java.io.PrintStream;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +13,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.MessageSource;
 import ru.otus.homework.TestHelper;
 import ru.otus.homework.common.IOService;
-import ru.otus.homework.common.IOServiceImpl;
 import ru.otus.homework.config.QuizProperties;
 import ru.otus.homework.quiz.dao.QuizDao;
 
@@ -24,23 +20,14 @@ import ru.otus.homework.quiz.dao.QuizDao;
 @SpringBootTest
 class QuizServiceImplTest {
 
-  private static ByteArrayOutputStream testOut;
-
-  private static final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+  @MockBean
   private static IOService ioService;
   @Autowired
   private QuizProperties quizProperties;
-  @Autowired
+  @MockBean
   private MessageSource messageSource;
-
   @MockBean
   private static QuizDao quizDao;
-
-  @BeforeAll
-  static void initIO() {
-    testOut = new ByteArrayOutputStream();
-    ioService = new IOServiceImpl(reader, new PrintStream(testOut));
-  }
 
   @DisplayName("корректно печатает вопросы, полученные из DAO")
   @Test
@@ -54,9 +41,10 @@ class QuizServiceImplTest {
     quizService.readQuiz();
     quizService.printQuizQuestions();
 
-    assertThat(testOut.toString()).contains(TestHelper.QUESTION_1
-        + "\n"
-        + TestHelper.QUESTION_2);
+    verify(ioService, times(2)).println(anyString());
+    verify(ioService, times(1)).println(TestHelper.QUESTION_1);
+    verify(ioService, times(1)).println(TestHelper.QUESTION_2);
+
   }
 
 }

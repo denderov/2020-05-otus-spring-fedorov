@@ -20,9 +20,9 @@ class QuizTestingServiceImplTest {
 
   @Autowired
   private QuizProperties quizProperties;
-  @Autowired
-  private MessageSource messageSource;
 
+  @MockBean
+  private MessageSource messageSource;
   @MockBean
   private static IOService ioService;
 
