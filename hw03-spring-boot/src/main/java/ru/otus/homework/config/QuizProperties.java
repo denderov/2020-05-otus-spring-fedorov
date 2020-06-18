@@ -8,8 +8,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Data
 public class QuizProperties {
 
-  int questionCount;
-  int passPercent;
-  Locale locale;
-  String name;
+  private int questionCount;
+  private int passPercent;
+  private Locale locale;
+  private String name;
 }
