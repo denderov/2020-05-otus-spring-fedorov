@@ -12,7 +12,7 @@ public class QuizCommands {
 
   private final QuizService quizService;
 
-  @ShellMethod(value = "Load quiz", key = {"l", "load"})
+  @ShellMethod(value = "Load quiz (hint: try with parameter \"otus\")", key = {"l", "load"})
   public String readQuiz(@ShellOption(defaultValue = "") String quizName) {
     quizService.readQuiz(quizName);
     return "Quiz loaded";
