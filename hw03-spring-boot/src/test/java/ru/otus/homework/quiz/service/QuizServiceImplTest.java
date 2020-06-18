@@ -10,10 +10,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.MessageSource;
 import ru.otus.homework.TestHelper;
 import ru.otus.homework.common.IOService;
-import ru.otus.homework.config.QuizProperties;
 import ru.otus.homework.quiz.dao.QuizDao;
 
 @DisplayName("Класс QuizServiceImpl")
@@ -22,12 +20,11 @@ class QuizServiceImplTest {
 
   @MockBean
   private static IOService ioService;
-  @Autowired
-  private QuizProperties quizProperties;
-  @MockBean
-  private MessageSource messageSource;
   @MockBean
   private static QuizDao quizDao;
+
+  @Autowired
+  private QuizService quizService;
 
   @DisplayName("корректно печатает вопросы, полученные из DAO")
   @Test
@@ -35,9 +32,6 @@ class QuizServiceImplTest {
 
     given(quizDao.loadQuizItems()).willReturn(TestHelper.TEST_QUIZ_QUESTIONS);
 
-    QuizTestingService quizTestingService = new QuizTestingServiceImpl(
-        ioService, quizProperties, messageSource);
-    QuizService quizService = new QuizServiceImpl(ioService, quizDao, quizTestingService);
     quizService.readQuiz();
     quizService.printQuizQuestions();
 
