@@ -6,8 +6,7 @@ import lombok.Value;
 @Value
 public class TestRoom {
 
-  String firstName;
-  String lastName;
+  QuizSubject quizSubject;
   List<TestQuestion> testQuestions;
 
 }

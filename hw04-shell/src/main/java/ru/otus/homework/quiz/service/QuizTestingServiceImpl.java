@@ -6,7 +6,6 @@ import java.util.Locale;
 import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import lombok.Getter;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import ru.otus.homework.common.IOService;
@@ -14,11 +13,11 @@ import ru.otus.homework.config.QuizProperties;
 import ru.otus.homework.logging.Loggable;
 import ru.otus.homework.quiz.domain.QuizAnswer;
 import ru.otus.homework.quiz.domain.QuizQuestion;
+import ru.otus.homework.quiz.domain.QuizSubject;
 import ru.otus.homework.quiz.domain.TestQuestion;
 import ru.otus.homework.quiz.domain.TestRoom;
 
 @Service
-@Getter
 public class QuizTestingServiceImpl implements QuizTestingService {
 
   private final IOService ioService;
@@ -28,6 +27,7 @@ public class QuizTestingServiceImpl implements QuizTestingService {
   private final MessageSource messageSource;
 
   private TestRoom testRoom;
+  private QuizSubject quizSubject;
 
   public QuizTestingServiceImpl(IOService ioService,
       QuizProperties quizProperties, MessageSource messageSource) {
@@ -42,21 +42,23 @@ public class QuizTestingServiceImpl implements QuizTestingService {
   @Override
   public void runTest(List<QuizQuestion> quizQuestions) {
 
-    String firstName;
-    String lastName;
-
-    ioService.println(messageSource.getMessage("message.firstName", null, locale));
-    firstName = ioService.readLine();
-    ioService.println(messageSource.getMessage("message.lastName", null, locale));
-    lastName = ioService.readLine();
-    createTestRoom(firstName, lastName, quizQuestions);
+    createQuizSubject();
+    createTestRoom(quizSubject, quizQuestions);
     processTest();
     evaluateResult();
 
   }
 
+  private void createQuizSubject() {
+    ioService.println(messageSource.getMessage("message.firstName", null, locale));
+    String firstName = ioService.readLine();
+    ioService.println(messageSource.getMessage("message.lastName", null, locale));
+    String lastName = ioService.readLine();
+    quizSubject = new QuizSubject(firstName, lastName);
+  }
+
   @Loggable
-  public void createTestRoom(String firstName, String lastName, List<QuizQuestion> quizQuestions) {
+  private void createTestRoom(QuizSubject quizSubject, List<QuizQuestion> quizQuestions) {
 
     List<TestQuestion> testQuestions = new Random()
         .ints(testQuestionsCount * 10, 0, quizQuestions.size())
@@ -64,7 +66,7 @@ public class QuizTestingServiceImpl implements QuizTestingService {
         .mapToObj((i) -> new TestQuestion(quizQuestions.get(i)))
         .collect(Collectors.toList());
 
-    testRoom = new TestRoom(firstName, lastName, testQuestions);
+    testRoom = new TestRoom(quizSubject, testQuestions);
   }
 
   private String formatQuestion(QuizQuestion quizQuestion) {

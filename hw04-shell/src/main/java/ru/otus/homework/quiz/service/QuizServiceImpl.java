@@ -1,7 +1,6 @@
 package ru.otus.homework.quiz.service;
 
 import java.util.List;
-import lombok.Getter;
 import org.springframework.stereotype.Service;
 import ru.otus.homework.common.IOService;
 import ru.otus.homework.logging.Loggable;
@@ -9,7 +8,6 @@ import ru.otus.homework.quiz.dao.QuizDao;
 import ru.otus.homework.quiz.domain.QuizQuestion;
 
 @Service
-@Getter
 public class QuizServiceImpl implements QuizService {
 
   private final QuizDao quizDao;

@@ -6,18 +6,16 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import lombok.Setter;
 import ru.otus.homework.quiz.domain.QuizAnswer;
 import ru.otus.homework.quiz.domain.QuizQuestion;
 
-@Setter
 public class QuizDaoCsv implements QuizDao {
 
   private static final List<String> TRUE_VALUES = List.of("1", "TRUE");
 
   private final Locale locale;
   private BufferedReader reader;
-  private String defaultQuizName;
+  private final String defaultQuizName;
 
   public QuizDaoCsv(String defaultQuizName, Locale locale) {
     this.defaultQuizName = defaultQuizName;
@@ -38,6 +36,10 @@ public class QuizDaoCsv implements QuizDao {
   public List<QuizQuestion> loadQuizItems() {
     this.setReader(getReaderOfFile(defaultQuizName));
     return getQuizItemsFromReader();
+  }
+
+  private void setReader(BufferedReader bufferedReader) {
+    this.reader = bufferedReader;
   }
 
   @Override

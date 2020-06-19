@@ -13,11 +13,11 @@ class TestRoomTest {
   @DisplayName("корректно создается конструктором")
   @Test
   void shouldHaveBeenCorrectDoneByConstructor() {
-    TestRoom testRoom = new TestRoom(TestHelper.FIRST_NAME, TestHelper.LAST_NAME,
+    TestRoom testRoom = new TestRoom(new QuizSubject(TestHelper.FIRST_NAME, TestHelper.LAST_NAME),
         TestHelper.TEST_QUESTIONS);
     assertAll(
-        () -> assertThat(testRoom.getFirstName()).isEqualTo(TestHelper.FIRST_NAME),
-        () -> assertThat(testRoom.getLastName()).isEqualTo(TestHelper.LAST_NAME),
+        () -> assertThat(testRoom.getQuizSubject().getFirstName()).isEqualTo(TestHelper.FIRST_NAME),
+        () -> assertThat(testRoom.getQuizSubject().getLastName()).isEqualTo(TestHelper.LAST_NAME),
         () -> assertThat(testRoom.getTestQuestions())
             .containsExactlyInAnyOrderElementsOf(TestHelper.TEST_QUESTIONS)
     );
