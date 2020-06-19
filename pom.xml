@@ -28,6 +28,7 @@
   <modules>
     <module>hw01-xml-config</module>
     <module>hw02-annotation-based</module>
+    <module>hw03-spring-boot</module>
   </modules>
 
   <packaging>pom</packaging>

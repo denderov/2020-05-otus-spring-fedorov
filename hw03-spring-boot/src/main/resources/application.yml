@@ -1,0 +1,8 @@
+quiz:
+  questionCount: 5
+  passPercent: 80
+  locale: en_US
+  name: quiz
+spring:
+  messages:
+    basename: il8n.bundle
