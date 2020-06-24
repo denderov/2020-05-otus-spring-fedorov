@@ -1,6 +1,7 @@
 package ru.otus.dao;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
@@ -24,5 +25,10 @@ public class AuthorDaoJdbc implements AuthorDao {
     Map<String, Object> params = Collections.singletonMap("id", id);
     return jdbcOperations
         .queryForObject("select * from authors where id = :id", params, authorRowMapper);
+  }
+
+  @Override
+  public List<Author> getAll() {
+    return jdbcOperations.query("select id, full_name from authors", authorRowMapper);
   }
 }

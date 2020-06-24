@@ -2,6 +2,7 @@ package ru.otus.dao;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +16,19 @@ import ru.otus.domain.Author;
 public class AuthorDaoTest {
 
   @Autowired
-  AuthorDaoJdbc authorDaoJdbc;
+  AuthorDao authorDao;
 
   @DisplayName("возвращать ожидаемого автора по id")
   @Test
   void shouldReturnExpectedAuthorById() {
-    Author actualAuthor = authorDaoJdbc.getById(1L);
+    Author actualAuthor = authorDao.getById(1L);
     assertThat(actualAuthor).hasFieldOrPropertyWithValue("fullName", "Vasya");
+  }
+
+  @DisplayName("возвращать полный список авторов")
+  @Test
+  void shouldReturnAllAuthors() {
+    List<Author> authors = authorDao.getAll();
+    assertThat(authors).containsExactlyInAnyOrder(new Author(1, "Vasya"));
   }
 }
