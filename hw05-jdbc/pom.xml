@@ -22,6 +22,11 @@
       <groupId>org.springframework.boot</groupId>
     </dependency>
     <dependency>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <groupId>org.springframework.boot</groupId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
       <artifactId>h2</artifactId>
       <groupId>com.h2database</groupId>
       <version>${h2.version}</version>
