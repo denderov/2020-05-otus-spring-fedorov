@@ -31,4 +31,16 @@ public class AuthorDaoJdbc implements AuthorDao {
   public List<Author> getAll() {
     return jdbcOperations.query("select id, full_name from authors", authorRowMapper);
   }
+
+  @Override
+  public void insert(Author author) {
+    Map<String, Object> params = Map.of("id", author.getId(), "full_name", author.getFullName());
+    jdbcOperations.update("insert into authors (id, full_name) values (:id, :full_name)", params);
+  }
+
+  @Override
+  public void deleteById(long id) {
+    Map<String, Object> params = Collections.singletonMap("id", id);
+    jdbcOperations.update("delete from authors where id = :id", params);
+  }
 }
