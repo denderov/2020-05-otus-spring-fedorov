@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Import;
 import ru.otus.TestHelper;
 import ru.otus.domain.Author;
 
-@DisplayName("Класс AuthorDao может")
+@DisplayName("Класс AuthorDao")
 @JdbcTest
 @Import(AuthorDaoJdbc.class)
 public class AuthorDaoImplTest {
@@ -19,21 +19,21 @@ public class AuthorDaoImplTest {
   @Autowired
   AuthorDao authorDao;
 
-  @DisplayName("возвращать ожидаемого автора по id")
+  @DisplayName("возвращает ожидаемого автора по id")
   @Test
   void shouldReturnExpectedAuthorById() {
     Author actualAuthor = authorDao.getById(1L);
     assertThat(actualAuthor).hasFieldOrPropertyWithValue("fullName", TestHelper.AUTHOR_FULL_NAME_1);
   }
 
-  @DisplayName("возвращать полный список авторов")
+  @DisplayName("возвращает полный список авторов")
   @Test
   void shouldReturnAllAuthors() {
     List<Author> authors = authorDao.getAll();
     assertThat(authors).isEqualTo(TestHelper.AUTHORS);
   }
 
-  @DisplayName("добавлять автора")
+  @DisplayName("добавляет автора")
   @Test
   void shouldInsertAuthor() {
     Author testAuthor999 = new Author(999L, "Test_author_999");
@@ -42,7 +42,7 @@ public class AuthorDaoImplTest {
     assertThat(actualAuthor).isEqualTo(testAuthor999);
   }
 
-  @DisplayName("удалять автора по id и только его")
+  @DisplayName("удаляет автора по id и только его")
   @Test
   void shouldDeleteAuthor() {
     authorDao.deleteById(1L);
