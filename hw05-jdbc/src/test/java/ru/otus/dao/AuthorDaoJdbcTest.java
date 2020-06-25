@@ -11,10 +11,10 @@ import org.springframework.context.annotation.Import;
 import ru.otus.TestHelper;
 import ru.otus.domain.Author;
 
-@DisplayName("Класс AuthorDao")
+@DisplayName("Класс AuthorDaoJdbc")
 @JdbcTest
 @Import(AuthorDaoJdbc.class)
-public class AuthorDaoImplTest {
+public class AuthorDaoJdbcTest {
 
   @Autowired
   AuthorDao authorDao;
@@ -22,7 +22,7 @@ public class AuthorDaoImplTest {
   @DisplayName("возвращает ожидаемого автора по id")
   @Test
   void shouldReturnExpectedAuthorById() {
-    Author actualAuthor = authorDao.getById(1L);
+    Author actualAuthor = authorDao.getById(TestHelper.AUTHOR_ID_1);
     assertThat(actualAuthor).hasFieldOrPropertyWithValue("fullName", TestHelper.AUTHOR_FULL_NAME_1);
   }
 
@@ -36,10 +36,10 @@ public class AuthorDaoImplTest {
   @DisplayName("добавляет автора")
   @Test
   void shouldInsertAuthor() {
-    Author testAuthor999 = new Author(999L, "Test_author_999");
-    authorDao.insert(testAuthor999);
-    Author actualAuthor = authorDao.getById(999L);
-    assertThat(actualAuthor).isEqualTo(testAuthor999);
+    Author testAuthor20200625 = new Author(20200625L, "Test_author_20200625");
+    authorDao.insert(testAuthor20200625);
+    Author actualAuthor = authorDao.getById(20200625L);
+    assertThat(actualAuthor).isEqualTo(testAuthor20200625);
   }
 
   @DisplayName("удаляет автора по id и только его")
