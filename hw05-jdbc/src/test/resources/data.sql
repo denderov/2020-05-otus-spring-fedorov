@@ -1,7 +1,11 @@
-insert into AUTHORS (ID, FULL_NAME)
-VALUES (1, 'Test_author_1'),
-       (2, 'Test_author_2');
+insert into authors (id, full_name)
+values (101, 'Test_author_1'),
+       (102, 'Test_author_2');
 
-insert into GENRES (ID, NAME)
-VALUES (1, 'Test_genre_1'),
-       (2, 'Test_genre_2');
+insert into genres (id, name)
+values (201, 'Test_genre_1'),
+       (202, 'Test_genre_2');
+
+insert into books (id, title, author_id, genre_id)
+values (1, 'Test_book_1', 101, 201),
+       (2, 'Test_book_2', 102, 202)

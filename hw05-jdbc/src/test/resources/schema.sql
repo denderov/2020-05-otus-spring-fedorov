@@ -1,11 +1,21 @@
 create table authors
 (
-    id        int,
+    id        bigint primary key,
     full_name varchar2
 );
 
 create table genres
 (
-    id   int,
+    id   bigint primary key,
     name varchar2
+);
+
+create table books
+(
+    id        bigint primary key,
+    title     varchar2,
+    author_id bigint,
+    genre_id  bigint,
+    foreign key (author_id) references authors (id),
+    foreign key (genre_id) references genres (id)
 );
