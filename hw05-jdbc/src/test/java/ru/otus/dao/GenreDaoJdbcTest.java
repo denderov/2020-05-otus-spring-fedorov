@@ -3,6 +3,7 @@ package ru.otus.dao;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
+import java.util.Optional;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +23,15 @@ public class GenreDaoJdbcTest {
   @DisplayName("возвращает жанр по id")
   @Test
   void shouldReturnGenreById() {
-    Genre genre = genreDao.getById(TestHelper.GENRE_ID_1);
+    Genre genre = genreDao.getById(TestHelper.GENRE_ID_1).orElse(null);
     assertThat(genre).hasFieldOrPropertyWithValue("name", TestHelper.GENRE_NAME_1);
+  }
+
+  @DisplayName("возвращает пустой Optional по несуществующему id")
+  @Test
+  void shouldReturnEmptyOptionalByMissingId() {
+    Optional<Genre> genre = genreDao.getById(20200626);
+    assertThat(genre).isEqualTo(Optional.empty());
   }
 
   @DisplayName("возвращает все жанры")
@@ -38,7 +46,7 @@ public class GenreDaoJdbcTest {
   void shouldInsertGenre() {
     Genre testGenre = new Genre(20200625L, "Test_genre_20200625");
     genreDao.insert(testGenre);
-    Genre actualGenre = genreDao.getById(20200625L);
+    Genre actualGenre = genreDao.getById(20200625L).orElse(null);
     assertThat(actualGenre).isEqualTo(testGenre);
   }
 

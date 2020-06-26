@@ -3,7 +3,9 @@ package ru.otus.dao;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import lombok.AllArgsConstructor;
+import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
 import org.springframework.stereotype.Repository;
@@ -18,10 +20,11 @@ public class GenreDaoJdbc implements GenreDao {
       (rs, rowNum) -> new Genre(rs.getLong("id"), rs.getString("name"));
 
   @Override
-  public Genre getById(long id) {
+  public Optional<Genre> getById(long id) {
     Map<String, Object> params = Collections.singletonMap("id", id);
-    return jdbcOperations
-        .queryForObject("select id, name from genres where id = :id", params, genreRowMapper);
+    Genre nullableGenre = DataAccessUtils.singleResult(jdbcOperations
+        .query("select id, name from genres where id = :id", params, genreRowMapper));
+    return Optional.ofNullable(nullableGenre);
   }
 
   @Override
@@ -31,7 +34,10 @@ public class GenreDaoJdbc implements GenreDao {
 
   @Override
   public void insert(Genre genre) {
-    Map<String, Object> params = Map.of("id", genre.getId(), "name", genre.getName());
+    Map<String, Object> params = Map.of(
+        "id", genre.getId(),
+        "name", genre.getName()
+    );
     jdbcOperations.update("insert into genres (id, name) values (:id,:name)", params);
   }
 

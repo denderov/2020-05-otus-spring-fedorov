@@ -3,6 +3,8 @@ package ru.otus.dao;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
 import org.springframework.stereotype.Repository;
@@ -21,10 +23,11 @@ public class AuthorDaoJdbc implements AuthorDao {
   }
 
   @Override
-  public Author getById(long id) {
+  public Optional<Author> getById(long id) {
     Map<String, Object> params = Collections.singletonMap("id", id);
-    return jdbcOperations
-        .queryForObject("select * from authors where id = :id", params, authorRowMapper);
+    Author nullableAuthor = DataAccessUtils.singleResult(jdbcOperations
+        .query("select * from authors where id = :id", params, authorRowMapper));
+    return Optional.ofNullable(nullableAuthor);
   }
 
   @Override
