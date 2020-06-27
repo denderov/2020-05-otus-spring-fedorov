@@ -50,11 +50,21 @@ public class GenreDaoJdbcTest {
     assertThat(actualGenre).isEqualTo(testGenre);
   }
 
-  @DisplayName("удаляет жанр по id")
+  @DisplayName("удаляет жанр по id и только его")
   @Test
   void shouldDeleteGenreById() {
+    genreDao.deleteById(TestHelper.GENRE_ID_3);
+    List<Genre> genres = genreDao.getAll();
+    assertThat(genres).doesNotContain(TestHelper.GENRE_3)
+        .contains(TestHelper.GENRE_1, TestHelper.GENRE_2);
+  }
+
+  @DisplayName("не удаляет жанр, если на него есть ссылка")
+  @Test
+  void shouldNotDeleteLinkedAuthor() {
+    genreDao.deleteById(TestHelper.GENRE_ID_1);
     genreDao.deleteById(TestHelper.GENRE_ID_2);
     List<Genre> genres = genreDao.getAll();
-    assertThat(genres).containsExactly(TestHelper.GENRE_1);
+    assertThat(genres).isEqualTo(TestHelper.GENRES);
   }
 }

@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
@@ -38,12 +39,20 @@ public class AuthorDaoJdbc implements AuthorDao {
   @Override
   public void insert(Author author) {
     Map<String, Object> params = Map.of("id", author.getId(), "full_name", author.getFullName());
-    jdbcOperations.update("insert into authors (id, full_name) values (:id, :full_name)", params);
+    try {
+      jdbcOperations.update("insert into authors (id, full_name) values (:id, :full_name)", params);
+    } catch (DataAccessException e) {
+      e.printStackTrace();
+    }
   }
 
   @Override
   public void deleteById(long id) {
     Map<String, Object> params = Collections.singletonMap("id", id);
-    jdbcOperations.update("delete from authors where id = :id", params);
+    try {
+      jdbcOperations.update("delete from authors where id = :id", params);
+    } catch (DataAccessException e) {
+      e.printStackTrace();
+    }
   }
 }

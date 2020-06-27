@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import lombok.AllArgsConstructor;
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
@@ -38,12 +39,20 @@ public class GenreDaoJdbc implements GenreDao {
         "id", genre.getId(),
         "name", genre.getName()
     );
-    jdbcOperations.update("insert into genres (id, name) values (:id,:name)", params);
+    try {
+      jdbcOperations.update("insert into genres (id, name) values (:id,:name)", params);
+    } catch (DataAccessException e) {
+      e.printStackTrace();
+    }
   }
 
   @Override
   public void deleteById(long id) {
     Map<String, Object> params = Collections.singletonMap("id", id);
-    jdbcOperations.update("delete from genres where id = :id", params);
+    try {
+      jdbcOperations.update("delete from genres where id = :id", params);
+    } catch (DataAccessException e) {
+      e.printStackTrace();
+    }
   }
 }
