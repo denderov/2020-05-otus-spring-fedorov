@@ -1,4 +1,4 @@
-package ru.otus.dao;
+package ru.otus.atheneum.dao;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -44,10 +44,9 @@ public class AuthorDaoJdbcTest {
   @DisplayName("добавляет автора")
   @Test
   void shouldInsertAuthor() {
-    Author testAuthor20200625 = new Author(20200625L, "Test_author_20200625");
-    authorDao.insert(testAuthor20200625);
-    Author actualAuthor = authorDao.getById(20200625L).orElse(null);
-    assertThat(actualAuthor).isEqualTo(testAuthor20200625);
+    String fullName = "Test_author_20200625";
+    Author testAuthor20200625 = authorDao.insert(fullName).orElse(null);
+    assertThat(testAuthor20200625).hasFieldOrPropertyWithValue("fullName", fullName);
   }
 
   @DisplayName("удаляет автора по id и только его")

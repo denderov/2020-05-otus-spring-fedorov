@@ -1,4 +1,4 @@
-package ru.otus.dao;
+package ru.otus.atheneum.dao;
 
 import java.util.List;
 import java.util.Optional;
@@ -10,7 +10,7 @@ public interface AuthorDao {
 
   List<Author> getAll();
 
-  void insert(Author author);
+  Optional<Author> insert(String fullName);
 
   void deleteById(long id);
 }

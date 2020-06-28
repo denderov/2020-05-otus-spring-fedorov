@@ -1,4 +1,4 @@
-package ru.otus.dao;
+package ru.otus.atheneum.dao;
 
 import java.util.Collections;
 import java.util.List;

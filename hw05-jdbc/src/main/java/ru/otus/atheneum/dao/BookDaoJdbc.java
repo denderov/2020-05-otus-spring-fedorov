@@ -1,4 +1,4 @@
-package ru.otus.dao;
+package ru.otus.atheneum.dao;
 
 import java.util.Collections;
 import java.util.List;
@@ -63,7 +63,7 @@ public class BookDaoJdbc implements BookDao {
 
     Author author = book.getAuthor();
     if (authorDao.getById(author.getId()).isEmpty()) {
-      authorDao.insert(author);
+      authorDao.insert(author.getFullName());
     }
 
     Genre genre = book.getGenre();
