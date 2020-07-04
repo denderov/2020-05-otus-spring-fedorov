@@ -13,4 +13,5 @@ public interface AuthorDao {
   Optional<Author> insert(String fullName);
 
   void deleteById(long id);
+
 }

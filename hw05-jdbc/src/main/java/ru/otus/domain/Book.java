@@ -1,10 +1,8 @@
 package ru.otus.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Value;
 
-@Data
-@AllArgsConstructor
+@Value
 public class Book {
 
   private long id;

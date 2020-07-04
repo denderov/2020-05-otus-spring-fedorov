@@ -66,4 +66,5 @@ public class AuthorDaoJdbcTest {
     List<Author> authors = authorDao.getAll();
     assertThat(authors).isEqualTo(TestHelper.AUTHORS);
   }
+
 }
