@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class Hw05JdbcApplication {
 
   public static void main(String[] args) {
-    var context = SpringApplication.run(Hw05JdbcApplication.class, args);
+    SpringApplication.run(Hw05JdbcApplication.class, args);
   }
 
 }
