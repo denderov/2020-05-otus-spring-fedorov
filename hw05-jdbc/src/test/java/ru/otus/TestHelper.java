@@ -35,6 +35,7 @@ public class TestHelper {
   public final long BOOK_ID_2 = 2L;
   public final String BOOK_TITLE_1 = "Test_book_1";
   public final String BOOK_TITLE_2 = "Test_book_2";
+  public final String BOOK_TITLE_3 = "Test_book_3";
   public final Book BOOK_1 = new Book(BOOK_ID_1, BOOK_TITLE_1, AUTHOR_1, GENRE_1);
   public final Book BOOK_2 = new Book(BOOK_ID_2, BOOK_TITLE_2, AUTHOR_2, GENRE_2);
   public final List<Book> BOOKS = List.of(BOOK_1, BOOK_2);

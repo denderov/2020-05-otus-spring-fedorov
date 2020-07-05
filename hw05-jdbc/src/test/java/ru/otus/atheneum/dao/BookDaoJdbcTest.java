@@ -44,11 +44,12 @@ public class BookDaoJdbcTest {
   @DisplayName("добавляет книгу")
   @Test
   void shouldInsertBook() {
-    Book testBook = new Book(202006261730L, "Test_book", TestHelper.AUTHOR_1, TestHelper.GENRE_2);
-    bookDao.insert(testBook);
-    Book actualBook = bookDao.getById(testBook.getId()).orElse(null);
-    System.out.println(bookDao.getAll());
-    assertThat(actualBook).isEqualTo(testBook);
+    String test_book = "Test_book";
+    Book actualBook = bookDao.insert(test_book, TestHelper.AUTHOR_1, TestHelper.GENRE_2)
+        .orElseThrow();
+    assertThat(actualBook).hasFieldOrPropertyWithValue("title", test_book)
+        .hasFieldOrPropertyWithValue("author", TestHelper.AUTHOR_1)
+        .hasFieldOrPropertyWithValue("genre", TestHelper.GENRE_2);
   }
 
   @DisplayName("Удаляет книгу по id и только ее")

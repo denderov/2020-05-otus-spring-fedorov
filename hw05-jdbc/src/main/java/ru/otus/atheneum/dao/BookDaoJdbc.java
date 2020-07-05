@@ -4,9 +4,14 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import ru.otus.domain.Author;
 import ru.otus.domain.Book;
@@ -59,32 +64,30 @@ public class BookDaoJdbc implements BookDao {
   }
 
   @Override
-  public void insert(Book book) {
-
-    Author author = book.getAuthor();
-    if (authorDao.getById(author.getId()).isEmpty()) {
-      authorDao.insert(author.getFullName());
-    }
-
-    Genre genre = book.getGenre();
-    if (genreDao.getById(genre.getId()).isEmpty()) {
-      genreDao.insert(genre);
-    }
-
-    Map<String, Object> params = Map.of(
-        "id", book.getId(),
-        "title", book.getTitle(),
-        "author_id", author.getId(),
-        "genre_id", genre.getId()
-    );
-    jdbcOperations.update(
-        "insert into books (id, title, author_id, genre_id) values (:id, :title, :author_id, :genre_id)",
-        params);
-  }
-
-  @Override
   public void delete(long id) {
     Map<String, Object> params = Collections.singletonMap("id", id);
     jdbcOperations.update("delete from books where id = :id", params);
+  }
+
+  @Override
+  public Optional<Book> insert(String title, Author author, Genre genre) {
+    KeyHolder keyHolder = new GeneratedKeyHolder();
+    Long id = null;
+
+    SqlParameterSource namedParameters = new MapSqlParameterSource()
+        .addValue("title", title)
+        .addValue("author_id", author.getId())
+        .addValue("genre_id", genre.getId());
+
+    try {
+      jdbcOperations.update(
+          "insert into books (title, author_id, genre_id) values (:title, :author_id, :genre_id)",
+          namedParameters, keyHolder);
+      id = (Long) keyHolder.getKey();
+    } catch (DataAccessException e) {
+      e.printStackTrace();
+    }
+
+    return id == null ? Optional.empty() : getById(id);
   }
 }

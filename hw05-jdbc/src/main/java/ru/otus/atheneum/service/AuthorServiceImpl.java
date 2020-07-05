@@ -16,13 +16,18 @@ public class AuthorServiceImpl implements AuthorService {
   private final AuthorDao authorDao;
 
   @Override
-  public List<Author> getByFullNamePart(String fullNamePart) {
+  public List<Author> findByFullNamePart(String fullNamePart) {
     return authorDao.getByFullNamePart(fullNamePart);
   }
 
   @Override
   public Optional<Author> saveByNameAndGetAuthor(String fullName) {
     return authorDao.insert(fullName);
+  }
+
+  @Override
+  public List<Author> getAll() {
+    return authorDao.getAll();
   }
 
 }

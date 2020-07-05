@@ -24,12 +24,20 @@ public class AuthorServiceImplTest {
   @Autowired
   private AuthorService authorService;
 
+  @DisplayName("возвращает полный список авторов")
+  @Test
+  void shouldReturnAllAuthors() {
+    when(authorDao.getAll()).thenReturn(TestHelper.AUTHORS);
+    List<Author> authors = authorService.getAll();
+    assertThat(authors).isEqualTo(TestHelper.AUTHORS);
+  }
+
   @DisplayName("возвращает авторов по части имени")
   @Test
   void shouldReturnAuthorsByFullNamePart() {
     when(authorDao.getByFullNamePart(TestHelper.AUTHOR_FULL_NAME_1))
         .thenReturn(List.of(TestHelper.AUTHOR_1));
-    List<Author> authors = authorService.getByFullNamePart(TestHelper.AUTHOR_FULL_NAME_1);
+    List<Author> authors = authorService.findByFullNamePart(TestHelper.AUTHOR_FULL_NAME_1);
     assertThat(authors).containsExactly(TestHelper.AUTHOR_1);
   }
 

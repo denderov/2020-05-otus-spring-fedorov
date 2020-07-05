@@ -6,7 +6,9 @@ import ru.otus.domain.Author;
 
 public interface AuthorService {
 
-  List<Author> getByFullNamePart(String fullNamePart);
+  List<Author> findByFullNamePart(String fullNamePart);
 
   Optional<Author> saveByNameAndGetAuthor(String fullName);
+
+  List<Author> getAll();
 }

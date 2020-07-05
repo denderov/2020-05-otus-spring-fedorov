@@ -2,7 +2,9 @@ package ru.otus.atheneum.dao;
 
 import java.util.List;
 import java.util.Optional;
+import ru.otus.domain.Author;
 import ru.otus.domain.Book;
+import ru.otus.domain.Genre;
 
 public interface BookDao {
 
@@ -10,7 +12,7 @@ public interface BookDao {
 
   List<Book> getAll();
 
-  void insert(Book book);
-
   void delete(long id);
+
+  Optional<Book> insert(String title, Author author, Genre genre);
 }

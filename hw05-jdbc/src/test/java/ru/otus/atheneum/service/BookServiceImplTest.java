@@ -1,6 +1,8 @@
 package ru.otus.atheneum.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.List;
@@ -31,11 +33,12 @@ public class BookServiceImplTest {
     assertThat(books).isEqualTo(TestHelper.BOOKS);
   }
 
-//  @DisplayName("сохраняет книгу")
-//  @Test
-//  void shouldSaveBook() {
-//    Book book = new Book();
-//    bookService.save(TestHelper.BOOK_3);
-//  }
+  @DisplayName("вызывает ДАО для сохранения")
+  @Test
+  void shouldSaveBook() {
+    bookService.save(TestHelper.BOOK_TITLE_3, TestHelper.AUTHOR_3, TestHelper.GENRE_3);
+    verify(bookDao, times(1))
+        .insert(TestHelper.BOOK_TITLE_3, TestHelper.AUTHOR_3, TestHelper.GENRE_3);
+  }
 
 }
