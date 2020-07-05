@@ -1,5 +1,7 @@
 package ru.otus.atheneum.service;
 
+import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.otus.atheneum.dao.AuthorDao;
@@ -14,9 +16,13 @@ public class AuthorServiceImpl implements AuthorService {
   private final AuthorDao authorDao;
 
   @Override
-  public Author getByFullName(String fullName) {
-    return authorDao.getByFullName(fullName)
-        .orElseGet(() -> authorDao.insert(fullName).orElseThrow());
+  public List<Author> getByFullNamePart(String fullNamePart) {
+    return authorDao.getByFullNamePart(fullNamePart);
+  }
+
+  @Override
+  public Optional<Author> saveByNameAndGetAuthor(String fullName) {
+    return authorDao.insert(fullName);
   }
 
 }

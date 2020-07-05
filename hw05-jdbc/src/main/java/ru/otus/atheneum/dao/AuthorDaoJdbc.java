@@ -68,11 +68,12 @@ public class AuthorDaoJdbc implements AuthorDao {
   }
 
   @Override
-  public Optional<Author> getByFullName(String fullName) {
-    Map<String, Object> params = Collections.singletonMap("fullName", fullName);
-    Author nullableAuthor = DataAccessUtils.singleResult(jdbcOperations
-        .query("select * from authors where full_name = :fullName", params, authorRowMapper));
-    return Optional.ofNullable(nullableAuthor);
+  public List<Author> getByFullNamePart(String fullNamePart) {
+    Map<String, Object> params = Collections
+        .singletonMap("fullNameMask", String.format("%%%s%%", fullNamePart));
+    return jdbcOperations
+        .query("select * from authors where full_name like :fullNameMask", params,
+            authorRowMapper);
   }
 
 }

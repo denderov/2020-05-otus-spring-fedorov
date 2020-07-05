@@ -1,11 +1,9 @@
 package ru.otus.atheneum.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,7 +12,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import ru.otus.TestHelper;
 import ru.otus.atheneum.dao.AuthorDao;
-import ru.otus.common.IOService;
 import ru.otus.domain.Author;
 
 @DisplayName("Класс AuthorServiceImpl ")
@@ -22,32 +19,27 @@ import ru.otus.domain.Author;
 public class AuthorServiceImplTest {
 
   @MockBean
-  private IOService ioService;
-  @MockBean
   private AuthorDao authorDao;
 
   @Autowired
   private AuthorService authorService;
 
-  @DisplayName("возвращает автора по имени (если он есть в базе)")
+  @DisplayName("возвращает авторов по части имени")
   @Test
-  void shouldReturnAuthorByFullName() {
-    when(authorDao.getByFullName(TestHelper.AUTHOR_FULL_NAME_1))
-        .thenReturn(Optional.of(TestHelper.AUTHOR_1));
-    Author author = authorService.getByFullName(TestHelper.AUTHOR_FULL_NAME_1);
-    verify(authorDao, never()).insert(TestHelper.AUTHOR_FULL_NAME_3);
-    assertThat(author).isEqualTo(TestHelper.AUTHOR_1);
+  void shouldReturnAuthorsByFullNamePart() {
+    when(authorDao.getByFullNamePart(TestHelper.AUTHOR_FULL_NAME_1))
+        .thenReturn(List.of(TestHelper.AUTHOR_1));
+    List<Author> authors = authorService.getByFullNamePart(TestHelper.AUTHOR_FULL_NAME_1);
+    assertThat(authors).containsExactly(TestHelper.AUTHOR_1);
   }
 
-  @DisplayName("возвращает автора по имени (и добавляет его в базу)")
+  @DisplayName("сохраняет автора по имени")
   @Test
-  void shouldReturnNewAuthorByFullName() {
-    when(authorDao.getByFullName(TestHelper.AUTHOR_FULL_NAME_3))
-        .thenReturn(Optional.empty());
+  void shouldSaveAuthorByName() {
     when(authorDao.insert(TestHelper.AUTHOR_FULL_NAME_3))
         .thenReturn(Optional.of(TestHelper.AUTHOR_3));
-    Author author = authorService.getByFullName(TestHelper.AUTHOR_FULL_NAME_3);
-    verify(authorDao, times(1)).insert(TestHelper.AUTHOR_FULL_NAME_3);
+    Author author = authorService.saveByNameAndGetAuthor(TestHelper.AUTHOR_FULL_NAME_3)
+        .orElseThrow();
     assertThat(author).isEqualTo(TestHelper.AUTHOR_3);
   }
 }

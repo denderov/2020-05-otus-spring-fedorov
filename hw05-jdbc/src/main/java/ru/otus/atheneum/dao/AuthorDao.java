@@ -14,5 +14,5 @@ public interface AuthorDao {
 
   void deleteById(long id);
 
-  Optional<Author> getByFullName(String fullName);
+  List<Author> getByFullNamePart(String fullName);
 }
