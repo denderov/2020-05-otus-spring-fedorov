@@ -13,4 +13,8 @@ public interface GenreDao {
   void insert(Genre genre);
 
   void deleteById(long id);
+
+  List<Genre> getByNamePart(String genreName);
+
+  Optional<Genre> insert(String name);
 }

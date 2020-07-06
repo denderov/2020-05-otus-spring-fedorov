@@ -44,10 +44,9 @@ public class GenreDaoJdbcTest {
   @DisplayName("добавляет жанр")
   @Test
   void shouldInsertGenre() {
-    Genre testGenre = new Genre(20200625L, "Test_genre_20200625");
-    genreDao.insert(testGenre);
-    Genre actualGenre = genreDao.getById(20200625L).orElse(null);
-    assertThat(actualGenre).isEqualTo(testGenre);
+    String test_genre_20200625 = "Test_genre_20200625";
+    Genre actualGenre = genreDao.insert(test_genre_20200625).orElseThrow();
+    assertThat(actualGenre).hasFieldOrPropertyWithValue("name", test_genre_20200625);
   }
 
   @DisplayName("удаляет жанр по id и только его")
@@ -61,10 +60,17 @@ public class GenreDaoJdbcTest {
 
   @DisplayName("не удаляет жанр, если на него есть ссылка")
   @Test
-  void shouldNotDeleteLinkedAuthor() {
+  void shouldNotDeleteLinkedGenre() {
     genreDao.deleteById(TestHelper.GENRE_ID_1);
     genreDao.deleteById(TestHelper.GENRE_ID_2);
     List<Genre> genres = genreDao.getAll();
     assertThat(genres).isEqualTo(TestHelper.GENRES);
+  }
+
+  @DisplayName("возвращает жанры по имени")
+  @Test
+  void shouldGetByNamePart() {
+    List<Genre> genres = genreDao.getByNamePart(TestHelper.GENRE_NAME_1);
+    assertThat(genres).containsExactly(TestHelper.GENRE_1);
   }
 }
