@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import ru.otus.common.IOService;
 import ru.otus.domain.Author;
 import ru.otus.domain.Book;
+import ru.otus.domain.Genre;
 
 @Service
 @RequiredArgsConstructor
@@ -16,20 +17,48 @@ public class AtheneumServiceImpl implements AtheneumService {
   private final BookService bookService;
   private final BookFactory bookFactory;
   private final AuthorService authorService;
+  private final GenreService genreService;
 
-  private List<Book> booksList;
-  private List<Author> authorsList;
+  private List<Book> bookList;
+  private List<Author> authorList;
+  private List<Genre> genreList;
 
   @Override
   public void printAllBooks() {
-    booksList = bookService.getAll();
-    ioService.println(formatObjectList(booksList));
+    bookList = bookService.getAll();
+    ioService.println(formatObjectList(bookList));
   }
 
   @Override
   public void printAllAuthors() {
-    authorsList = authorService.getAll();
-    ioService.println(formatObjectList(authorsList));
+    authorList = authorService.getAll();
+    ioService.println(formatObjectList(authorList));
+  }
+
+  @Override
+  public void printAllGenres() {
+    genreList = genreService.getAll();
+    ioService.println(formatObjectList(genreList));
+  }
+
+  @Override
+  public void saveBook() {
+    bookFactory.createBook();
+  }
+
+  @Override
+  public void setBookTitle(String bookTitle) {
+    bookFactory.setTitle(bookTitle);
+  }
+
+  @Override
+  public void setBookAuthor(Author author) {
+    bookFactory.setAuthor(author);
+  }
+
+  @Override
+  public void setBookGenre(Genre genre) {
+    bookFactory.setGenre(genre);
   }
 
   private <T> String formatObjectList(List<T> allBooks) {

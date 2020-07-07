@@ -1,5 +1,6 @@
 package ru.otus.atheneum.service;
 
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.mockito.Mockito.verify;
 
 import org.junit.jupiter.api.DisplayName;
@@ -7,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import ru.otus.TestHelper;
 import ru.otus.common.IOService;
 
 @SpringBootTest
@@ -15,6 +17,10 @@ public class AtheneumServiceImplTest {
 
   @MockBean
   private IOService ioService;
+
+  @MockBean
+  private BookFactory bookFactory;
+
   @Autowired
   private AtheneumService atheneumService;
 
@@ -36,4 +42,30 @@ public class AtheneumServiceImplTest {
         + "3. Author(id=103, fullName=Test_author_3)");
   }
 
+  @DisplayName("печатает список жанров")
+  @Test
+  void shouldPrintAllGenre() {
+    atheneumService.printAllGenres();
+    verify(ioService).println("1. Genre(id=201, name=Test_genre_1)\n"
+        + "2. Genre(id=202, name=Test_genre_2)\n"
+        + "3. Genre(id=203, name=Test_genre_3)");
+  }
+
+  @DisplayName("работает с полями фабрики книг")
+  @Test
+  void shouldSetBookFactoryFields() {
+    atheneumService.setBookTitle(TestHelper.BOOK_TITLE_1);
+    atheneumService.setBookAuthor(TestHelper.AUTHOR_1);
+    atheneumService.setBookGenre(TestHelper.GENRE_1);
+    assertAll(() -> verify(bookFactory).setTitle(TestHelper.BOOK_TITLE_1),
+        () -> verify(bookFactory).setAuthor(TestHelper.AUTHOR_1),
+        () -> verify(bookFactory).setGenre(TestHelper.GENRE_1));
+  }
+
+  @DisplayName("сохраняет книгу через фабрику")
+  @Test
+  void shouldSaveBook() {
+    atheneumService.saveBook();
+    verify(bookFactory).createBook();
+  }
 }
