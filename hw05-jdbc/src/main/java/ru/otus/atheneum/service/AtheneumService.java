@@ -18,4 +18,18 @@ public interface AtheneumService {
   void setBookAuthor(Author author);
 
   void setBookGenre(Genre genre);
+
+  void setBookAuthorByPosition(int authorPosition);
+
+  void setBookGenreByPosition(int genrePosition);
+
+  void saveAuthorByName(String authorFullName);
+
+  void saveGenreByName(String genreName);
+
+  void interactiveBookSaver();
+
+  void interactiveAuthorSaver();
+
+  void interactiveGenreSaver();
 }
