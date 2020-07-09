@@ -2,6 +2,7 @@ package ru.otus.atheneum.service;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -19,7 +20,7 @@ public class AtheneumServiceImplTest {
   private IOService ioService;
 
   @MockBean
-  private BookFactory bookFactory;
+  private BookService bookService;
 
   @Autowired
   private AtheneumService atheneumService;
@@ -27,6 +28,7 @@ public class AtheneumServiceImplTest {
   @DisplayName("печатает список книг")
   @Test
   void shouldPrintAllBooks() {
+    when(bookService.getAll()).thenReturn(TestHelper.BOOKS);
     atheneumService.printAllBooks();
     verify(ioService).println(
         "1. Book(id=1, title=Test_book_1, author=Author(id=101, fullName=Test_author_1), genre=Genre(id=201, name=Test_genre_1))\n"
@@ -51,21 +53,21 @@ public class AtheneumServiceImplTest {
         + "3. Genre(id=203, name=Test_genre_3)");
   }
 
-  @DisplayName("работает с полями фабрики книг")
+  @DisplayName("работает с полями встроенного в BookServiceImpl билдера книг")
   @Test
-  void shouldSetBookFactoryFields() {
+  void shouldSetBookBuilderFields() {
     atheneumService.setBookTitle(TestHelper.BOOK_TITLE_1);
     atheneumService.setBookAuthor(TestHelper.AUTHOR_1);
     atheneumService.setBookGenre(TestHelper.GENRE_1);
-    assertAll(() -> verify(bookFactory).setTitle(TestHelper.BOOK_TITLE_1),
-        () -> verify(bookFactory).setAuthor(TestHelper.AUTHOR_1),
-        () -> verify(bookFactory).setGenre(TestHelper.GENRE_1));
+    assertAll(() -> verify(bookService).setTitle(TestHelper.BOOK_TITLE_1),
+        () -> verify(bookService).setAuthor(TestHelper.AUTHOR_1),
+        () -> verify(bookService).setGenre(TestHelper.GENRE_1));
   }
 
   @DisplayName("сохраняет книгу через фабрику")
   @Test
   void shouldSaveBook() {
     atheneumService.saveBook();
-    verify(bookFactory).createBook();
+    verify(bookService).createBook();
   }
 }

@@ -11,4 +11,14 @@ public interface BookService {
   List<Book> getAll();
 
   Optional<Book> save(String title, Author author, Genre genre);
+
+  BookService initBook();
+
+  BookService setTitle(String bookTitle);
+
+  BookService setAuthor(Author author);
+
+  BookService setGenre(Genre genre);
+
+  Optional<Book> createBook();
 }

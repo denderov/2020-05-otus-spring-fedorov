@@ -15,7 +15,6 @@ public class AtheneumServiceImpl implements AtheneumService {
 
   private final IOService ioService;
   private final BookService bookService;
-  private final BookFactory bookFactory;
   private final AuthorService authorService;
   private final GenreService genreService;
 
@@ -43,28 +42,28 @@ public class AtheneumServiceImpl implements AtheneumService {
 
   @Override
   public void saveBook() {
-    bookFactory.createBook();
+    bookService.createBook();
   }
 
   @Override
   public void setBookTitle(String bookTitle) {
-    bookFactory.setTitle(bookTitle);
+    bookService.setTitle(bookTitle);
   }
 
   @Override
   public void setBookAuthor(Author author) {
-    bookFactory.setAuthor(author);
+    bookService.setAuthor(author);
   }
 
   @Override
   public void setBookGenre(Genre genre) {
-    bookFactory.setGenre(genre);
+    bookService.setGenre(genre);
   }
 
-  private <T> String formatObjectList(List<T> allBooks) {
+  private <T> String formatObjectList(List<T> ObjectList) {
     StringJoiner joiner = new StringJoiner("\n");
-    for (int i = 0; i < allBooks.size(); i++) {
-      String format = String.format("%d. %s", i + 1, allBooks.get(i).toString());
+    for (int i = 0; i < ObjectList.size(); i++) {
+      String format = String.format("%d. %s", i + 1, ObjectList.get(i).toString());
       joiner.add(format);
     }
     return joiner.toString();

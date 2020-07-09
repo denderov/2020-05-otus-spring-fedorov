@@ -9,7 +9,7 @@ import ru.otus.domain.Genre;
 
 @Service
 @RequiredArgsConstructor
-public class BookFactoryImpl implements BookFactory {
+public class BookBuilderImpl implements BookBuilder {
 
   private final BookService bookService;
 
@@ -23,7 +23,7 @@ public class BookFactoryImpl implements BookFactory {
   }
 
   @Override
-  public BookFactory setTitle(String title) {
+  public BookBuilder setTitle(String title) {
     this.title = title;
     return this;
   }
@@ -34,7 +34,7 @@ public class BookFactoryImpl implements BookFactory {
   }
 
   @Override
-  public BookFactory setAuthor(Author author) {
+  public BookBuilder setAuthor(Author author) {
     this.author = author;
     return this;
   }
@@ -45,7 +45,7 @@ public class BookFactoryImpl implements BookFactory {
   }
 
   @Override
-  public BookFactory setGenre(Genre genre) {
+  public BookBuilder setGenre(Genre genre) {
     this.genre = genre;
     return this;
   }

@@ -33,12 +33,20 @@ public class BookServiceImplTest {
     assertThat(books).isEqualTo(TestHelper.BOOKS);
   }
 
-  @DisplayName("вызывает ДАО для сохранения")
+  @DisplayName("вызывает DAO для сохранения")
   @Test
   void shouldSaveBook() {
     bookService.save(TestHelper.BOOK_TITLE_3, TestHelper.AUTHOR_3, TestHelper.GENRE_3);
     verify(bookDao, times(1))
         .insert(TestHelper.BOOK_TITLE_3, TestHelper.AUTHOR_3, TestHelper.GENRE_3);
+  }
+
+  @DisplayName("пишет книгу в DAO используя методы билдера")
+  @Test
+  void shouldCreateBook() {
+    bookService.initBook().setTitle(TestHelper.BOOK_TITLE_3).setAuthor(TestHelper.AUTHOR_3)
+        .setGenre(TestHelper.GENRE_3).createBook();
+    verify(bookDao).insert(TestHelper.BOOK_TITLE_3, TestHelper.AUTHOR_3, TestHelper.GENRE_3);
   }
 
 }
