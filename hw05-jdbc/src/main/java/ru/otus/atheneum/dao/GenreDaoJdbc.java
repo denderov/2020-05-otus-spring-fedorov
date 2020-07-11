@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.RowMapper;
@@ -17,7 +19,8 @@ import org.springframework.stereotype.Repository;
 import ru.otus.domain.Genre;
 
 @Repository
-@AllArgsConstructor
+@RequiredArgsConstructor
+@Slf4j
 public class GenreDaoJdbc implements GenreDao {
 
   private final NamedParameterJdbcOperations jdbcOperations;
@@ -29,35 +32,22 @@ public class GenreDaoJdbc implements GenreDao {
     Map<String, Object> params = Collections.singletonMap("id", id);
     Genre nullableGenre = DataAccessUtils.singleResult(jdbcOperations
         .query("select id, name from genres where id = :id", params, genreRowMapper));
+    log.info(String.format("getting genre from db: %s", nullableGenre));
     return Optional.ofNullable(nullableGenre);
   }
 
   @Override
   public List<Genre> getAll() {
-    return jdbcOperations.query("select id, name from genres", genreRowMapper);
+    List<Genre> genres = jdbcOperations.query("select id, name from genres", genreRowMapper);
+    log.info(String.format("getting genres from db: %s", genres));
+    return genres;
   }
 
   @Override
-  public void insert(Genre genre) {
-    Map<String, Object> params = Map.of(
-        "id", genre.getId(),
-        "name", genre.getName()
-    );
-    try {
-      jdbcOperations.update("insert into genres (id, name) values (:id,:name)", params);
-    } catch (DataAccessException e) {
-      e.printStackTrace();
-    }
-  }
-
-  @Override
-  public void deleteById(long id) {
-    Map<String, Object> params = Collections.singletonMap("id", id);
-    try {
-      jdbcOperations.update("delete from genres where id = :id", params);
-    } catch (DataAccessException e) {
-      e.printStackTrace();
-    }
+  public void delete(Genre genre) {
+    Map<String, Object> params = Collections.singletonMap("id", genre.getId());
+    int count = jdbcOperations.update("delete from genres where id = :id", params);
+    log.info(String.format("delete book from db: %s. count of deleted rows: %d.", genre.toString(), count));
   }
 
   @Override

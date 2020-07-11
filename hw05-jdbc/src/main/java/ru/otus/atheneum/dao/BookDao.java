@@ -12,7 +12,7 @@ public interface BookDao {
 
   List<Book> getAll();
 
-  void delete(long id);
+  void delete(Book book);
 
   Optional<Book> insert(String title, Author author, Genre genre);
 }

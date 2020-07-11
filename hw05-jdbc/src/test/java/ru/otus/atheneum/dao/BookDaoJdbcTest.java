@@ -52,10 +52,10 @@ public class BookDaoJdbcTest {
         .hasFieldOrPropertyWithValue("genre", TestHelper.GENRE_2);
   }
 
-  @DisplayName("Удаляет книгу по id и только ее")
+  @DisplayName("Удаляет книгу и только ее")
   @Test
   void shouldDeleteBook() {
-    bookDao.delete(TestHelper.BOOK_ID_1);
+    bookDao.delete(TestHelper.BOOK_1);
     List<Book> books = bookDao.getAll();
     assertThat(books).containsExactly(TestHelper.BOOK_2);
   }

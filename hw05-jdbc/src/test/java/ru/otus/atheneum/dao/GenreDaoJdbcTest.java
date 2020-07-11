@@ -1,6 +1,7 @@
 package ru.otus.atheneum.dao;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.List;
 import java.util.Optional;
@@ -9,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
 import org.springframework.context.annotation.Import;
+import org.springframework.dao.DataAccessException;
 import ru.otus.TestHelper;
 import ru.otus.domain.Genre;
 
@@ -49,22 +51,22 @@ public class GenreDaoJdbcTest {
     assertThat(actualGenre).hasFieldOrPropertyWithValue("name", test_genre_20200625);
   }
 
-  @DisplayName("удаляет жанр по id и только его")
+  @DisplayName("удаляет жанр и только его")
   @Test
-  void shouldDeleteGenreById() {
-    genreDao.deleteById(TestHelper.GENRE_ID_3);
+  void shouldDeleteGenre() {
+    genreDao.delete(TestHelper.GENRE_3);
     List<Genre> genres = genreDao.getAll();
     assertThat(genres).doesNotContain(TestHelper.GENRE_3)
-        .contains(TestHelper.GENRE_1, TestHelper.GENRE_2);
+            .contains(TestHelper.GENRE_1, TestHelper.GENRE_2);
   }
 
   @DisplayName("не удаляет жанр, если на него есть ссылка")
   @Test
   void shouldNotDeleteLinkedGenre() {
-    genreDao.deleteById(TestHelper.GENRE_ID_1);
-    genreDao.deleteById(TestHelper.GENRE_ID_2);
-    List<Genre> genres = genreDao.getAll();
-    assertThat(genres).isEqualTo(TestHelper.GENRES);
+    Exception e = assertThrows(DataAccessException.class, () -> genreDao.delete(TestHelper.GENRE_1));
+    String expectedMessage = "Referential integrity constraint violation";
+    String actualMessage = e.getMessage();
+    assertThat(actualMessage).contains(expectedMessage);
   }
 
   @DisplayName("возвращает жанры по имени")

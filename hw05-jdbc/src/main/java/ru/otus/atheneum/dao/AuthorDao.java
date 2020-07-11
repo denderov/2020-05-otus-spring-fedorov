@@ -10,9 +10,9 @@ public interface AuthorDao {
 
   List<Author> getAll();
 
+  List<Author> getByFullNamePart(String fullName);
+
   Optional<Author> insert(String fullName);
 
-  void deleteById(long id);
-
-  List<Author> getByFullNamePart(String fullName);
+  void delete(Author author);
 }
