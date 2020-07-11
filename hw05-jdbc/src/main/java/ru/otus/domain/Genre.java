@@ -1,8 +1,8 @@
 package ru.otus.domain;
 
-import lombok.Value;
+import lombok.Data;
 
-@Value
+@Data
 public class Genre {
 
   private long id;
