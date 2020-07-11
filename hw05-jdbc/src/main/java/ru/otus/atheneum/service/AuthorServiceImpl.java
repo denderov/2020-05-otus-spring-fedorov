@@ -41,4 +41,9 @@ public class AuthorServiceImpl implements AuthorService {
     return authorPosition > 0 && authorPosition <= preparedAuthorList.size() ?
         Optional.of(preparedAuthorList.get(authorPosition - 1)) : Optional.empty();
   }
+
+  @Override
+  public void updateAuthor(Author authorForUpdate) {
+    authorDao.update(authorForUpdate);
+  }
 }

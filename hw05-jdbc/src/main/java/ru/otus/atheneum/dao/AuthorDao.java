@@ -15,4 +15,6 @@ public interface AuthorDao {
   Optional<Author> insert(String fullName);
 
   void delete(Author author);
+
+  void update(Author author);
 }

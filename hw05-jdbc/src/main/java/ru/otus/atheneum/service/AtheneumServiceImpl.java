@@ -143,6 +143,40 @@ public class AtheneumServiceImpl implements AtheneumService {
     ioService.println(String.format("Внесены изменения в книге %s", bookForUpdate));
   }
 
+  @Override
+  public void interactiveAuthorUpdater() {
+    printAllAuthors();
+    ioService.println("Введите порядковый номер автора");
+    int authorPosition = Integer.parseInt(ioService.readLine());
+    Author authorForUpdate = authorService.getAuthorFromPreparedListByPosition(authorPosition)
+        .orElseThrow();
+
+    ioService.println("Введите имя автора");
+    String authorFullName = ioService.readLine();
+    authorForUpdate.setFullName(authorFullName);
+
+    authorService.updateAuthor(authorForUpdate);
+
+    ioService.println(String.format("Автор изменен %s", authorForUpdate));
+  }
+
+  @Override
+  public void interactiveGenreUpdater() {
+    printAllGenres();
+    ioService.println("Введите порядковый номер жанра");
+    int genrePosition = Integer.parseInt(ioService.readLine());
+    Genre genreForUpdate = genreService.getGenreFromPreparedListByPosition(genrePosition)
+        .orElseThrow();
+
+    ioService.println("Введите название жанра");
+    String genreName = ioService.readLine();
+    genreForUpdate.setName(genreName);
+
+    genreService.update(genreForUpdate);
+
+    ioService.println(String.format("Жанр изменен %s", genreForUpdate));
+  }
+
 
   private <T> String formatObjectList(List<T> ObjectList) {
     StringJoiner joiner = new StringJoiner("\n");

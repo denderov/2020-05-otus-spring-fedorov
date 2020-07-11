@@ -75,4 +75,15 @@ public class GenreDaoJdbcTest {
     List<Genre> genres = genreDao.getByNamePart(TestHelper.GENRE_NAME_1);
     assertThat(genres).containsExactly(TestHelper.GENRE_1);
   }
+
+  @DisplayName("изменяет жанр")
+  @Test
+  void shouldUpdateGenre() {
+    Genre genreFromDb = TestHelper.GENRE_1;
+    Genre genreForUpdate = new Genre(genreFromDb.getId(), genreFromDb.getName());
+    genreForUpdate.setName(TestHelper.GENRE_NAME_3);
+    genreDao.update(genreForUpdate);
+    Genre actualGenre = genreDao.getById(TestHelper.GENRE_ID_1).orElseThrow();
+    assertThat(actualGenre).hasFieldOrPropertyWithValue("name", TestHelper.GENRE_NAME_3);
+  }
 }

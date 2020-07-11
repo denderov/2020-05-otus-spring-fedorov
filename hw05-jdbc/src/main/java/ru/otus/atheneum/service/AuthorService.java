@@ -15,4 +15,6 @@ public interface AuthorService {
   List<Author> getPreparedAuthorList();
 
   Optional<Author> getAuthorFromPreparedListByPosition(int authorPosition);
+
+  void updateAuthor(Author authorForUpdate);
 }

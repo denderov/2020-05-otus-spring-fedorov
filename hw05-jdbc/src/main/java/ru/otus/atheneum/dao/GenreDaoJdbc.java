@@ -4,7 +4,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataAccessException;
@@ -74,5 +73,20 @@ public class GenreDaoJdbc implements GenreDao {
       e.printStackTrace();
     }
     return id == null ? Optional.empty() : getById(id);
+  }
+
+  @Override
+  public void update(Genre genre) {
+    SqlParameterSource namedParameters = new MapSqlParameterSource()
+        .addValue("id", genre.getId())
+        .addValue("name", genre.getName());
+
+    int count = jdbcOperations.update(
+        "update genres set "
+            + "name = :name "
+            + "where id = :id",
+        namedParameters);
+    log.info(String
+        .format("updated genre: %s. count of updated genres: %d.", genre.toString(), count));
   }
 }

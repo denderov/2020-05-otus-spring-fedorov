@@ -42,4 +42,9 @@ public class GenreServiceImpl implements GenreService {
         Optional.of(preparedGenreList.get(genrePosition - 1)) : Optional.empty();
   }
 
+  @Override
+  public void update(Genre genreForUpdate) {
+    genreDao.update(genreForUpdate);
+  }
+
 }

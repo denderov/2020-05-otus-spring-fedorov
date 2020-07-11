@@ -34,4 +34,8 @@ public interface AtheneumService {
   void interactiveGenreSaver();
 
   void interactiveBookUpdater();
+
+  void interactiveAuthorUpdater();
+
+  void interactiveGenreUpdater();
 }

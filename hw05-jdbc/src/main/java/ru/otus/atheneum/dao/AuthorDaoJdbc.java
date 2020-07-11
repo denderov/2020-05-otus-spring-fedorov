@@ -4,10 +4,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.dao.DataAccessException;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -63,7 +61,23 @@ public class AuthorDaoJdbc implements AuthorDao {
   public void delete(Author author) {
     Map<String, Object> params = Collections.singletonMap("id", author.getId());
     int count = jdbcOperations.update("delete from authors where id = :id", params);
-    log.info(String.format("delete author from db: %s. count of deleted rows: %d", author.toString(), count));
+    log.info(String
+        .format("delete author from db: %s. count of deleted rows: %d", author.toString(), count));
+  }
+
+  @Override
+  public void update(Author author) {
+    SqlParameterSource namedParameters = new MapSqlParameterSource()
+        .addValue("id", author.getId())
+        .addValue("fullName", author.getFullName());
+
+    int count = jdbcOperations.update(
+        "update authors set "
+            + "full_name = :fullName "
+            + "where id = :id",
+        namedParameters);
+    log.info(String
+        .format("updated author: %s. count of updated authors: %d.", author.toString(), count));
   }
 
   @Override
@@ -71,8 +85,8 @@ public class AuthorDaoJdbc implements AuthorDao {
     Map<String, Object> params = Collections
         .singletonMap("fullNameMask", String.format("%%%s%%", fullNamePart));
     List<Author> authors = jdbcOperations
-            .query("select * from authors where full_name like :fullNameMask", params,
-                    authorRowMapper);
+        .query("select * from authors where full_name like :fullNameMask", params,
+            authorRowMapper);
     log.info(String.format("getting authors from db: %s", authors));
     return authors;
   }

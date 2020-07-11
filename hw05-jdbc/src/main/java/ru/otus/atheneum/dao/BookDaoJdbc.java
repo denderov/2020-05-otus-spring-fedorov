@@ -101,6 +101,7 @@ public class BookDaoJdbc implements BookDao {
             + "genre_id = :genre_id "
             + "where id = :id",
         namedParameters);
-    log.info(String.format("updated book: %s. count of updated books: %d.", book, count));
+    log.info(
+        String.format("updated book: %s. count of updated books: %d.", book.toString(), count));
   }
 }

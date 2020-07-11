@@ -70,9 +70,21 @@ public class AuthorDaoJdbcTest {
   @DisplayName("не удаляет автора, если на него есть ссылка")
   @Test
   void shouldNotDeleteLinkedAuthor() {
-    Exception e = assertThrows(DataAccessException.class, () -> authorDao.delete(TestHelper.AUTHOR_1));
+    Exception e = assertThrows(DataAccessException.class,
+        () -> authorDao.delete(TestHelper.AUTHOR_1));
     String expectedMessage = "Referential integrity constraint violation";
     String actualMessage = e.getMessage();
     assertThat(actualMessage).contains(expectedMessage);
+  }
+
+  @DisplayName("изменяет автора")
+  @Test
+  void shouldUpdateAuthor() {
+    Author authorFromDb = TestHelper.AUTHOR_1;
+    Author authorForUpdate = new Author(authorFromDb.getId(), authorFromDb.getFullName());
+    authorForUpdate.setFullName(TestHelper.AUTHOR_FULL_NAME_3);
+    authorDao.update(authorForUpdate);
+    Author actualAuthor = authorDao.getById(TestHelper.AUTHOR_ID_1).orElseThrow();
+    assertThat(actualAuthor).hasFieldOrPropertyWithValue("fullName", TestHelper.AUTHOR_FULL_NAME_3);
   }
 }

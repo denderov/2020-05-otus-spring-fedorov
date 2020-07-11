@@ -47,17 +47,21 @@ public class ShellCommands {
     return "Book saved";
   }
 
-//  private final QuizService quizService;
-//
-//  @ShellMethod(value = "Load quiz (hint: try with parameter \"otus\")", key = {"l", "load"})
-//  public String readQuiz(@ShellOption(defaultValue = "") String quizName) {
-//    quizService.readQuiz(quizName);
-//    return "Quiz loaded";
-//  }
-//
-//  @ShellMethod(value = "Run test", key = {"t", "test"})
-//  public String runTest() {
-//    quizService.runTest();
-//    return "Test completed";
-//  }
+  @ShellMethod(value = "Update book", key = {"ub", "update book"})
+  public String updateBook() {
+    atheneumService.interactiveBookUpdater();
+    return "Book updated";
+  }
+
+  @ShellMethod(value = "Update author", key = {"ua", "update author"})
+  public String updateAuthor() {
+    atheneumService.interactiveAuthorUpdater();
+    return "Author updated";
+  }
+
+  @ShellMethod(value = "Update genre", key = {"ug", "update genre"})
+  public String updateGenre() {
+    atheneumService.interactiveGenreUpdater();
+    return "Genre updated";
+  }
 }
