@@ -1,5 +1,6 @@
 package ru.otus.atheneum.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -16,10 +17,11 @@ public class BookServiceImpl implements BookService {
   private final BookDao bookDao;
 
   private BookBuilder bookBuilder;
+  private List<Book> preparedBookList = new ArrayList<>();
 
   @Override
-  public List<Book> getAll() {
-    return bookDao.getAll();
+  public void prepareAll() {
+    preparedBookList = bookDao.getAll();
   }
 
   @Override
@@ -54,6 +56,11 @@ public class BookServiceImpl implements BookService {
   @Override
   public Optional<Book> createBook() {
     return bookBuilder.createBook();
+  }
+
+  @Override
+  public List<Book> getPreparedBookList() {
+    return preparedBookList;
   }
 
   public class BookBuilder {

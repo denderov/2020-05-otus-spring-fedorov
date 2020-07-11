@@ -1,19 +1,20 @@
 package ru.otus.atheneum.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.otus.atheneum.dao.AuthorDao;
-import ru.otus.common.IOService;
 import ru.otus.domain.Author;
 
 @Service
-@RequiredArgsConstructor
+@RequiredArgsConstructor()
 public class AuthorServiceImpl implements AuthorService {
 
-  private final IOService ioService;
   private final AuthorDao authorDao;
+
+  private List<Author> preparedAuthorList = new ArrayList<>();
 
   @Override
   public List<Author> findByFullNamePart(String fullNamePart) {
@@ -26,8 +27,17 @@ public class AuthorServiceImpl implements AuthorService {
   }
 
   @Override
-  public List<Author> getAll() {
-    return authorDao.getAll();
+  public void prepareAll() {
+    preparedAuthorList = authorDao.getAll();
   }
 
+  @Override
+  public List<Author> getPreparedAuthorList() {
+    return preparedAuthorList;
+  }
+
+  @Override
+  public Optional<Author> getAuthorFromPreparedListByPosition(int authorPosition) {
+    return Optional.of(preparedAuthorList.get(authorPosition-1));
+  }
 }

@@ -8,7 +8,7 @@ import ru.otus.domain.Genre;
 
 public interface BookService {
 
-  List<Book> getAll();
+  void prepareAll();
 
   Optional<Book> save(String title, Author author, Genre genre);
 
@@ -21,4 +21,6 @@ public interface BookService {
   BookService setGenre(Genre genre);
 
   Optional<Book> createBook();
+
+  List<Book> getPreparedBookList();
 }

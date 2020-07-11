@@ -1,7 +1,10 @@
 package ru.otus.atheneum.service;
 
 import ru.otus.domain.Author;
+import ru.otus.domain.Book;
 import ru.otus.domain.Genre;
+
+import java.util.List;
 
 public interface AtheneumService {
 

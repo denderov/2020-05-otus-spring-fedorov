@@ -58,8 +58,17 @@ public class AuthorDaoJdbcTest {
 
   @DisplayName("удаляет автора по id и только его")
   @Test
-  void shouldDeleteAuthor() {
+  void shouldDeleteAuthorById() {
     authorDao.deleteById(TestHelper.AUTHOR_ID_3);
+    List<Author> authors = authorDao.getAll();
+    assertThat(authors).doesNotContain(TestHelper.AUTHOR_3)
+        .contains(TestHelper.AUTHOR_1, TestHelper.AUTHOR_2);
+  }
+
+  @DisplayName("удаляет автора и только его")
+  @Test
+  void shouldDeleteAuthor() {
+    authorDao.delete(TestHelper.AUTHOR_3);
     List<Author> authors = authorDao.getAll();
     assertThat(authors).doesNotContain(TestHelper.AUTHOR_3)
         .contains(TestHelper.AUTHOR_1, TestHelper.AUTHOR_2);

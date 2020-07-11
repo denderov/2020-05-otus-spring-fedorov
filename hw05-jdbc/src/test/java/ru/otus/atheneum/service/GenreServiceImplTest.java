@@ -28,7 +28,8 @@ public class GenreServiceImplTest {
   @Test
   void shouldReturnAllAuthors() {
     when(genreDao.getAll()).thenReturn(TestHelper.GENRES);
-    List<Genre> genres = genreService.getAll();
+    genreService.prepareAll();
+    List<Genre> genres = genreService.getPreparedGenreList();
     assertThat(genres).isEqualTo(TestHelper.GENRES);
   }
 

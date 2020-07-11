@@ -10,5 +10,9 @@ public interface AuthorService {
 
   Optional<Author> saveByNameAndGetAuthor(String fullName);
 
-  List<Author> getAll();
+  void prepareAll();
+
+  List<Author> getPreparedAuthorList();
+
+  Optional<Author> getAuthorFromPreparedListByPosition(int authorPosition);
 }

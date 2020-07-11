@@ -35,7 +35,7 @@ public class AtheneumServiceImplTest {
   @DisplayName("печатает список книг")
   @Test
   void shouldPrintAllBooks() {
-    when(bookService.getAll()).thenReturn(TestHelper.BOOKS);
+    when(bookService.getPreparedBookList()).thenReturn(TestHelper.BOOKS);
     atheneumService.printAllBooks();
     verify(ioService).println(
         "1. Book(id=1, title=Test_book_1, author=Author(id=101, fullName=Test_author_1), genre=Genre(id=201, name=Test_genre_1))\n"
@@ -45,7 +45,7 @@ public class AtheneumServiceImplTest {
   @DisplayName("печатает список авторов")
   @Test
   void shouldPrintAllAuthors() {
-    when(authorService.getAll()).thenReturn(TestHelper.AUTHORS);
+    when(authorService.getPreparedAuthorList()).thenReturn(TestHelper.AUTHORS);
     atheneumService.printAllAuthors();
     verify(ioService).println("1. Author(id=101, fullName=Test_author_1)\n"
         + "2. Author(id=102, fullName=Test_author_2)\n"
@@ -55,7 +55,7 @@ public class AtheneumServiceImplTest {
   @DisplayName("печатает список жанров")
   @Test
   void shouldPrintAllGenre() {
-    when(genreService.getAll()).thenReturn(TestHelper.GENRES);
+    when(genreService.getPreparedGenreList()).thenReturn(TestHelper.GENRES);
     atheneumService.printAllGenres();
     verify(ioService).println("1. Genre(id=201, name=Test_genre_1)\n"
         + "2. Genre(id=202, name=Test_genre_2)\n"
@@ -83,8 +83,7 @@ public class AtheneumServiceImplTest {
   @DisplayName("устанавливает автора для книги по позиции")
   @Test
   void shouldSetBookAuthorByPosition() {
-    when(authorService.getAll()).thenReturn(TestHelper.AUTHORS);
-    atheneumService.printAllAuthors();
+    when(authorService.getAuthorFromPreparedListByPosition(1)).thenReturn(Optional.of(TestHelper.AUTHOR_1));
     atheneumService.setBookAuthorByPosition(1);
     verify(bookService).setAuthor(TestHelper.AUTHOR_1);
   }
@@ -92,8 +91,7 @@ public class AtheneumServiceImplTest {
   @DisplayName("устанавливает жанр для книги по позиции")
   @Test
   void shouldSetBookGenreByPosition() {
-    when(genreService.getAll()).thenReturn(TestHelper.GENRES);
-    atheneumService.printAllGenres();
+    when(genreService.getGenreFromPreparedListByPosition(1)).thenReturn(Optional.of(TestHelper.GENRE_1));
     atheneumService.setBookGenreByPosition(1);
     verify(bookService).setGenre(TestHelper.GENRE_1);
   }

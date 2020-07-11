@@ -19,26 +19,22 @@ public class AtheneumServiceImpl implements AtheneumService {
   private final AuthorService authorService;
   private final GenreService genreService;
 
-  private List<Book> bookList = new ArrayList<>();
-  private List<Author> authorList = new ArrayList<>();
-  private List<Genre> genreList = new ArrayList<>();
-
   @Override
   public void printAllBooks() {
-    bookList = bookService.getAll();
-    ioService.println(formatObjectList(bookList));
+    bookService.prepareAll();
+    ioService.println(formatObjectList(bookService.getPreparedBookList()));
   }
 
   @Override
   public void printAllAuthors() {
-    authorList = authorService.getAll();
-    ioService.println(formatObjectList(authorList));
+    authorService.prepareAll();
+    ioService.println(formatObjectList(authorService.getPreparedAuthorList()));
   }
 
   @Override
   public void printAllGenres() {
-    genreList = genreService.getAll();
-    ioService.println(formatObjectList(genreList));
+    genreService.prepareAll();
+    ioService.println(formatObjectList(genreService.getPreparedGenreList()));
   }
 
   @Override
@@ -63,26 +59,24 @@ public class AtheneumServiceImpl implements AtheneumService {
 
   @Override
   public void setBookAuthorByPosition(int authorPosition) {
-    int authorIndex = authorPosition - 1;
-    bookService.setAuthor(authorList.get(authorIndex));
+    bookService.setAuthor(authorService.getAuthorFromPreparedListByPosition(authorPosition).orElseThrow());
   }
 
   @Override
   public void setBookGenreByPosition(int genrePosition) {
-    int genreIndex = genrePosition - 1;
-    bookService.setGenre(genreList.get(genreIndex));
+    bookService.setGenre(genreService.getGenreFromPreparedListByPosition(genrePosition).orElseThrow());
   }
 
   @Override
   public void saveAuthorByName(String authorFullName) {
-    authorList.add(authorService.saveByNameAndGetAuthor(authorFullName).orElseThrow());
-    ioService.println(formatObjectList(authorList));
+    Author author = authorService.saveByNameAndGetAuthor(authorFullName).orElseThrow();
+    ioService.println(String.format("Сохранен автор %s", author));
   }
 
   @Override
   public void saveGenreByName(String genreName) {
-    genreList.add(genreService.saveByNameAndGetGenre(genreName).orElseThrow());
-    ioService.println(formatObjectList(genreList));
+    Genre genre = genreService.saveByNameAndGetGenre(genreName).orElseThrow();
+    ioService.println(String.format("Сохранен жанр %s", genre));
   }
 
   @Override

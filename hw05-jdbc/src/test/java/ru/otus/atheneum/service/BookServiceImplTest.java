@@ -25,11 +25,12 @@ public class BookServiceImplTest {
   @Autowired
   private BookService bookService;
 
-  @DisplayName("возвращает список книг из базы")
+  @DisplayName("готовит список всех книг из базы")
   @Test
   void shouldReturnAllBooks() {
     when(bookDao.getAll()).thenReturn(TestHelper.BOOKS);
-    List<Book> books = bookService.getAll();
+    bookService.prepareAll();
+    List<Book> books = bookService.getPreparedBookList();
     assertThat(books).isEqualTo(TestHelper.BOOKS);
   }
 

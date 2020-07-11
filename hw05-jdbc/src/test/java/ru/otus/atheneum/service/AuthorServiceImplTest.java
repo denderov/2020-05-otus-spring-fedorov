@@ -28,7 +28,8 @@ public class AuthorServiceImplTest {
   @Test
   void shouldReturnAllAuthors() {
     when(authorDao.getAll()).thenReturn(TestHelper.AUTHORS);
-    List<Author> authors = authorService.getAll();
+    authorService.prepareAll();
+    List<Author> authors = authorService.getPreparedAuthorList();
     assertThat(authors).isEqualTo(TestHelper.AUTHORS);
   }
 
