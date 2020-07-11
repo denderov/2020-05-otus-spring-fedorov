@@ -15,4 +15,6 @@ public interface BookDao {
   void delete(Book book);
 
   Optional<Book> insert(String title, Author author, Genre genre);
+
+  void update(Book book);
 }

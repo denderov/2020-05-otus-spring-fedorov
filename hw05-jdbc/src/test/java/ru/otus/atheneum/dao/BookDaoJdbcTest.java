@@ -52,11 +52,28 @@ public class BookDaoJdbcTest {
         .hasFieldOrPropertyWithValue("genre", TestHelper.GENRE_2);
   }
 
-  @DisplayName("Удаляет книгу и только ее")
+  @DisplayName("удаляет книгу и только ее")
   @Test
   void shouldDeleteBook() {
     bookDao.delete(TestHelper.BOOK_1);
     List<Book> books = bookDao.getAll();
     assertThat(books).containsExactly(TestHelper.BOOK_2);
+  }
+
+  @DisplayName("изменяет книгу")
+  @Test
+  void shouldUpdateBook() {
+    Book bookFromDb = TestHelper.BOOK_1;
+    Book bookForUpdate =
+        new Book(bookFromDb.getId(), bookFromDb.getTitle(), bookFromDb.getAuthor(),
+            bookFromDb.getGenre());
+    bookForUpdate.setTitle(TestHelper.BOOK_TITLE_3);
+    bookForUpdate.setAuthor(TestHelper.AUTHOR_3);
+    bookForUpdate.setGenre(TestHelper.GENRE_3);
+    bookDao.update(bookForUpdate);
+    Book actualBook = bookDao.getById(TestHelper.BOOK_ID_1).orElseThrow();
+    assertThat(actualBook).hasFieldOrPropertyWithValue("title", TestHelper.BOOK_TITLE_3)
+        .hasFieldOrPropertyWithValue("author", TestHelper.AUTHOR_3)
+        .hasFieldOrPropertyWithValue("genre", TestHelper.GENRE_3);
   }
 }

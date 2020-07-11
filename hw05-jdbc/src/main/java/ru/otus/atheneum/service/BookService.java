@@ -23,4 +23,8 @@ public interface BookService {
   Optional<Book> createBook();
 
   List<Book> getPreparedBookList();
+
+  Optional<Book> getBookFromPreparedListByPosition(int bookPosition);
+
+  void updateBook(Book bookForUpdate);
 }

@@ -4,7 +4,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.support.DataAccessUtils;
@@ -79,11 +78,29 @@ public class BookDaoJdbc implements BookDao {
         .addValue("genre_id", genre.getId());
 
     jdbcOperations.update(
-            "insert into books (title, author_id, genre_id) values (:title, :author_id, :genre_id)",
-            namedParameters, keyHolder);
+        "insert into books (title, author_id, genre_id) values (:title, :author_id, :genre_id)",
+        namedParameters, keyHolder);
     id = (Long) keyHolder.getKey();
     Optional<Book> book = id == null ? Optional.empty() : getById(id);
     log.info(String.format("inserted book: %s", book));
     return book;
+  }
+
+  @Override
+  public void update(Book book) {
+    SqlParameterSource namedParameters = new MapSqlParameterSource()
+        .addValue("id", book.getId())
+        .addValue("title", book.getTitle())
+        .addValue("author_id", book.getAuthor().getId())
+        .addValue("genre_id", book.getGenre().getId());
+
+    int count = jdbcOperations.update(
+        "update books set "
+            + "title = :title, "
+            + "author_id = :author_id, "
+            + "genre_id = :genre_id "
+            + "where id = :id",
+        namedParameters);
+    log.info(String.format("updated book: %s. count of updated books: %d.", book, count));
   }
 }

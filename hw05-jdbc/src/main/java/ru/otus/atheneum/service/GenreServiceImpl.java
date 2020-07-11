@@ -38,6 +38,8 @@ public class GenreServiceImpl implements GenreService {
 
   @Override
   public Optional<Genre> getGenreFromPreparedListByPosition(int genrePosition) {
-    return Optional.of(preparedGenreList.get(genrePosition-1));
+    return genrePosition > 0 && genrePosition <= preparedGenreList.size() ?
+        Optional.of(preparedGenreList.get(genrePosition - 1)) : Optional.empty();
   }
+
 }

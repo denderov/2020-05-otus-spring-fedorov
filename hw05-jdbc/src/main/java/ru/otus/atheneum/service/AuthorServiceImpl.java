@@ -38,6 +38,7 @@ public class AuthorServiceImpl implements AuthorService {
 
   @Override
   public Optional<Author> getAuthorFromPreparedListByPosition(int authorPosition) {
-    return Optional.of(preparedAuthorList.get(authorPosition-1));
+    return authorPosition > 0 && authorPosition <= preparedAuthorList.size() ?
+        Optional.of(preparedAuthorList.get(authorPosition - 1)) : Optional.empty();
   }
 }

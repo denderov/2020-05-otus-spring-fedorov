@@ -12,7 +12,7 @@ public interface GenreService {
 
   Optional<Genre> saveByNameAndGetGenre(String name);
 
-    List<Genre> getPreparedGenreList();
+  List<Genre> getPreparedGenreList();
 
   Optional<Genre> getGenreFromPreparedListByPosition(int genrePosition);
 }

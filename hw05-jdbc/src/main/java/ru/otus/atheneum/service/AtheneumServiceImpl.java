@@ -1,14 +1,13 @@
 package ru.otus.atheneum.service;
 
+import java.util.List;
+import java.util.StringJoiner;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.otus.common.IOService;
 import ru.otus.domain.Author;
 import ru.otus.domain.Book;
 import ru.otus.domain.Genre;
-
-import java.util.List;
-import java.util.StringJoiner;
 
 @Service
 @RequiredArgsConstructor
@@ -114,6 +113,36 @@ public class AtheneumServiceImpl implements AtheneumService {
     String name = ioService.readLine();
     saveGenreByName(name);
   }
+
+  @Override
+  public void interactiveBookUpdater() {
+
+    printAllBooks();
+    ioService.println("Введите порядковый номер книги");
+    int bookPosition = Integer.parseInt(ioService.readLine());
+    Book bookForUpdate = bookService.getBookFromPreparedListByPosition(bookPosition).orElseThrow();
+
+    ioService.println("Введите название книги");
+    String bookTitle = ioService.readLine();
+    bookForUpdate.setTitle(bookTitle);
+
+    printAllAuthors();
+    ioService.println("Введите порядковый номер автора книги");
+    int authorPosition = Integer.parseInt(ioService.readLine());
+    bookForUpdate
+        .setAuthor(authorService.getAuthorFromPreparedListByPosition(authorPosition).orElseThrow());
+
+    printAllGenres();
+    ioService.println("Введите порядковый номер жанра книги");
+    int genrePosition = Integer.parseInt(ioService.readLine());
+    bookForUpdate
+        .setGenre(genreService.getGenreFromPreparedListByPosition(genrePosition).orElseThrow());
+
+    bookService.updateBook(bookForUpdate);
+
+    ioService.println(String.format("Внесены изменения в книге %s", bookForUpdate));
+  }
+
 
   private <T> String formatObjectList(List<T> ObjectList) {
     StringJoiner joiner = new StringJoiner("\n");
