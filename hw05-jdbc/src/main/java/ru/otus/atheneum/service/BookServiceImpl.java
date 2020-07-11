@@ -64,14 +64,19 @@ public class BookServiceImpl implements BookService {
   }
 
   @Override
-  public Optional<Book> getBookFromPreparedListByPosition(int bookPosition) {
+  public Optional<Book> getFromPreparedListByPosition(int bookPosition) {
     return bookPosition > 0 && bookPosition <= preparedBookList.size() ?
         Optional.of(preparedBookList.get(bookPosition - 1)) : Optional.empty();
   }
 
   @Override
-  public void updateBook(Book bookForUpdate) {
+  public void update(Book bookForUpdate) {
     bookDao.update(bookForUpdate);
+  }
+
+  @Override
+  public void delete(Book book) {
+    bookDao.delete(book);
   }
 
   public class BookBuilder {

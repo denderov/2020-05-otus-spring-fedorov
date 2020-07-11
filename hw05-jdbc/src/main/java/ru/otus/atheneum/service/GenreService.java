@@ -14,7 +14,9 @@ public interface GenreService {
 
   List<Genre> getPreparedGenreList();
 
-  Optional<Genre> getGenreFromPreparedListByPosition(int genrePosition);
+  Optional<Genre> getFromPreparedListByPosition(int genrePosition);
 
   void update(Genre genreForUpdate);
+
+  void delete(Genre genre);
 }

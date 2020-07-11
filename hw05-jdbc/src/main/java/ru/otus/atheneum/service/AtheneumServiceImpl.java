@@ -1,6 +1,8 @@
 package ru.otus.atheneum.service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.StringJoiner;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -38,7 +40,13 @@ public class AtheneumServiceImpl implements AtheneumService {
 
   @Override
   public void saveBook() {
-    bookService.createBook();
+    Book book;
+    try {
+      book = bookService.createBook().orElseThrow();
+      ioService.println(String.format("Сохранена книга %s", book));
+    } catch (NoSuchElementException e) {
+      ioService.println("Книга не выбрана и не была сохранена!");
+    }
   }
 
   @Override
@@ -58,12 +66,13 @@ public class AtheneumServiceImpl implements AtheneumService {
 
   @Override
   public void setBookAuthorByPosition(int authorPosition) {
-    bookService.setAuthor(authorService.getAuthorFromPreparedListByPosition(authorPosition).orElseThrow());
+    bookService
+        .setAuthor(authorService.getFromPreparedListByPosition(authorPosition).orElseThrow());
   }
 
   @Override
   public void setBookGenreByPosition(int genrePosition) {
-    bookService.setGenre(genreService.getGenreFromPreparedListByPosition(genrePosition).orElseThrow());
+    bookService.setGenre(genreService.getFromPreparedListByPosition(genrePosition).orElseThrow());
   }
 
   @Override
@@ -79,104 +88,54 @@ public class AtheneumServiceImpl implements AtheneumService {
   }
 
   @Override
-  public void interactiveBookSaver() {
+  public void initBook() {
     bookService.initBook();
-    ioService.println("Введите название книги");
-    String bookTitle = ioService.readLine();
-    bookService.setTitle(bookTitle);
-
-    printAllAuthors();
-    ioService.println("Введите порядковый номер автора книги");
-    int authorPosition = Integer.parseInt(ioService.readLine());
-    setBookAuthorByPosition(authorPosition);
-
-    printAllGenres();
-    ioService.println("Введите порядковый номер жанра книги");
-    int genrePosition = Integer.parseInt(ioService.readLine());
-    setBookGenreByPosition(genrePosition);
-
-    Book book = bookService.createBook().orElseThrow();
-
-    ioService.println(String.format("Сохранена книга %s", book));
   }
 
   @Override
-  public void interactiveAuthorSaver() {
-    ioService.println("Введите имя автора для сохранения");
-    String fullName = ioService.readLine();
-    saveAuthorByName(fullName);
+  public Optional<Book> getBookFromPreparedListByPosition(int bookPosition) {
+    return bookService.getFromPreparedListByPosition(bookPosition);
   }
 
   @Override
-  public void interactiveGenreSaver() {
-    ioService.println("Введите название жанра для сохранения");
-    String name = ioService.readLine();
-    saveGenreByName(name);
+  public Optional<Author> getAuthorFromPreparedListByPosition(int authorPosition) {
+    return authorService.getFromPreparedListByPosition(authorPosition);
   }
 
   @Override
-  public void interactiveBookUpdater() {
-
-    printAllBooks();
-    ioService.println("Введите порядковый номер книги");
-    int bookPosition = Integer.parseInt(ioService.readLine());
-    Book bookForUpdate = bookService.getBookFromPreparedListByPosition(bookPosition).orElseThrow();
-
-    ioService.println("Введите название книги");
-    String bookTitle = ioService.readLine();
-    bookForUpdate.setTitle(bookTitle);
-
-    printAllAuthors();
-    ioService.println("Введите порядковый номер автора книги");
-    int authorPosition = Integer.parseInt(ioService.readLine());
-    bookForUpdate
-        .setAuthor(authorService.getAuthorFromPreparedListByPosition(authorPosition).orElseThrow());
-
-    printAllGenres();
-    ioService.println("Введите порядковый номер жанра книги");
-    int genrePosition = Integer.parseInt(ioService.readLine());
-    bookForUpdate
-        .setGenre(genreService.getGenreFromPreparedListByPosition(genrePosition).orElseThrow());
-
-    bookService.updateBook(bookForUpdate);
-
-    ioService.println(String.format("Внесены изменения в книге %s", bookForUpdate));
+  public Optional<Genre> getGenreFromPreparedListByPosition(int genrePosition) {
+    return genreService.getFromPreparedListByPosition(genrePosition);
   }
 
   @Override
-  public void interactiveAuthorUpdater() {
-    printAllAuthors();
-    ioService.println("Введите порядковый номер автора");
-    int authorPosition = Integer.parseInt(ioService.readLine());
-    Author authorForUpdate = authorService.getAuthorFromPreparedListByPosition(authorPosition)
-        .orElseThrow();
-
-    ioService.println("Введите имя автора");
-    String authorFullName = ioService.readLine();
-    authorForUpdate.setFullName(authorFullName);
-
-    authorService.updateAuthor(authorForUpdate);
-
-    ioService.println(String.format("Автор изменен %s", authorForUpdate));
+  public void updateBook(Book book) {
+    bookService.update(book);
   }
 
   @Override
-  public void interactiveGenreUpdater() {
-    printAllGenres();
-    ioService.println("Введите порядковый номер жанра");
-    int genrePosition = Integer.parseInt(ioService.readLine());
-    Genre genreForUpdate = genreService.getGenreFromPreparedListByPosition(genrePosition)
-        .orElseThrow();
-
-    ioService.println("Введите название жанра");
-    String genreName = ioService.readLine();
-    genreForUpdate.setName(genreName);
-
-    genreService.update(genreForUpdate);
-
-    ioService.println(String.format("Жанр изменен %s", genreForUpdate));
+  public void updateAuthor(Author author) {
+    authorService.update(author);
   }
 
+  @Override
+  public void updateGenre(Genre genre) {
+    genreService.update(genre);
+  }
+
+  @Override
+  public void deleteAuthor(Author author) {
+    authorService.delete(author);
+  }
+
+  @Override
+  public void deleteGenre(Genre genre) {
+    genreService.delete(genre);
+  }
+
+  @Override
+  public void deleteBook(Book book) {
+    bookService.delete(book);
+  }
 
   private <T> String formatObjectList(List<T> ObjectList) {
     StringJoiner joiner = new StringJoiner("\n");

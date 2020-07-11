@@ -24,7 +24,9 @@ public interface BookService {
 
   List<Book> getPreparedBookList();
 
-  Optional<Book> getBookFromPreparedListByPosition(int bookPosition);
+  Optional<Book> getFromPreparedListByPosition(int bookPosition);
 
-  void updateBook(Book bookForUpdate);
+  void update(Book bookForUpdate);
+
+  void delete(Book book);
 }

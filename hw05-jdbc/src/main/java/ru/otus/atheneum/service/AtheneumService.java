@@ -1,6 +1,8 @@
 package ru.otus.atheneum.service;
 
+import java.util.Optional;
 import ru.otus.domain.Author;
+import ru.otus.domain.Book;
 import ru.otus.domain.Genre;
 
 public interface AtheneumService {
@@ -27,15 +29,23 @@ public interface AtheneumService {
 
   void saveGenreByName(String genreName);
 
-  void interactiveBookSaver();
+  void initBook();
 
-  void interactiveAuthorSaver();
+  Optional<Book> getBookFromPreparedListByPosition(int bookPosition);
 
-  void interactiveGenreSaver();
+  Optional<Author> getAuthorFromPreparedListByPosition(int authorPosition);
 
-  void interactiveBookUpdater();
+  Optional<Genre> getGenreFromPreparedListByPosition(int genrePosition);
 
-  void interactiveAuthorUpdater();
+  void updateBook(Book book);
 
-  void interactiveGenreUpdater();
+  void updateAuthor(Author author);
+
+  void updateGenre(Genre genre);
+
+  void deleteAuthor(Author author);
+
+  void deleteGenre(Genre genre);
+
+  void deleteBook(Book book);
 }

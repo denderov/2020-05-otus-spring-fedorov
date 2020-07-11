@@ -37,7 +37,7 @@ public class GenreServiceImpl implements GenreService {
   }
 
   @Override
-  public Optional<Genre> getGenreFromPreparedListByPosition(int genrePosition) {
+  public Optional<Genre> getFromPreparedListByPosition(int genrePosition) {
     return genrePosition > 0 && genrePosition <= preparedGenreList.size() ?
         Optional.of(preparedGenreList.get(genrePosition - 1)) : Optional.empty();
   }
@@ -45,6 +45,11 @@ public class GenreServiceImpl implements GenreService {
   @Override
   public void update(Genre genreForUpdate) {
     genreDao.update(genreForUpdate);
+  }
+
+  @Override
+  public void delete(Genre genre) {
+    genreDao.delete(genre);
   }
 
 }

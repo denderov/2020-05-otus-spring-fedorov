@@ -37,13 +37,18 @@ public class AuthorServiceImpl implements AuthorService {
   }
 
   @Override
-  public Optional<Author> getAuthorFromPreparedListByPosition(int authorPosition) {
+  public Optional<Author> getFromPreparedListByPosition(int authorPosition) {
     return authorPosition > 0 && authorPosition <= preparedAuthorList.size() ?
         Optional.of(preparedAuthorList.get(authorPosition - 1)) : Optional.empty();
   }
 
   @Override
-  public void updateAuthor(Author authorForUpdate) {
+  public void update(Author authorForUpdate) {
     authorDao.update(authorForUpdate);
+  }
+
+  @Override
+  public void delete(Author author) {
+    authorDao.delete(author);
   }
 }
