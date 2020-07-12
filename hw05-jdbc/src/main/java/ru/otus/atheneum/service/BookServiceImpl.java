@@ -85,26 +85,14 @@ public class BookServiceImpl implements BookService {
     private Author author;
     private Genre genre;
 
-    public String getTitle() {
-      return title;
-    }
-
     public BookBuilder setTitle(String title) {
       this.title = title;
       return this;
     }
 
-    public Author getAuthor() {
-      return author;
-    }
-
     public BookBuilder setAuthor(Author author) {
       this.author = author;
       return this;
-    }
-
-    public Genre getGenre() {
-      return genre;
     }
 
     public BookBuilder setGenre(Genre genre) {

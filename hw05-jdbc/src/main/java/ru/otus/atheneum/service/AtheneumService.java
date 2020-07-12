@@ -21,10 +21,6 @@ public interface AtheneumService {
 
   void setBookGenre(Genre genre);
 
-  void setBookAuthorByPosition(int authorPosition);
-
-  void setBookGenreByPosition(int genrePosition);
-
   void saveAuthorByName(String authorFullName);
 
   void saveGenreByName(String genreName);

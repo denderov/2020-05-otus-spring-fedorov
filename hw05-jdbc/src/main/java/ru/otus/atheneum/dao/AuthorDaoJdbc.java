@@ -80,15 +80,4 @@ public class AuthorDaoJdbc implements AuthorDao {
         .format("updated author: %s. count of updated authors: %d.", author.toString(), count));
   }
 
-  @Override
-  public List<Author> getByFullNamePart(String fullNamePart) {
-    Map<String, Object> params = Collections
-        .singletonMap("fullNameMask", String.format("%%%s%%", fullNamePart));
-    List<Author> authors = jdbcOperations
-        .query("select * from authors where full_name like :fullNameMask", params,
-            authorRowMapper);
-    log.info(String.format("getting authors from db: %s", authors));
-    return authors;
-  }
-
 }

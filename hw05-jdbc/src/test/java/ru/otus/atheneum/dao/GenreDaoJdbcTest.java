@@ -69,13 +69,6 @@ public class GenreDaoJdbcTest {
     assertThat(actualMessage).contains(expectedMessage);
   }
 
-  @DisplayName("возвращает жанры по имени")
-  @Test
-  void shouldGetByNamePart() {
-    List<Genre> genres = genreDao.getByNamePart(TestHelper.GENRE_NAME_1);
-    assertThat(genres).containsExactly(TestHelper.GENRE_1);
-  }
-
   @DisplayName("изменяет жанр")
   @Test
   void shouldUpdateGenre() {

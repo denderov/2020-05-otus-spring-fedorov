@@ -33,15 +33,6 @@ public class GenreServiceImplTest {
     assertThat(genres).isEqualTo(TestHelper.GENRES);
   }
 
-  @DisplayName("возвращает авторов по части имени")
-  @Test
-  void shouldReturnGenresByNamePart() {
-    when(genreDao.getByNamePart(TestHelper.GENRE_NAME_1))
-        .thenReturn(List.of(TestHelper.GENRE_1));
-    List<Genre> genres = genreService.findByNamePart(TestHelper.GENRE_NAME_1);
-    assertThat(genres).containsExactly(TestHelper.GENRE_1);
-  }
-
   @DisplayName("сохраняет жанр по имени")
   @Test
   void shouldSaveGenreByName() {

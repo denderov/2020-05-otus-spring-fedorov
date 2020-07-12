@@ -8,8 +8,6 @@ public interface GenreService {
 
   void prepareAll();
 
-  List<Genre> findByNamePart(String genreName);
-
   Optional<Genre> saveByNameAndGetGenre(String name);
 
   List<Genre> getPreparedGenreList();

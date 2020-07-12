@@ -17,11 +17,6 @@ public class AuthorServiceImpl implements AuthorService {
   private List<Author> preparedAuthorList = new ArrayList<>();
 
   @Override
-  public List<Author> findByFullNamePart(String fullNamePart) {
-    return authorDao.getByFullNamePart(fullNamePart);
-  }
-
-  @Override
   public Optional<Author> saveByNameAndGetAuthor(String fullName) {
     return authorDao.insert(fullName);
   }

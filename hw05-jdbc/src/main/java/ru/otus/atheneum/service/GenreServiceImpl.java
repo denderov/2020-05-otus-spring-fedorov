@@ -22,11 +22,6 @@ public class GenreServiceImpl implements GenreService {
   }
 
   @Override
-  public List<Genre> findByNamePart(String genreName) {
-    return genreDao.getByNamePart(genreName);
-  }
-
-  @Override
   public Optional<Genre> saveByNameAndGetGenre(String name) {
     return genreDao.insert(name);
   }

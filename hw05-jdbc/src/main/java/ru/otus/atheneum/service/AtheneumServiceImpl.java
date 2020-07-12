@@ -65,17 +65,6 @@ public class AtheneumServiceImpl implements AtheneumService {
   }
 
   @Override
-  public void setBookAuthorByPosition(int authorPosition) {
-    bookService
-        .setAuthor(authorService.getFromPreparedListByPosition(authorPosition).orElseThrow());
-  }
-
-  @Override
-  public void setBookGenreByPosition(int genrePosition) {
-    bookService.setGenre(genreService.getFromPreparedListByPosition(genrePosition).orElseThrow());
-  }
-
-  @Override
   public void saveAuthorByName(String authorFullName) {
     Author author = authorService.saveByNameAndGetAuthor(authorFullName).orElseThrow();
     ioService.println(String.format("Сохранен автор %s", author));

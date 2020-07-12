@@ -12,8 +12,6 @@ public interface GenreDao {
 
   void delete(Genre genre);
 
-  List<Genre> getByNamePart(String genreName);
-
   Optional<Genre> insert(String name);
 
   void update(Genre genre);

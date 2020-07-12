@@ -50,15 +50,6 @@ public class GenreDaoJdbc implements GenreDao {
   }
 
   @Override
-  public List<Genre> getByNamePart(String genreName) {
-    Map<String, Object> params = Collections
-        .singletonMap("fullNameMask", String.format("%%%s%%", genreName));
-    return jdbcOperations
-        .query("select * from genres where name like :fullNameMask", params,
-            genreRowMapper);
-  }
-
-  @Override
   public Optional<Genre> insert(String name) {
     KeyHolder keyHolder = new GeneratedKeyHolder();
     Long id = null;

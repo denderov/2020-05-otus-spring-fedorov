@@ -29,13 +29,6 @@ public class AuthorDaoJdbcTest {
     assertThat(actualAuthor).hasFieldOrPropertyWithValue("fullName", TestHelper.AUTHOR_FULL_NAME_1);
   }
 
-  @DisplayName("возвращает список авторов по имени")
-  @Test
-  void shouldReturnExpectedAuthorByFullName() {
-    List<Author> authors = authorDao.getByFullNamePart(TestHelper.AUTHOR_FULL_NAME_1);
-    assertThat(authors).containsExactly(TestHelper.AUTHOR_1);
-  }
-
   @DisplayName("возвращает пустой Optional по несуществующему id")
   @Test
   void shouldReturnEmptyOptionalByMissingId() {

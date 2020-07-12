@@ -80,23 +80,6 @@ public class AtheneumServiceImplTest {
     verify(bookService).createBook();
   }
 
-  @DisplayName("устанавливает автора для книги по позиции")
-  @Test
-  void shouldSetBookAuthorByPosition() {
-    when(authorService.getFromPreparedListByPosition(1))
-        .thenReturn(Optional.of(TestHelper.AUTHOR_1));
-    atheneumService.setBookAuthorByPosition(1);
-    verify(bookService).setAuthor(TestHelper.AUTHOR_1);
-  }
-
-  @DisplayName("устанавливает жанр для книги по позиции")
-  @Test
-  void shouldSetBookGenreByPosition() {
-    when(genreService.getFromPreparedListByPosition(1)).thenReturn(Optional.of(TestHelper.GENRE_1));
-    atheneumService.setBookGenreByPosition(1);
-    verify(bookService).setGenre(TestHelper.GENRE_1);
-  }
-
   @DisplayName("сохраняет автора")
   @Test
   void shouldSaveAuthor() {

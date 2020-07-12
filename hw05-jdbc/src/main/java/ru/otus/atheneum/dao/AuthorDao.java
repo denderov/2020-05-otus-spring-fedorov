@@ -10,8 +10,6 @@ public interface AuthorDao {
 
   List<Author> getAll();
 
-  List<Author> getByFullNamePart(String fullName);
-
   Optional<Author> insert(String fullName);
 
   void delete(Author author);

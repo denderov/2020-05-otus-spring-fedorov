@@ -33,15 +33,6 @@ public class AuthorServiceImplTest {
     assertThat(authors).isEqualTo(TestHelper.AUTHORS);
   }
 
-  @DisplayName("возвращает авторов по части имени")
-  @Test
-  void shouldReturnAuthorsByFullNamePart() {
-    when(authorDao.getByFullNamePart(TestHelper.AUTHOR_FULL_NAME_1))
-        .thenReturn(List.of(TestHelper.AUTHOR_1));
-    List<Author> authors = authorService.findByFullNamePart(TestHelper.AUTHOR_FULL_NAME_1);
-    assertThat(authors).containsExactly(TestHelper.AUTHOR_1);
-  }
-
   @DisplayName("сохраняет автора по имени")
   @Test
   void shouldSaveAuthorByName() {
