@@ -5,19 +5,19 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.List;
 import java.util.Optional;
+import javax.persistence.PersistenceException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
-import org.springframework.dao.DataAccessException;
 import ru.otus.TestHelper;
 import ru.otus.domain.Genre;
 
-@DisplayName("Класс GenreDaoJdbc")
-@JdbcTest
-@Import(GenreDaoJdbc.class)
-public class GenreDaoJdbcTest {
+@DisplayName("Класс GenreDaoJpa")
+@DataJpaTest
+@Import(GenreDaoJpa.class)
+public class GenreDaoJpaTest {
 
   @Autowired
   GenreDao genreDao;
@@ -63,9 +63,9 @@ public class GenreDaoJdbcTest {
   @DisplayName("не удаляет жанр, если на него есть ссылка")
   @Test
   void shouldNotDeleteLinkedGenre() {
-    Exception e = assertThrows(DataAccessException.class,
+    Exception e = assertThrows(PersistenceException.class,
         () -> genreDao.delete(TestHelper.GENRE_1));
-    String expectedMessage = "Referential integrity constraint violation";
+    String expectedMessage = "could not execute statement";
     String actualMessage = e.getMessage();
     assertThat(actualMessage).contains(expectedMessage);
   }

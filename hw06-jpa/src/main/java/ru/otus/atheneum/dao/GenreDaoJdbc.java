@@ -14,10 +14,9 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
-import org.springframework.stereotype.Repository;
 import ru.otus.domain.Genre;
 
-@Repository
+//@Repository
 @RequiredArgsConstructor
 @Slf4j
 public class GenreDaoJdbc implements GenreDao {
