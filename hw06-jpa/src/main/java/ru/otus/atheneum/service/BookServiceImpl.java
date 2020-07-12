@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.otus.atheneum.dao.BookDao;
 import ru.otus.domain.Author;
 import ru.otus.domain.Book;
@@ -20,11 +21,13 @@ public class BookServiceImpl implements BookService {
   private List<Book> preparedBookList = new ArrayList<>();
 
   @Override
+  @Transactional(readOnly = true)
   public void prepareAll() {
     preparedBookList = bookDao.getAll();
   }
 
   @Override
+  @Transactional
   public Optional<Book> save(String title, Author author, Genre genre) {
     return bookDao.insert(title, author, genre);
   }
@@ -54,6 +57,7 @@ public class BookServiceImpl implements BookService {
   }
 
   @Override
+  @Transactional
   public Optional<Book> createBook() {
     return bookBuilder.createBook();
   }
@@ -70,11 +74,13 @@ public class BookServiceImpl implements BookService {
   }
 
   @Override
+  @Transactional
   public void update(Book bookForUpdate) {
     bookDao.update(bookForUpdate);
   }
 
   @Override
+  @Transactional
   public void delete(Book book) {
     bookDao.delete(book);
   }
