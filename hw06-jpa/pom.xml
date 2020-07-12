@@ -43,6 +43,17 @@
       <groupId>org.springframework.shell</groupId>
       <version>${spring-shell-starter.version}</version>
     </dependency>
+    <dependency>
+      <artifactId>liquibase-core</artifactId>
+      <groupId>org.liquibase</groupId>
+      <version>${liquibase-core.version}</version>
+    </dependency>
+    <!--    чтобы поднять веб сервер для запуска админки h2-->
+    <!--    <dependency>-->
+    <!--      <groupId>org.springframework.boot</groupId>-->
+    <!--      <artifactId>spring-boot-starter-web</artifactId>-->
+    <!--      <version>2.3.0.RELEASE</version>-->
+    <!--    </dependency>-->
   </dependencies>
   <groupId>ru.otus</groupId>
 
@@ -61,6 +72,7 @@
     <maven.compiler.target>11</maven.compiler.target>
     <spring-boot-starter-data-jpa.version>2.3.1.RELEASE</spring-boot-starter-data-jpa.version>
     <spring-shell-starter.version>2.0.1.RELEASE</spring-shell-starter.version>
+    <liquibase-core.version>3.8.9</liquibase-core.version>
   </properties>
 
   <version>1.0-SNAPSHOT</version>
