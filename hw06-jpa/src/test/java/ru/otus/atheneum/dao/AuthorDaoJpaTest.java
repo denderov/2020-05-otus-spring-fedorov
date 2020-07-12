@@ -5,19 +5,19 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.List;
 import java.util.Optional;
+import javax.persistence.PersistenceException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
-import org.springframework.dao.DataAccessException;
 import ru.otus.TestHelper;
 import ru.otus.domain.Author;
 
-@DisplayName("Класс AuthorDaoJdbc")
-@JdbcTest
-@Import(AuthorDaoJdbc.class)
-public class AuthorDaoJdbcTest {
+@DisplayName("Класс AuthorDaoJpa")
+@DataJpaTest
+@Import(AuthorDaoJpa.class)
+public class AuthorDaoJpaTest {
 
   @Autowired
   AuthorDao authorDao;
@@ -63,9 +63,9 @@ public class AuthorDaoJdbcTest {
   @DisplayName("не удаляет автора, если на него есть ссылка")
   @Test
   void shouldNotDeleteLinkedAuthor() {
-    Exception e = assertThrows(DataAccessException.class,
+    Exception e = assertThrows(PersistenceException.class,
         () -> authorDao.delete(TestHelper.AUTHOR_1));
-    String expectedMessage = "Referential integrity constraint violation";
+    String expectedMessage = "could not execute statement";
     String actualMessage = e.getMessage();
     assertThat(actualMessage).contains(expectedMessage);
   }
