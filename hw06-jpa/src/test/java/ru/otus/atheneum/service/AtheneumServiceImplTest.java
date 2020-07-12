@@ -40,8 +40,8 @@ public class AtheneumServiceImplTest {
     when(bookService.getPreparedBookList()).thenReturn(TestHelper.BOOKS);
     atheneumService.printAllBooks();
     verify(ioService).println(
-        "1. Book(id=1, title=Test_book_1, author=Author(id=101, fullName=Test_author_1), genre=Genre(id=201, name=Test_genre_1))\n"
-            + "2. Book(id=2, title=Test_book_2, author=Author(id=102, fullName=Test_author_2), genre=Genre(id=202, name=Test_genre_2))");
+        "1. Book(id=1, title=Test_book_1, author=Author(id=101, fullName=Test_author_1), genre=Genre(id=201, name=Test_genre_1), comments=[Comment(id=301, dateTime=2020-01-01T00:00, text=Test_comment_1)])\n"
+            + "2. Book(id=2, title=Test_book_2, author=Author(id=102, fullName=Test_author_2), genre=Genre(id=202, name=Test_genre_2), comments=[Comment(id=302, dateTime=2020-01-13T00:00, text=Test_comment_2)])");
   }
 
   @DisplayName("печатает список авторов")

@@ -10,4 +10,8 @@ values (201, 'Test_genre_1'),
 
 insert into books (id, title, author_id, genre_id)
 values (1, 'Test_book_1', 101, 201),
-       (2, 'Test_book_2', 102, 202)
+       (2, 'Test_book_2', 102, 202);
+
+insert into comments (id, date_time, book_id, text)
+values (301, '2020-01-01 00:00:00', 1, 'Test_comment_1'),
+       (302, '2020-01-13 00:00:00', 2, 'Test_comment_2');

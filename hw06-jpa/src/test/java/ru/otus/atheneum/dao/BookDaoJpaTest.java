@@ -24,6 +24,7 @@ public class BookDaoJpaTest {
   @Test
   void shouldReturnBookById() {
     Book book = bookDao.getById(TestHelper.BOOK_ID_1).orElse(null);
+
     assertThat(book).isEqualTo(TestHelper.BOOK_1);
   }
 
@@ -66,7 +67,7 @@ public class BookDaoJpaTest {
     Book bookFromDb = TestHelper.BOOK_1;
     Book bookForUpdate =
         new Book(bookFromDb.getId(), bookFromDb.getTitle(), bookFromDb.getAuthor(),
-            bookFromDb.getGenre());
+            bookFromDb.getGenre(), bookFromDb.getComments());
     bookForUpdate.setTitle(TestHelper.BOOK_TITLE_3);
     bookForUpdate.setAuthor(TestHelper.AUTHOR_3);
     bookForUpdate.setGenre(TestHelper.GENRE_3);

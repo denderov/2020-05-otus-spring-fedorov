@@ -7,7 +7,7 @@ spring:
     initialization-mode: always
   liquibase:
     enabled: true
-    change-log: db/changelog/db.changelog-test.yaml
+    change-log: classpath:db/changelog/db.changelog-test.yaml
   jpa:
     generate-ddl: false
     hibernate:
