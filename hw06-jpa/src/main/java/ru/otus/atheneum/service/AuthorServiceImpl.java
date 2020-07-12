@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.otus.atheneum.dao.AuthorDao;
 import ru.otus.domain.Author;
 
@@ -17,11 +18,13 @@ public class AuthorServiceImpl implements AuthorService {
   private List<Author> preparedAuthorList = new ArrayList<>();
 
   @Override
+  @Transactional
   public Optional<Author> saveByNameAndGetAuthor(String fullName) {
     return authorDao.insert(fullName);
   }
 
   @Override
+  @Transactional(readOnly = true)
   public void prepareAll() {
     preparedAuthorList = authorDao.getAll();
   }
@@ -38,11 +41,13 @@ public class AuthorServiceImpl implements AuthorService {
   }
 
   @Override
+  @Transactional
   public void update(Author authorForUpdate) {
     authorDao.update(authorForUpdate);
   }
 
   @Override
+  @Transactional
   public void delete(Author author) {
     authorDao.delete(author);
   }
