@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.otus.atheneum.dao.GenreDao;
 import ru.otus.domain.Genre;
 
@@ -17,11 +18,13 @@ public class GenreServiceImpl implements GenreService {
   private List<Genre> preparedGenreList = new ArrayList<>();
 
   @Override
+  @Transactional(readOnly = true)
   public void prepareAll() {
     preparedGenreList = genreDao.getAll();
   }
 
   @Override
+  @Transactional
   public Optional<Genre> saveByNameAndGetGenre(String name) {
     return genreDao.insert(name);
   }
@@ -38,11 +41,13 @@ public class GenreServiceImpl implements GenreService {
   }
 
   @Override
+  @Transactional
   public void update(Genre genreForUpdate) {
     genreDao.update(genreForUpdate);
   }
 
   @Override
+  @Transactional
   public void delete(Genre genre) {
     genreDao.delete(genre);
   }
