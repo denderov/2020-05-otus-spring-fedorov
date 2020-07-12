@@ -9,6 +9,7 @@ import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import ru.otus.TestHelper;
@@ -16,6 +17,7 @@ import ru.otus.atheneum.dao.BookDao;
 import ru.otus.domain.Book;
 
 @SpringBootTest
+@AutoConfigureTestDatabase
 @DisplayName("Класс BookServiceImpl ")
 public class BookServiceImplTest {
 

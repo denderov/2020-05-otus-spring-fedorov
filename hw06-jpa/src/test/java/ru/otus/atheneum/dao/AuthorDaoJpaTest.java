@@ -1,11 +1,9 @@
 package ru.otus.atheneum.dao;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.List;
 import java.util.Optional;
-import javax.persistence.PersistenceException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,11 +61,13 @@ public class AuthorDaoJpaTest {
   @DisplayName("не удаляет автора, если на него есть ссылка")
   @Test
   void shouldNotDeleteLinkedAuthor() {
-    Exception e = assertThrows(PersistenceException.class,
-        () -> authorDao.delete(TestHelper.AUTHOR_1));
-    String expectedMessage = "could not execute statement";
-    String actualMessage = e.getMessage();
-    assertThat(actualMessage).contains(expectedMessage);
+    try {
+      authorDao.delete(TestHelper.AUTHOR_1);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    List<Author> authors = authorDao.getAll();
+    assertThat(authors).contains(TestHelper.AUTHOR_1);
   }
 
   @DisplayName("изменяет автора")

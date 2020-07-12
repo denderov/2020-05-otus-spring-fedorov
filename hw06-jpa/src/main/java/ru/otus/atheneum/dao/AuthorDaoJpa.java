@@ -46,16 +46,12 @@ public class AuthorDaoJpa implements AuthorDao {
     Query query = em.createQuery("delete from Author where id = :id");
     query.setParameter("id", author.getId());
     int count = query.executeUpdate();
-    log.info(String
-        .format("delete author from db: %s. count of deleted rows: %d", author.toString(), count));
+    log.info(String.format("delete author from db: %s.", author.toString()));
   }
 
   @Override
   public void update(Author author) {
-    Query query = em.createQuery("update Author set fullName = :fullName where id = :id");
-    query.setParameter("id", author.getId()).setParameter("fullName", author.getFullName());
-    int count = query.executeUpdate();
-    log.info(String
-        .format("updated author: %s. count of updated authors: %d.", author.toString(), count));
+    em.merge(author);
+    log.info(String.format("updated author: %s.", author.toString()));
   }
 }
