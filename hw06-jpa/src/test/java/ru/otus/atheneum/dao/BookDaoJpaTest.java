@@ -7,15 +7,15 @@ import java.util.Optional;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 import ru.otus.TestHelper;
 import ru.otus.domain.Book;
 
-@DisplayName("Класс BookDaoJdbc")
-@JdbcTest
-@Import({BookDaoJdbc.class, AuthorDaoJdbc.class, GenreDaoJdbc.class})
-public class BookDaoJdbcTest {
+@DisplayName("Класс BookDaoJpa")
+@DataJpaTest
+@Import({BookDaoJpa.class, AuthorDaoJpa.class, GenreDaoJpa.class})
+public class BookDaoJpaTest {
 
   @Autowired
   BookDao bookDao;
