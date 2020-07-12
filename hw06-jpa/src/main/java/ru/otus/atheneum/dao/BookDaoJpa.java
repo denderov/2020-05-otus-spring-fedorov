@@ -2,6 +2,7 @@ package ru.otus.atheneum.dao;
 
 import java.util.List;
 import java.util.Optional;
+import javax.persistence.EntityGraph;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -28,7 +29,9 @@ public class BookDaoJpa implements BookDao {
 
   @Override
   public List<Book> getAll() {
+    EntityGraph<?> entityGraph = em.getEntityGraph("author-n-genre");
     TypedQuery<Book> query = em.createQuery("select b from Book b", Book.class);
+    query.setHint("javax.persistence.fetchgraph", entityGraph);
     List<Book> books = query.getResultList();
     log.info(String.format("getting books from db: %s", books));
     return books;
