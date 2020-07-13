@@ -28,9 +28,8 @@ public class AuthorDaoJdbc implements AuthorDao {
   @Override
   public Optional<Author> getById(long id) {
     Map<String, Object> params = Collections.singletonMap("id", id);
-    Author nullableAuthor;
-    nullableAuthor = DataAccessUtils.singleResult(jdbcOperations
-            .query("select * from authors where id = :id", params, authorRowMapper));
+    Author nullableAuthor = DataAccessUtils.singleResult(jdbcOperations
+        .query("select id, full_name from authors where id = :id", params, authorRowMapper));
     log.info(String.format("getting author from db: %s", nullableAuthor));
     return Optional.ofNullable(nullableAuthor);
   }
