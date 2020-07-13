@@ -24,7 +24,7 @@ public class CommentDaoJpaTest {
   @DisplayName("возвращает комментарий по id")
   @Test
   void shouldReturnCommentById() {
-    Comment comment = commentDao.getById(TestHelper.COMMENT_ID_1).orElse(null);
+    Comment comment = commentDao.getById(TestHelper.COMMENT_ID_1).orElseThrow();
     assertThat(comment).isEqualTo(TestHelper.COMMENT_1);
   }
 
@@ -63,8 +63,8 @@ public class CommentDaoJpaTest {
   @Test
   void shouldUpdateComment() {
     Comment commentFromDb = TestHelper.COMMENT_1;
-    Comment commentForUpdate = new Comment(LocalDateTime.now(), commentFromDb.getText(),
-        commentFromDb.getId());
+    Comment commentForUpdate = new Comment(commentFromDb.getId(), LocalDateTime.now(),
+        TestHelper.BOOK_1, commentFromDb.getText());
     commentForUpdate.setText(TestHelper.COMMENT_TEXT_2);
     commentDao.update(commentForUpdate);
     Comment actualComment = commentDao.getById(TestHelper.COMMENT_ID_1).orElseThrow();

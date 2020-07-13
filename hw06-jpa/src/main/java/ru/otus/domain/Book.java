@@ -18,6 +18,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Table(name = "BOOKS")
@@ -25,6 +26,7 @@ import lombok.NoArgsConstructor;
     attributeNodes = {@NamedAttributeNode("author"), @NamedAttributeNode("genre")})
 @Data
 @EqualsAndHashCode(exclude = "comments")
+@ToString(exclude = "comments")
 @NoArgsConstructor
 @AllArgsConstructor
 public class Book {

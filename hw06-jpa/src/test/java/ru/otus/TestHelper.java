@@ -35,6 +35,15 @@ public class TestHelper {
   public final List<Genre> GENRES = List.of(GENRE_1, GENRE_2, GENRE_3);
 
 
+  public final long BOOK_ID_1 = 1L;
+  public final long BOOK_ID_2 = 2L;
+  public final String BOOK_TITLE_1 = "Test_book_1";
+  public final String BOOK_TITLE_2 = "Test_book_2";
+  public final String BOOK_TITLE_3 = "Test_book_3";
+  public final Book BOOK_1 = new Book(BOOK_ID_1, BOOK_TITLE_1, AUTHOR_1, GENRE_1, null);
+  public final Book BOOK_2 = new Book(BOOK_ID_2, BOOK_TITLE_2, AUTHOR_2, GENRE_2, null);
+  public final List<Book> BOOKS = List.of(BOOK_1, BOOK_2);
+
   public final long COMMENT_ID_1 = 301L;
   public final long COMMENT_ID_2 = 302L;
   public final LocalDateTime COMMENT_DATE_TIME_1 = LocalDateTime
@@ -43,18 +52,17 @@ public class TestHelper {
       .of(2020, Month.JANUARY, 13, 0, 0, 0);
   public final String COMMENT_TEXT_1 = "Test_comment_1";
   public final String COMMENT_TEXT_2 = "Test_comment_2";
-  public final Comment COMMENT_1 = new Comment(COMMENT_DATE_TIME_1, COMMENT_TEXT_1, COMMENT_ID_1);
-  public final Comment COMMENT_2 = new Comment(COMMENT_DATE_TIME_2, COMMENT_TEXT_2, COMMENT_ID_2);
+  public final Comment COMMENT_1 = new Comment(COMMENT_ID_1, COMMENT_DATE_TIME_1, BOOK_1,
+      COMMENT_TEXT_1);
+  public final Comment COMMENT_2 = new Comment(COMMENT_ID_2, COMMENT_DATE_TIME_2, BOOK_2,
+      COMMENT_TEXT_2);
   public final List<Comment> COMMENTS_1 = List.of(COMMENT_1);
   public final List<Comment> COMMENTS_2 = List.of(COMMENT_2);
   public final List<Comment> COMMENTS = List.of(COMMENT_1, COMMENT_2);
 
-  public final long BOOK_ID_1 = 1L;
-  public final long BOOK_ID_2 = 2L;
-  public final String BOOK_TITLE_1 = "Test_book_1";
-  public final String BOOK_TITLE_2 = "Test_book_2";
-  public final String BOOK_TITLE_3 = "Test_book_3";
-  public final Book BOOK_1 = new Book(BOOK_ID_1, BOOK_TITLE_1, AUTHOR_1, GENRE_1, COMMENTS_1);
-  public final Book BOOK_2 = new Book(BOOK_ID_2, BOOK_TITLE_2, AUTHOR_2, GENRE_2, COMMENTS_2);
-  public final List<Book> BOOKS = List.of(BOOK_1, BOOK_2);
+  {
+    BOOK_1.setComments(COMMENTS_1);
+    BOOK_2.setComments(COMMENTS_2);
+  }
+
 }

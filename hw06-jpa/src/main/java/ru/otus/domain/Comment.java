@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,12 +20,18 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Comment {
 
-  @Column(name = "DATE_TIME")
-  LocalDateTime dateTime;
-  @Column(name = "TEXT")
-  String text;
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "ID")
   private long id;
+
+  @Column(name = "DATE_TIME")
+  LocalDateTime dateTime;
+
+  @ManyToOne
+  @JoinColumn(name = "BOOK_ID")
+  Book book;
+
+  @Column(name = "TEXT")
+  String text;
 }
