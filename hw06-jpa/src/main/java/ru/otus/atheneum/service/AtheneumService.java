@@ -44,4 +44,6 @@ public interface AtheneumService {
   void deleteGenre(Genre genre);
 
   void deleteBook(Book book);
+
+  void saveComment(Book book, String text);
 }

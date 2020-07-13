@@ -19,6 +19,7 @@ public class AtheneumServiceImpl implements AtheneumService {
   private final BookService bookService;
   private final AuthorService authorService;
   private final GenreService genreService;
+  public final CommentService commentService;
 
   @Override
   public void printAllBooks() {
@@ -124,6 +125,11 @@ public class AtheneumServiceImpl implements AtheneumService {
   @Override
   public void deleteBook(Book book) {
     bookService.delete(book);
+  }
+
+  @Override
+  public void saveComment(Book book, String text) {
+    commentService.saveAndGetComment(book, text);
   }
 
   private <T> String formatObjectList(List<T> ObjectList) {

@@ -10,6 +10,7 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
+import ru.otus.domain.Book;
 import ru.otus.domain.Comment;
 
 @Repository
@@ -44,9 +45,10 @@ public class CommentDaoJpa implements CommentDao {
   }
 
   @Override
-  public Optional<Comment> insert(String text) {
+  public Optional<Comment> insert(Book book, String text) {
     Comment comment = new Comment();
     comment.setDateTime(LocalDateTime.now());
+    comment.setBook(book);
     comment.setText(text);
     em.persist(comment);
     log.info(String.format("inserted comment to db: %s", comment.toString()));

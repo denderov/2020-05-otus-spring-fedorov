@@ -2,6 +2,7 @@ package ru.otus.atheneum.dao;
 
 import java.util.List;
 import java.util.Optional;
+import ru.otus.domain.Book;
 import ru.otus.domain.Comment;
 
 public interface CommentDao {
@@ -12,7 +13,7 @@ public interface CommentDao {
 
   void delete(Comment comment);
 
-  Optional<Comment> insert(String text);
+  Optional<Comment> insert(Book book, String text);
 
   void update(Comment comment);
 }

@@ -46,7 +46,8 @@ public class CommentDaoJpaTest {
   @Test
   void shouldInsertComment() {
     String test_comment_20200712 = "Test_comment_20200712";
-    Comment actualComment = commentDao.insert(test_comment_20200712).orElseThrow();
+    Comment actualComment = commentDao.insert(TestHelper.BOOK_2, test_comment_20200712)
+        .orElseThrow();
     assertThat(actualComment).hasFieldOrPropertyWithValue("text", test_comment_20200712);
   }
 

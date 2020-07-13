@@ -31,6 +31,9 @@ public class AtheneumServiceImplTest {
   @MockBean
   private GenreService genreService;
 
+  @MockBean
+  private CommentService commentService;
+
   @Autowired
   private AtheneumService atheneumService;
 
@@ -100,5 +103,11 @@ public class AtheneumServiceImplTest {
     verify(genreService).saveByNameAndGetGenre(TestHelper.GENRE_NAME_3);
   }
 
+  @DisplayName("сохраняет комментарий")
+  @Test
+  void shouldSaveComment() {
+    atheneumService.saveComment(TestHelper.BOOK_1, TestHelper.COMMENT_TEXT_1);
+    verify(commentService).saveAndGetComment(TestHelper.BOOK_1, TestHelper.COMMENT_TEXT_1);
+  }
 
 }

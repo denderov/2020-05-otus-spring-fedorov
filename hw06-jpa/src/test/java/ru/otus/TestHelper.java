@@ -60,6 +60,13 @@ public class TestHelper {
   public final List<Comment> COMMENTS_2 = List.of(COMMENT_2);
   public final List<Comment> COMMENTS = List.of(COMMENT_1, COMMENT_2);
 
+  public final long COMMENT_ID_3 = 303L;
+  public final LocalDateTime COMMENT_DATE_TIME_3 = LocalDateTime
+      .of(2020, Month.JULY, 13, 0, 0, 0);
+  public final String COMMENT_TEXT_3 = "Test_comment_3";
+  public final Comment COMMENT_3 = new Comment(COMMENT_ID_3, COMMENT_DATE_TIME_3, BOOK_2,
+      COMMENT_TEXT_3);
+
   {
     BOOK_1.setComments(COMMENTS_1);
     BOOK_2.setComments(COMMENTS_2);
