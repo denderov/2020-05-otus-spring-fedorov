@@ -6,15 +6,11 @@ import ru.otus.domain.Genre;
 
 public interface GenreService {
 
-  void prepareAll();
-
   Optional<Genre> saveByNameAndGetGenre(String name);
-
-  List<Genre> getPreparedGenreList();
-
-  Optional<Genre> getFromPreparedListByPosition(int genrePosition);
 
   void update(Genre genreForUpdate);
 
   void delete(Genre genre);
+
+  List<Genre> getAll();
 }

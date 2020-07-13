@@ -8,25 +8,11 @@ import ru.otus.domain.Genre;
 
 public interface BookService {
 
-  void prepareAll();
-
   Optional<Book> save(String title, Author author, Genre genre);
-
-  BookService initBook();
-
-  BookService setTitle(String bookTitle);
-
-  BookService setAuthor(Author author);
-
-  BookService setGenre(Genre genre);
-
-  Optional<Book> createBook();
-
-  List<Book> getPreparedBookList();
-
-  Optional<Book> getFromPreparedListByPosition(int bookPosition);
 
   void update(Book bookForUpdate);
 
   void delete(Book book);
+
+  List<Book> getAll();
 }

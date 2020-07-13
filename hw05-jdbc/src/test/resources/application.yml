@@ -4,3 +4,5 @@ spring:
       enabled: false
   datasource:
     data: test_data.sql
+    driver-class-name: org.h2.Driver
+    initialization-mode: always

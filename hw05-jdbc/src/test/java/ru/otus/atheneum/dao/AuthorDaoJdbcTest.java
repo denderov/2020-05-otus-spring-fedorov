@@ -20,7 +20,7 @@ import ru.otus.domain.Author;
 public class AuthorDaoJdbcTest {
 
   @Autowired
-  AuthorDao authorDao;
+  private AuthorDao authorDao;
 
   @DisplayName("возвращает ожидаемого автора по id")
   @Test
