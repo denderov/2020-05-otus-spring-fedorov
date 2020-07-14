@@ -1,6 +1,5 @@
 package ru.otus.atheneum.service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -15,29 +14,10 @@ public class GenreServiceImpl implements GenreService {
 
   private final GenreDao genreDao;
 
-  private List<Genre> preparedGenreList = new ArrayList<>();
-
-  @Override
-  @Transactional(readOnly = true)
-  public void prepareAll() {
-    preparedGenreList = genreDao.getAll();
-  }
-
   @Override
   @Transactional
   public Optional<Genre> saveByNameAndGetGenre(String name) {
     return genreDao.insert(name);
-  }
-
-  @Override
-  public List<Genre> getPreparedGenreList() {
-    return preparedGenreList;
-  }
-
-  @Override
-  public Optional<Genre> getFromPreparedListByPosition(int genrePosition) {
-    return genrePosition > 0 && genrePosition <= preparedGenreList.size() ?
-        Optional.of(preparedGenreList.get(genrePosition - 1)) : Optional.empty();
   }
 
   @Override
@@ -50,6 +30,12 @@ public class GenreServiceImpl implements GenreService {
   @Transactional
   public void delete(Genre genre) {
     genreDao.delete(genre);
+  }
+
+  @Override
+  @Transactional(readOnly = true)
+  public List<Genre> getAll() {
+    return genreDao.getAll();
   }
 
 }

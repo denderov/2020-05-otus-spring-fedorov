@@ -5,14 +5,12 @@ import static org.mockito.Mockito.verify;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import ru.otus.TestHelper;
 import ru.otus.atheneum.dao.CommentDao;
 
 @SpringBootTest
-@AutoConfigureTestDatabase
 @DisplayName("Класс GenreServiceImpl ")
 class CommentServiceImplTest {
 

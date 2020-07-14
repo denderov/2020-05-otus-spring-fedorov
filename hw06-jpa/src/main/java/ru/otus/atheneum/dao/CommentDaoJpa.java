@@ -60,4 +60,14 @@ public class CommentDaoJpa implements CommentDao {
     em.merge(comment);
     log.info(String.format("updated comment: %s", comment.toString()));
   }
+
+  @Override
+  public List<Comment> getCommentsByBook(Book commentedBook) {
+    TypedQuery<Comment> query = em
+        .createQuery("select g from Comment g where book_id = :bookId", Comment.class);
+    query.setParameter("bookId", commentedBook.getId());
+    List<Comment> comments = query.getResultList();
+    log.info(String.format("getting comments from db: %s", comments));
+    return comments;
+  }
 }

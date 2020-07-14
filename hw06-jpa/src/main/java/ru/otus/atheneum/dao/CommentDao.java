@@ -16,4 +16,6 @@ public interface CommentDao {
   Optional<Comment> insert(Book book, String text);
 
   void update(Comment comment);
+
+  List<Comment> getCommentsByBook(Book commentedBook);
 }

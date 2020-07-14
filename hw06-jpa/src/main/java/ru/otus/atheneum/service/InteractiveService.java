@@ -2,21 +2,35 @@ package ru.otus.atheneum.service;
 
 public interface InteractiveService {
 
-  void bookSaver();
+  void executeSaveBookProcess();
 
-  void authorSaver();
+  void executeSaveAuthorProcess();
 
-  void genreSaver();
+  void executeSaveGenreProcess();
 
-  void bookUpdater();
+  void executeSaveCommentProcess();
 
-  void authorUpdater();
+  void executeUpdateBookProcess();
 
-  void genreUpdater();
+  void executeUpdateAuthorProcess();
 
-  void bookDeleter();
+  void executeUpdateGenreProcess();
 
-  void authorDeleter();
+  void executeUpdateCommentProcess();
 
-  void genreDeleter();
+  void executeDeleteBookProcess();
+
+  void executeDeleteAuthorProcess();
+
+  void executeDeleteGenreProcess();
+
+  void executeDeleteCommentProcess();
+
+  void printAllAuthors();
+
+  void printAllGenres();
+
+  void printAllBooks();
+
+  void printComments();
 }

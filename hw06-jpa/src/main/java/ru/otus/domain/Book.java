@@ -1,10 +1,7 @@
 package ru.otus.domain;
 
-import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -12,7 +9,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedAttributeNode;
 import javax.persistence.NamedEntityGraph;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -47,7 +43,4 @@ public class Book {
   @JoinColumn(name = "GENRE_ID")
   private Genre genre;
 
-  @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  @JoinColumn(name = "BOOK_ID")
-  private List<Comment> comments;
 }

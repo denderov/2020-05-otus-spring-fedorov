@@ -67,7 +67,7 @@ public class BookDaoJpaTest {
     Book bookFromDb = TestHelper.BOOK_1;
     Book bookForUpdate =
         new Book(bookFromDb.getId(), bookFromDb.getTitle(), bookFromDb.getAuthor(),
-            bookFromDb.getGenre(), bookFromDb.getComments());
+            bookFromDb.getGenre());
     bookForUpdate.setTitle(TestHelper.BOOK_TITLE_3);
     bookForUpdate.setAuthor(TestHelper.AUTHOR_3);
     bookForUpdate.setGenre(TestHelper.GENRE_3);
