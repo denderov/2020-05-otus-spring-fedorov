@@ -21,8 +21,8 @@ import lombok.ToString;
 @NamedEntityGraph(name = "author-n-genre",
     attributeNodes = {@NamedAttributeNode("author"), @NamedAttributeNode("genre")})
 @Data
-@EqualsAndHashCode(exclude = "comments")
-@ToString(exclude = "comments")
+@EqualsAndHashCode
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class Book {
