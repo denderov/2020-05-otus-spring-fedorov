@@ -33,7 +33,9 @@ public class InteractiveServiceImpl implements InteractiveService {
     Genre genre = chooseGenre();
     bookForSave.setGenre(genre);
 
-    Book savedBook = bookService.save(bookTitle, author, genre).orElseThrow();
+    Book savedBook = bookService.save(bookTitle, author, genre)
+        .orElseThrow(() -> new InteractiveServiceException(
+            String.format("Книга \"%s\" не сохранена!", bookTitle)));
     ioService.println(String.format("Сохранена книга %s", savedBook));
   }
 
@@ -41,7 +43,9 @@ public class InteractiveServiceImpl implements InteractiveService {
   public void executeSaveAuthorProcess() {
     ioService.println("Введите имя автора для сохранения");
     String fullName = ioService.readLine();
-    Author savedAuthor = authorService.saveByNameAndGetAuthor(fullName).orElseThrow();
+    Author savedAuthor = authorService.saveByNameAndGetAuthor(fullName)
+        .orElseThrow(() -> new InteractiveServiceException(
+            String.format("Автор \"%s\" не сохранен!", fullName)));
     ioService.println(String.format("Сохранен автор %s", savedAuthor));
   }
 
@@ -49,7 +53,9 @@ public class InteractiveServiceImpl implements InteractiveService {
   public void executeSaveGenreProcess() {
     ioService.println("Введите название жанра для сохранения");
     String name = ioService.readLine();
-    Genre savedGenre = genreService.saveByNameAndGetGenre(name).orElseThrow();
+    Genre savedGenre = genreService.saveByNameAndGetGenre(name)
+        .orElseThrow(() -> new InteractiveServiceException(
+            String.format("Жанр \"%s\" не сохранен!", name)));
     ioService.println(String.format("Сохранен жанр %s", savedGenre));
   }
 
