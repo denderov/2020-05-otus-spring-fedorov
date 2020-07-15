@@ -3,6 +3,7 @@ package ru.otus.domain;
 import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,12 +27,12 @@ public class Comment {
   private long id;
 
   @Column(name = "DATE_TIME")
-  LocalDateTime dateTime;
+  private LocalDateTime dateTime;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "BOOK_ID")
-  Book book;
+  private Book book;
 
   @Column(name = "TEXT")
-  String text;
+  private String text;
 }
