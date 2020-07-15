@@ -15,7 +15,7 @@ import ru.otus.domain.Author;
 public class AuthorDaoJpa implements AuthorDao {
 
   @PersistenceContext
-  EntityManager em;
+  private EntityManager em;
 
   @Override
   public Optional<Author> getById(long id) {

@@ -15,7 +15,7 @@ import ru.otus.domain.Genre;
 public class GenreDaoJpa implements GenreDao {
 
   @PersistenceContext
-  EntityManager em;
+  private EntityManager em;
 
   @Override
   public Optional<Genre> getById(long id) {

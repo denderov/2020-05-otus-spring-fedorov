@@ -18,7 +18,7 @@ import ru.otus.domain.Comment;
 public class CommentDaoJpa implements CommentDao {
 
   @PersistenceContext
-  EntityManager em;
+  private EntityManager em;
 
   @Override
   public Optional<Comment> getById(long commentId) {

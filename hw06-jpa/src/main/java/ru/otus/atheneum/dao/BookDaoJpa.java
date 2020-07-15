@@ -18,7 +18,7 @@ import ru.otus.domain.Genre;
 public class BookDaoJpa implements BookDao {
 
   @PersistenceContext
-  EntityManager em;
+  private EntityManager em;
 
   @Override
   public Optional<Book> getById(long id) {
