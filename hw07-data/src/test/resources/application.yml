@@ -1,0 +1,14 @@
+spring:
+  shell:
+    interactive:
+      enabled: false
+  datasource:
+    initialization-mode: always
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changelog/db.changelog-test.yaml
+  jpa:
+    generate-ddl: false
+    hibernate:
+      ddl-auto: none
+    show-sql: true
