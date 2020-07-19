@@ -20,7 +20,7 @@ import ru.otus.domain.Genre;
 public class GenreDaoJpaTest {
 
   @Autowired
-  GenreDao genreDao;
+  private GenreDao genreDao;
 
   @DisplayName("возвращает жанр по id")
   @Test

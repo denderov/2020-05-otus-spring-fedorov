@@ -19,7 +19,7 @@ import ru.otus.domain.Comment;
 public class CommentDaoJpaTest {
 
   @Autowired
-  CommentDao commentDao;
+  private CommentDao commentDao;
 
   @DisplayName("возвращает комментарий по id")
   @Test

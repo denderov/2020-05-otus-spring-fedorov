@@ -18,7 +18,7 @@ import ru.otus.domain.Author;
 public class AuthorDaoJpaTest {
 
   @Autowired
-  AuthorDao authorDao;
+  private AuthorDao authorDao;
 
   @DisplayName("возвращает ожидаемого автора по id")
   @Test
