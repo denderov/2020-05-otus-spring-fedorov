@@ -1,0 +1,14 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2020-07-12--03-comments-data
+      author: fedorov
+      runOnChange: true
+      loadUpdateData:
+        primaryKey: id
+        file: csv/2020-07-12--03-comments-data.csv
+        relativeToChangelogFile: true
+        separator: ;
+        quotChar: '"'
+        seperator: ';'
+        encoding: UTF-8
+        tableName: comments
