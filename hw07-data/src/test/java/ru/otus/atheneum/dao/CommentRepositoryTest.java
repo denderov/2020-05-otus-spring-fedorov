@@ -16,7 +16,7 @@ import ru.otus.domain.Comment;
 public class CommentRepositoryTest {
 
   @Autowired
-  CommentRepository commentRepository;
+  private CommentRepository commentRepository;
 
   @DisplayName("возвращает комментарий по id")
   @Test

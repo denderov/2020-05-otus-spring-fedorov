@@ -15,7 +15,7 @@ import ru.otus.domain.Book;
 public class BookRepositoryTest {
 
   @Autowired
-  BookRepository bookRepository;
+  private BookRepository bookRepository;
 
   @DisplayName("возвращает указанную книгу по id")
   @Test

@@ -16,7 +16,7 @@ import ru.otus.domain.Author;
 public class AuthorRepositoryTest {
 
   @Autowired
-  AuthorRepository authorRepository;
+  private AuthorRepository authorRepository;
 
   @Autowired
   private TestEntityManager em;

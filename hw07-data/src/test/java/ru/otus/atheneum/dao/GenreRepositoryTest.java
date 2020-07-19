@@ -16,7 +16,7 @@ import ru.otus.domain.Genre;
 public class GenreRepositoryTest {
 
   @Autowired
-  GenreRepository genreRepository;
+  private GenreRepository genreRepository;
 
   @Autowired
   private TestEntityManager em;
