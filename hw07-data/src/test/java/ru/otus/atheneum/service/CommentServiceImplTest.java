@@ -6,6 +6,7 @@ import static org.mockito.ArgumentMatchers.refEq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,5 +36,14 @@ class CommentServiceImplTest {
     assertAll(() -> verify(commentRepository).save(refEq(TestHelper.COMMENT_2, "id", "dateTime")),
         () -> assertThat(comment).hasFieldOrPropertyWithValue("book", TestHelper.BOOK_2)
             .hasFieldOrPropertyWithValue("text", TestHelper.COMMENT_TEXT_2));
+  }
+
+  @DisplayName("возвращает список комментариев по указанной книге")
+  @Test
+  void shouldPrintCommentsByBook() {
+    when(commentRepository.findAllByBook(TestHelper.BOOK_1))
+        .thenReturn(List.of(TestHelper.COMMENT_1));
+    List<Comment> comments = commentService.getCommentsByBook(TestHelper.BOOK_1);
+    assertThat(comments).containsExactly(TestHelper.COMMENT_1);
   }
 }

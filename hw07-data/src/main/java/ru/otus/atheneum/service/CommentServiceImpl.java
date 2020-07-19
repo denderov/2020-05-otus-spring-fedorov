@@ -1,5 +1,6 @@
 package ru.otus.atheneum.service;
 
+import com.google.common.collect.Lists;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +28,7 @@ public class CommentServiceImpl implements CommentService {
   @Override
   @Transactional(readOnly = true)
   public List<Comment> getCommentsByBook(Book commentedBook) {
-    return commentRepository.findAllByBook(commentedBook);
+    return Lists.newArrayList(commentRepository.findAllByBook(commentedBook));
   }
 
   @Override
