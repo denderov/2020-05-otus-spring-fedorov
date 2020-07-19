@@ -1,8 +1,10 @@
 package ru.otus.atheneum.dao;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.util.Optional;
+import org.hibernate.exception.ConstraintViolationException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,9 +67,7 @@ public class AuthorRepositoryTest {
   @Test
   void shouldNotDeleteLinkedAuthor() {
     authorRepository.delete(TestHelper.AUTHOR_1);
-    em.clear();
-    Iterable<Author> authors = authorRepository.findAll();
-    assertThat(authors).contains(TestHelper.AUTHOR_1);
+    assertThatThrownBy(() -> em.flush()).hasCauseInstanceOf(ConstraintViolationException.class);
   }
 
   @DisplayName("изменяет автора")

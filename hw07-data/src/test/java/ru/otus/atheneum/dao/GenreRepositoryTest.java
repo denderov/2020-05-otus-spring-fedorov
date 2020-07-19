@@ -1,8 +1,10 @@
 package ru.otus.atheneum.dao;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.Optional;
+import javax.persistence.PersistenceException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,9 +67,11 @@ public class GenreRepositoryTest {
   @Test
   void shouldNotDeleteLinkedGenre() {
     genreRepository.delete(TestHelper.GENRE_1);
-    em.clear();
-    Genre genre = genreRepository.findById(TestHelper.GENRE_ID_1).orElseThrow();
-    assertThat(genre).isEqualTo(TestHelper.GENRE_1);
+    Exception e = assertThrows(PersistenceException.class,
+        () -> em.flush());
+    String expectedMessage = "could not execute statement";
+    String actualMessage = e.getMessage();
+    assertThat(actualMessage).contains(expectedMessage);
   }
 
   @DisplayName("изменяет жанр")
