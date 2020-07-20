@@ -53,12 +53,12 @@ class BookRepositoryTest {
         .hasFieldOrPropertyWithValue("genre", TestHelper.GENRE_2);
   }
 
-  @DisplayName("удаляет книгу и только ее")
+  @DisplayName("удаляет книгу и только ее со всеми комментариями")
   @Test
-  void shouldDeleteBook() {
+  void shouldDeleteBookWithComments() {
     Iterable<Book> books = bookRepository.findAll();
     System.out.println(books);
-    bookRepository.delete(TestHelper.BOOK_1);
+    bookRepository.deleteWithComments(TestHelper.BOOK_1);
     books = bookRepository.findAll();
     assertThat(books).containsExactly(TestHelper.BOOK_2);
   }

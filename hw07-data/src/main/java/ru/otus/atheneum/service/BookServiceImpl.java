@@ -36,7 +36,7 @@ public class BookServiceImpl implements BookService {
   @Override
   @Transactional
   public void delete(Book book) {
-    bookRepository.delete(book);
+    bookRepository.deleteWithComments(book);
   }
 
   @Override
