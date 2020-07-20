@@ -13,7 +13,7 @@ import ru.otus.domain.Comment;
 
 @DisplayName("Interface CommentRepository")
 @DataJpaTest
-public class CommentRepositoryTest {
+class CommentRepositoryTest {
 
   @Autowired
   private CommentRepository commentRepository;

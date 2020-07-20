@@ -15,7 +15,7 @@ import ru.otus.domain.Genre;
 
 @DisplayName("Интерейс GenreRepository")
 @DataJpaTest
-public class GenreRepositoryTest {
+class GenreRepositoryTest {
 
   @Autowired
   private GenreRepository genreRepository;

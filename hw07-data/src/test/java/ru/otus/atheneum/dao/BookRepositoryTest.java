@@ -12,7 +12,7 @@ import ru.otus.domain.Book;
 
 @DisplayName("Класс BookRepository")
 @DataJpaTest
-public class BookRepositoryTest {
+class BookRepositoryTest {
 
   @Autowired
   private BookRepository bookRepository;
@@ -56,8 +56,10 @@ public class BookRepositoryTest {
   @DisplayName("удаляет книгу и только ее")
   @Test
   void shouldDeleteBook() {
-    bookRepository.delete(TestHelper.BOOK_1);
     Iterable<Book> books = bookRepository.findAll();
+    System.out.println(books);
+    bookRepository.delete(TestHelper.BOOK_1);
+    books = bookRepository.findAll();
     assertThat(books).containsExactly(TestHelper.BOOK_2);
   }
 

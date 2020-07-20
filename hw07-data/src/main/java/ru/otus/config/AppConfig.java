@@ -12,5 +12,4 @@ public class AppConfig {
   public IOService ioService() {
     return new IOServiceImpl(System.in, System.out);
   }
-
 }

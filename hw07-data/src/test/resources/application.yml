@@ -4,9 +4,10 @@ spring:
       enabled: false
   datasource:
     initialization-mode: always
-  liquibase:
+  flyway:
     enabled: true
-    change-log: classpath:db/changelog/db.changelog-test.yaml
+  liquibase:
+    enabled: false
   jpa:
     generate-ddl: false
     hibernate:

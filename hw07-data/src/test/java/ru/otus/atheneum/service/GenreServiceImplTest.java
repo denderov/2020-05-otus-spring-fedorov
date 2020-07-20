@@ -15,7 +15,7 @@ import ru.otus.domain.Genre;
 
 @SpringBootTest
 @DisplayName("Класс GenreServiceImpl ")
-public class GenreServiceImplTest {
+class GenreServiceImplTest {
 
   @MockBean
   private GenreRepository genreRepository;

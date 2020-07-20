@@ -1,6 +1,18 @@
---liquibase formatted sql
+--date: 2020-07-12
+--author: fedorov
 
---changeset fedorov:2020-07-12-001-books
+create table authors
+(
+    id        bigint primary key auto_increment,
+    full_name varchar2
+);
+
+create table genres
+(
+    id   bigint primary key auto_increment,
+    name varchar2
+);
+
 create table books
 (
     id        bigint primary key auto_increment,

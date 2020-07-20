@@ -9,7 +9,7 @@ import ru.otus.atheneum.dao.AuthorRepository;
 
 @SpringBootTest
 @DisplayName("Класс AuthorServiceImpl ")
-public class AuthorServiceImplTest {
+class AuthorServiceImplTest {
 
   @MockBean
   private AuthorRepository authorDao;

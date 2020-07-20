@@ -15,7 +15,7 @@ import ru.otus.atheneum.dao.BookRepository;
 
 @SpringBootTest
 @DisplayName("Класс BookServiceImpl ")
-public class BookServiceImplTest {
+class BookServiceImplTest {
 
   @MockBean
   private BookRepository bookRepository;

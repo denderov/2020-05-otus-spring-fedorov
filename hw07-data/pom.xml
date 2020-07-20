@@ -49,6 +49,11 @@
       <version>${liquibase-core.version}</version>
     </dependency>
     <dependency>
+      <groupId>org.flywaydb</groupId>
+      <artifactId>flyway-core</artifactId>
+      <version>${flyway-core.version}</version>
+    </dependency>
+    <dependency>
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
       <version>${guava.version}</version>
@@ -79,6 +84,7 @@
     <spring-shell-starter.version>2.0.1.RELEASE</spring-shell-starter.version>
     <liquibase-core.version>3.8.9</liquibase-core.version>
     <guava.version>19.0</guava.version>
+    <flyway-core.version>6.4.1</flyway-core.version>
   </properties>
 
   <version>1.0-SNAPSHOT</version>

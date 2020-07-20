@@ -15,7 +15,7 @@ import ru.otus.domain.Author;
 
 @DisplayName("Интерфейс AuthorRepository")
 @DataJpaTest
-public class AuthorRepositoryTest {
+class AuthorRepositoryTest {
 
   @Autowired
   private AuthorRepository authorRepository;
