@@ -1,12 +1,13 @@
 package ru.otus.atheneum.dao;
 
-import org.springframework.data.repository.CrudRepository;
+import java.util.List;
+import org.springframework.data.jpa.repository.JpaRepository;
 import ru.otus.domain.Book;
 import ru.otus.domain.Comment;
 
-public interface CommentRepository extends CrudRepository<Comment, Long> {
+public interface CommentRepository extends JpaRepository<Comment, Long> {
 
-  Iterable<Comment> findAllByBook(Book commentedBook);
+  List<Comment> findAllByBook(Book commentedBook);
 
   void deleteAllByBook(Book commentedBook);
 }

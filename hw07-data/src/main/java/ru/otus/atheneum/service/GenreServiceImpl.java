@@ -1,6 +1,5 @@
 package ru.otus.atheneum.service;
 
-import com.google.common.collect.Lists;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -38,7 +37,7 @@ public class GenreServiceImpl implements GenreService {
   @Override
   @Transactional(readOnly = true)
   public List<Genre> getAll() {
-    return Lists.newArrayList(genreRepository.findAll());
+    return genreRepository.findAll();
   }
 
 }

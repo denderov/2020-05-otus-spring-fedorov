@@ -1,6 +1,5 @@
 package ru.otus.atheneum.service;
 
-import com.google.common.collect.Lists;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -38,6 +37,6 @@ public class AuthorServiceImpl implements AuthorService {
   @Override
   @Transactional(readOnly = true)
   public List<Author> getAll() {
-    return Lists.newArrayList(authorRepository.findAll());
+    return authorRepository.findAll();
   }
 }

@@ -1,6 +1,5 @@
 package ru.otus.atheneum.service;
 
-import com.google.common.collect.Lists;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -42,7 +41,7 @@ public class BookServiceImpl implements BookService {
   @Override
   @Transactional(readOnly = true)
   public List<Book> getAll() {
-    return Lists.newArrayList(bookRepository.findAll());
+    return bookRepository.findAll();
   }
 
 }
