@@ -1,0 +1,15 @@
+spring:
+  shell:
+    interactive:
+      enabled: false
+  datasource:
+    initialization-mode: always
+  flyway:
+    enabled: true
+  liquibase:
+    enabled: false
+  jpa:
+    generate-ddl: false
+    hibernate:
+      ddl-auto: none
+    show-sql: true
