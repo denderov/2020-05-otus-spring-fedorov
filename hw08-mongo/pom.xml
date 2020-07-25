@@ -44,6 +44,17 @@
     </dependency>
 
     <dependency>
+      <groupId>com.github.cloudyrock.mongock</groupId>
+      <artifactId>mongock-spring-v5</artifactId>
+      <version>${mongock-spring.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.github.cloudyrock.mongock</groupId>
+      <artifactId>mongodb-springdata-v3-driver</artifactId>
+      <version>${mongock-spring.version}</version>
+    </dependency>
+
+    <dependency>
       <groupId>de.flapdoodle.embed</groupId>
       <artifactId>de.flapdoodle.embed.mongo</artifactId>
       <scope>test</scope>
@@ -65,8 +76,9 @@
     <lombok.version>1.18.12</lombok.version>
     <maven.compiler.source>11</maven.compiler.source>
     <maven.compiler.target>11</maven.compiler.target>
-    <guava.version>19.0</guava.version>
+    <guava.version>29.0-jre</guava.version>
     <spring-shell-starter.version>2.0.1.RELEASE</spring-shell-starter.version>
+    <mongock-spring.version>4.1.2.BETA</mongock-spring.version>
   </properties>
 
   <version>1.0-SNAPSHOT</version>

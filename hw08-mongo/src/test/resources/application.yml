@@ -6,3 +6,6 @@ spring:
   shell:
     interactive:
       enabled: false
+  mongock:
+    change-logs-scan-package:
+      - ru.otus.changelog
