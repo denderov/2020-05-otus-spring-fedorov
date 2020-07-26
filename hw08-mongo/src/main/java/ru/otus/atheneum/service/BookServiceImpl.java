@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import ru.otus.atheneum.dao.BookRepository;
 import ru.otus.domain.Author;
 import ru.otus.domain.Book;
@@ -17,7 +16,6 @@ public class BookServiceImpl implements BookService {
   private final BookRepository bookRepository;
 
   @Override
-  @Transactional
   public Optional<Book> save(String title, Author author, Genre genre) {
     Book bookForSave = new Book();
     bookForSave.setTitle(title);
@@ -27,19 +25,16 @@ public class BookServiceImpl implements BookService {
   }
 
   @Override
-  @Transactional
   public void update(Book bookForUpdate) {
     bookRepository.save(bookForUpdate);
   }
 
   @Override
-  @Transactional
   public void delete(Book book) {
     bookRepository.delete(book);
   }
 
   @Override
-  @Transactional(readOnly = true)
   public List<Book> getAll() {
     return bookRepository.findAll();
   }
