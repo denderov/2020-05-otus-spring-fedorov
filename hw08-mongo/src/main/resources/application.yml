@@ -7,3 +7,4 @@ spring:
   mongock:
     change-logs-scan-package:
       - ru.otus.changelog
+    runner-type: initializingbean
