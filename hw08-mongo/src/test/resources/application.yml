@@ -8,4 +8,4 @@ spring:
       enabled: false
   mongock:
     change-logs-scan-package:
-      - ru.otus.changelog
+      - ru.otus.testchangelog

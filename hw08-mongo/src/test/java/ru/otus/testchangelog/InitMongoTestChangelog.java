@@ -1,4 +1,4 @@
-package ru.otus.changelog;
+package ru.otus.testchangelog;
 
 import com.github.cloudyrock.mongock.ChangeLog;
 import com.github.cloudyrock.mongock.ChangeSet;
@@ -19,5 +19,18 @@ public class InitMongoTestChangelog {
     template.save(TestHelper.AUTHOR_1);
     template.save(TestHelper.AUTHOR_2);
     template.save(TestHelper.AUTHOR_3);
+  }
+
+  @ChangeSet(order = "002", id = "initGenres", author = "fedorov", runAlways = true)
+  public void initGenres(MongockTemplate template) {
+    template.save(TestHelper.GENRE_1);
+    template.save(TestHelper.GENRE_2);
+    template.save(TestHelper.GENRE_3);
+  }
+
+  @ChangeSet(order = "003", id = "initBooks", author = "fedorov", runAlways = true)
+  public void initBooks(MongockTemplate template) {
+    template.save(TestHelper.BOOK_1);
+    template.save(TestHelper.BOOK_2);
   }
 }

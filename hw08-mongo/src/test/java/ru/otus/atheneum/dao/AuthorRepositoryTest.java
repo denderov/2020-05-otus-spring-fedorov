@@ -4,7 +4,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.util.Optional;
-import javax.validation.ConstraintViolationException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +23,9 @@ class AuthorRepositoryTest {
 
   @Autowired
   private AuthorRepository authorRepository;
+
+  @Autowired
+  private BookRepository bookRepository;
 
   @DisplayName("возвращает ожидаемого автора по id")
   @Test
@@ -59,7 +61,7 @@ class AuthorRepositoryTest {
   @DisplayName("удаляет автора и только его")
   @Test
   void shouldDeleteAuthor() {
-    authorRepository.delete(TestHelper.AUTHOR_3);
+    authorRepository.deleteWhenFree(TestHelper.AUTHOR_3);
     Iterable<Author> authors = authorRepository.findAll();
     assertThat(authors).doesNotContain(TestHelper.AUTHOR_3)
         .contains(TestHelper.AUTHOR_1, TestHelper.AUTHOR_2);
@@ -68,8 +70,8 @@ class AuthorRepositoryTest {
   @DisplayName("не удаляет автора, если на него есть ссылка")
   @Test
   void shouldNotDeleteLinkedAuthor() {
-    assertThatThrownBy(() -> authorRepository.delete(TestHelper.AUTHOR_1))
-        .hasCauseInstanceOf(ConstraintViolationException.class);
+    assertThatThrownBy(() -> authorRepository.deleteWhenFree(TestHelper.AUTHOR_1))
+        .isInstanceOf(AuthorRepositoryException.class);
   }
 
   @DisplayName("изменяет автора")
