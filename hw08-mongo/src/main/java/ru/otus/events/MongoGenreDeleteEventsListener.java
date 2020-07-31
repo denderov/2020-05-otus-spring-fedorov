@@ -20,11 +20,11 @@ public class MongoGenreDeleteEventsListener extends AbstractMongoEventListener<G
 
     @Override
     public void onBeforeDelete(BeforeDeleteEvent<Genre> event) {
+        super.onBeforeDelete(event);
         Document source = event.getSource();
         List<Book> booksByGenre = bookRepository.findByGenre_Id(source.get("_id").toString());
         if (booksByGenre.size() > 0) {
             throw new GenreRepositoryException("Нельзя удалить жанр у которого есть книги!");
         }
-        super.onBeforeDelete(event);
     }
 }
