@@ -23,4 +23,10 @@ public class Comment {
   private Book book;
 
   private String text;
+
+  public Comment(LocalDateTime dateTime, Book book, String text) {
+    this.dateTime = dateTime;
+    this.book = book;
+    this.text = text;
+  }
 }

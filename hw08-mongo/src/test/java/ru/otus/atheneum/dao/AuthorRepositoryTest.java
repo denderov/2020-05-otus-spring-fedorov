@@ -7,7 +7,6 @@ import java.util.Optional;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
@@ -18,14 +17,10 @@ import ru.otus.domain.Author;
 @DataMongoTest
 //ну нет роллбэка в монге :(
 @DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
-@EnableConfigurationProperties
 class AuthorRepositoryTest {
 
   @Autowired
   private AuthorRepository authorRepository;
-
-  @Autowired
-  private BookRepository bookRepository;
 
   @DisplayName("возвращает ожидаемого автора по id")
   @Test

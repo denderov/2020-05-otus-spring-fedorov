@@ -33,4 +33,10 @@ public class InitMongoTestChangelog {
     template.save(TestHelper.BOOK_1);
     template.save(TestHelper.BOOK_2);
   }
+
+  @ChangeSet(order = "004", id = "initComments", author = "fedorov", runAlways = true)
+  public void initComments(MongockTemplate template) {
+    template.save(TestHelper.COMMENT_1);
+    template.save(TestHelper.COMMENT_2);
+  }
 }
