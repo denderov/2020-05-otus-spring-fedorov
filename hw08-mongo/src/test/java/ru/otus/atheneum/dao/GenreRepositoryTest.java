@@ -10,14 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.annotation.DirtiesContext.ClassMode;
+import org.springframework.test.annotation.DirtiesContext.MethodMode;
 import ru.otus.atheneum.TestHelper;
 import ru.otus.domain.Genre;
 
 @DisplayName("Интерейс GenreRepository")
 @DataMongoTest
-//ну нет роллбэка в монге :(
-@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 @ComponentScan("ru.otus.events")
 class GenreRepositoryTest {
 
@@ -47,6 +45,7 @@ class GenreRepositoryTest {
 
   @DisplayName("добавляет жанр")
   @Test
+  @DirtiesContext(methodMode = MethodMode.AFTER_METHOD)
   void shouldInsertGenre() {
     Genre genreForSave = new Genre();
     String test_genre_20200625 = "Test_genre_20200625";
@@ -57,6 +56,7 @@ class GenreRepositoryTest {
 
   @DisplayName("удаляет жанр и только его")
   @Test
+  @DirtiesContext(methodMode = MethodMode.AFTER_METHOD)
   void shouldDeleteGenre() {
     genreRepository.delete(TestHelper.GENRE_3);
     Iterable<Genre> genres = genreRepository.findAll();
@@ -66,6 +66,7 @@ class GenreRepositoryTest {
 
   @DisplayName("не удаляет жанр, если на него есть ссылка")
   @Test
+  @DirtiesContext(methodMode = MethodMode.AFTER_METHOD)
   void shouldNotDeleteLinkedGenre() {
     Exception e = assertThrows(GenreRepositoryException.class,
         () -> genreRepository.delete(TestHelper.GENRE_1));
@@ -76,6 +77,7 @@ class GenreRepositoryTest {
 
   @DisplayName("изменяет жанр")
   @Test
+  @DirtiesContext(methodMode = MethodMode.AFTER_METHOD)
   void shouldUpdateGenre() {
     Genre genreFromDb = TestHelper.GENRE_1;
     Genre genreForUpdate = new Genre(genreFromDb.getId(), genreFromDb.getName());

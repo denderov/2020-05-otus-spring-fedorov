@@ -9,14 +9,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.annotation.DirtiesContext.ClassMode;
+import org.springframework.test.annotation.DirtiesContext.MethodMode;
 import ru.otus.atheneum.TestHelper;
 import ru.otus.domain.Comment;
 
 @DisplayName("Interface CommentRepository")
 @DataMongoTest
-//ну нет роллбэка в монге :(
-@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 class CommentRepositoryTest {
 
   @Autowired
@@ -45,6 +43,7 @@ class CommentRepositoryTest {
 
   @DisplayName("добавляет комментарий")
   @Test
+  @DirtiesContext(methodMode = MethodMode.AFTER_METHOD)
   void shouldInsertComment() {
     Comment commentForSave = new Comment();
     String test_comment_20200712 = "Test_comment_20200712";
@@ -56,6 +55,7 @@ class CommentRepositoryTest {
 
   @DisplayName("удаляет комментарий и только его")
   @Test
+  @DirtiesContext(methodMode = MethodMode.AFTER_METHOD)
   void shouldDeleteComment() {
     commentRepository.delete(TestHelper.COMMENT_1);
     Iterable<Comment> comments = commentRepository.findAll();
@@ -65,6 +65,7 @@ class CommentRepositoryTest {
 
   @DisplayName("изменяет комментарий")
   @Test
+  @DirtiesContext(methodMode = MethodMode.AFTER_METHOD)
   void shouldUpdateComment() {
     Comment commentFromDb = TestHelper.COMMENT_1;
     Comment commentForUpdate = new Comment(commentFromDb.getId(), LocalDateTime.now(),

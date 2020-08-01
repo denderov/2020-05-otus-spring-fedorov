@@ -8,14 +8,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.annotation.DirtiesContext.ClassMode;
+import org.springframework.test.annotation.DirtiesContext.MethodMode;
 import ru.otus.atheneum.TestHelper;
 import ru.otus.domain.Book;
 
 @DisplayName("Класс BookRepository")
 @DataMongoTest
-//ну нет роллбэка в монге :(
-@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 class BookRepositoryTest {
 
   @Autowired
@@ -45,6 +43,7 @@ class BookRepositoryTest {
 
   @DisplayName("добавляет книгу")
   @Test
+  @DirtiesContext(methodMode = MethodMode.AFTER_METHOD)
   void shouldInsertBook() {
     Book bookForSave = new Book();
     String test_book = "Test_book";
@@ -59,6 +58,7 @@ class BookRepositoryTest {
 
   @DisplayName("удаляет книгу и только ее со всеми комментариями")
   @Test
+  @DirtiesContext(methodMode = MethodMode.AFTER_METHOD)
   void shouldDeleteBookWithComments() {
     Iterable<Book> books = bookRepository.findAll();
     System.out.println(books);
@@ -69,6 +69,7 @@ class BookRepositoryTest {
 
   @DisplayName("изменяет книгу")
   @Test
+  @DirtiesContext(methodMode = MethodMode.AFTER_METHOD)
   void shouldUpdateBook() {
     Book bookFromDb = TestHelper.BOOK_1;
     Book bookForUpdate =

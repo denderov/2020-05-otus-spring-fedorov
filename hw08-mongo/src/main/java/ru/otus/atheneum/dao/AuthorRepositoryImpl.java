@@ -8,10 +8,10 @@ import ru.otus.domain.Book;
 public class AuthorRepositoryImpl implements AuthorRepositoryCustom {
 
   @Autowired
-  BookRepository bookRepository;
+  private BookRepository bookRepository;
 
   @Autowired
-  AuthorRepository authorRepository;
+  private AuthorRepository authorRepository;
 
   @Override
   public void deleteWhenFree(Author author) {

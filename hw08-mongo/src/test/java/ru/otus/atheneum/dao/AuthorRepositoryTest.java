@@ -9,14 +9,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.annotation.DirtiesContext.ClassMode;
+import org.springframework.test.annotation.DirtiesContext.MethodMode;
 import ru.otus.atheneum.TestHelper;
 import ru.otus.domain.Author;
 
 @DisplayName("Интерфейс AuthorRepository")
 @DataMongoTest
-//ну нет роллбэка в монге :(
-@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 class AuthorRepositoryTest {
 
   @Autowired
@@ -45,6 +43,7 @@ class AuthorRepositoryTest {
 
   @DisplayName("добавляет автора")
   @Test
+  @DirtiesContext(methodMode = MethodMode.AFTER_METHOD)
   void shouldInsertAuthor() {
     Author authorForSave = new Author();
     String fullName = "Test_author_20200625";
@@ -55,6 +54,7 @@ class AuthorRepositoryTest {
 
   @DisplayName("удаляет автора и только его")
   @Test
+  @DirtiesContext(methodMode = MethodMode.AFTER_METHOD)
   void shouldDeleteAuthor() {
     authorRepository.deleteWhenFree(TestHelper.AUTHOR_3);
     Iterable<Author> authors = authorRepository.findAll();
@@ -64,6 +64,7 @@ class AuthorRepositoryTest {
 
   @DisplayName("не удаляет автора, если на него есть ссылка")
   @Test
+  @DirtiesContext(methodMode = MethodMode.AFTER_METHOD)
   void shouldNotDeleteLinkedAuthor() {
     assertThatThrownBy(() -> authorRepository.deleteWhenFree(TestHelper.AUTHOR_1))
         .isInstanceOf(AuthorRepositoryException.class);
@@ -71,6 +72,7 @@ class AuthorRepositoryTest {
 
   @DisplayName("изменяет автора")
   @Test
+  @DirtiesContext(methodMode = MethodMode.AFTER_METHOD)
   void shouldUpdateAuthor() {
     Author authorFromDb = TestHelper.AUTHOR_1;
     Author authorForUpdate = new Author(authorFromDb.getId(), authorFromDb.getFullName());
