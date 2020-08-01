@@ -1,7 +1,9 @@
 package ru.otus.atheneum.dao;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
+import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -10,7 +12,9 @@ import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.MethodMode;
 import ru.otus.atheneum.TestHelper;
+import ru.otus.domain.Author;
 import ru.otus.domain.Book;
+import ru.otus.domain.Genre;
 
 @DisplayName("Класс BookRepository")
 @DataMongoTest
@@ -18,6 +22,12 @@ class BookRepositoryTest {
 
   @Autowired
   private BookRepository bookRepository;
+
+  @Autowired
+  private AuthorRepository authorRepository;
+
+  @Autowired
+  private GenreRepository genreRepository;
 
   @DisplayName("возвращает указанную книгу по id")
   @Test
@@ -83,5 +93,24 @@ class BookRepositoryTest {
     assertThat(actualBook).hasFieldOrPropertyWithValue("title", TestHelper.BOOK_TITLE_3)
         .hasFieldOrPropertyWithValue("author", TestHelper.AUTHOR_3)
         .hasFieldOrPropertyWithValue("genre", TestHelper.GENRE_3);
+  }
+
+  @DisplayName("добавляет книгу с новыми автором и жанром")
+  @Test
+  @DirtiesContext(methodMode = MethodMode.AFTER_METHOD)
+  void shouldInsertBookWithNewAuthorAndGenre() {
+    Book bookForSave = new Book();
+    String test_book = "Test_book";
+    bookForSave.setTitle(test_book);
+    bookForSave.setAuthor(new Author("New_author"));
+    bookForSave.setGenre(new Genre("New_genre"));
+    Book actualBook = bookRepository.save(bookForSave);
+
+    List<Author> authorList = authorRepository.findAllByFullName("New_author");
+    List<Genre> genreList = genreRepository.findAllByName("New_genre");
+
+    assertAll(() -> assertThat(actualBook).hasFieldOrPropertyWithValue("title", test_book),
+        () -> assertThat(authorList.size()).isEqualTo(1),
+        () -> assertThat(genreList.size()).isEqualTo(1));
   }
 }
