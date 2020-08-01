@@ -9,6 +9,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.MethodMode;
 import ru.otus.atheneum.TestHelper;
@@ -18,6 +19,7 @@ import ru.otus.domain.Genre;
 
 @DisplayName("Класс BookRepository")
 @DataMongoTest
+@ComponentScan("ru.otus.events")
 class BookRepositoryTest {
 
   @Autowired
