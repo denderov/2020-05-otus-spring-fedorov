@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Lazy;
 import ru.otus.domain.Author;
 import ru.otus.domain.Book;
 
-@RequiredArgsConstructor(onConstructor = @__({@Lazy}))
+@RequiredArgsConstructor(onConstructor_ = {@Lazy})
 public class AuthorRepositoryImpl implements AuthorRepositoryCustom {
 
   private final BookRepository bookRepository;

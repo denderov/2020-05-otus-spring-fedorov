@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Lazy;
 import ru.otus.domain.Book;
 
-@RequiredArgsConstructor(onConstructor = @__({@Lazy}))
+@RequiredArgsConstructor(onConstructor_ = {@Lazy})
 public class BookRepositoryImpl implements BookRepositoryCustom {
 
   final private BookRepository bookRepository;
