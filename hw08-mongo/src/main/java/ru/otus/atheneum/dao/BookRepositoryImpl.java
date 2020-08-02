@@ -1,15 +1,14 @@
 package ru.otus.atheneum.dao;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Lazy;
 import ru.otus.domain.Book;
 
+@RequiredArgsConstructor(onConstructor = @__({@Lazy}))
 public class BookRepositoryImpl implements BookRepositoryCustom {
 
-  @Autowired
-  private BookRepository bookRepository;
-
-  @Autowired
-  private CommentRepository commentRepository;
+  final private BookRepository bookRepository;
+  final private CommentRepository commentRepository;
 
   @Override
   public void deleteWithComments(Book book) {
