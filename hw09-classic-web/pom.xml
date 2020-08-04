@@ -45,6 +45,16 @@
       <artifactId>guava</artifactId>
       <version>${guava.version}</version>
     </dependency>
+    <dependency>
+      <groupId>org.webjars</groupId>
+      <artifactId>bootstrap</artifactId>
+      <version>4.5.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.webjars</groupId>
+      <artifactId>webjars-locator</artifactId>
+      <version>${webjars-locator.version}</version>
+    </dependency>
 
     <dependency>
       <groupId>com.github.cloudyrock.mongock</groupId>
@@ -88,6 +98,7 @@
     <spring-shell-starter.version>2.0.1.RELEASE</spring-shell-starter.version>
     <mongock-spring.version>4.1.2.BETA</mongock-spring.version>
     <modelmapper.version>2.3.8</modelmapper.version>
+    <webjars-locator.version>0.40</webjars-locator.version>
   </properties>
 
   <version>1.0-SNAPSHOT</version>
