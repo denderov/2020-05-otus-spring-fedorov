@@ -21,13 +21,13 @@ import ru.otus.domain.Comment;
 public class BookGeneralTest {
 
   @Autowired
-  BookService bookService;
+  private BookService bookService;
 
   @Autowired
-  BookRepository bookRepository;
+  private BookRepository bookRepository;
 
   @Autowired
-  CommentRepository commentRepository;
+  private CommentRepository commentRepository;
 
   @DisplayName("метод сервиса delete() удаляет книгу из репозитория со всеми комментариями")
   @Test
