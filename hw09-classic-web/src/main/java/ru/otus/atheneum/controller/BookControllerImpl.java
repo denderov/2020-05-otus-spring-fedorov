@@ -23,17 +23,20 @@ public class BookControllerImpl implements BookController {
   @Override
   @GetMapping("/")
   public String bookList(Model model) {
-    List<BookRow> books = bookService.getAll().stream().map(this::convertToDto)
+    List<BookRow> books = bookService.getAll().stream().map(this::convertEntityToDto)
         .collect(Collectors.toList());
     log.info(books.toString());
     model.addAttribute("books", books);
     return "books";
   }
 
-  private BookRow convertToDto(Book book) {
-    BookRow bookRow = modelMapper.map(book, BookRow.class);
-    bookRow.setAuthor(book.getAuthor().getFullName());
-    bookRow.setGenre(book.getGenre().getName());
-    return bookRow;
+  private BookRow convertEntityToDto(Book book) {
+    modelMapper.typeMap(Book.class, BookRow.class).addMappings(
+        mapper -> {
+          mapper.map(src -> src.getAuthor().getFullName(), BookRow::setAuthor);
+          mapper.map(src -> src.getGenre().getName(), BookRow::setGenre);
+        }
+    );
+    return modelMapper.map(book, BookRow.class);
   }
 }
