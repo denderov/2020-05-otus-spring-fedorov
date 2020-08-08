@@ -5,6 +5,8 @@
   <meta charset="UTF-8"/>
   <title>List of all books</title>
   <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css"/>
+  <script src="/webjars/jquery/jquery.min.js"></script>
+  <script src="/webjars/popper.js/umd/popper.min.js"></script>
   <script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
 </head>
 
@@ -18,7 +20,7 @@
       <th>Name</th>
       <th>Author</th>
       <th>Genre</th>
-      <th>Edit</th>
+      <th>Action</th>
     </tr>
     </thead>
     <tbody>
@@ -27,8 +29,19 @@
       <td th:text="${book.title}">title</td>
       <td th:text="${book.author}">author</td>
       <td th:text="${book.genre}">genre</td>
-      <td><a th:href="@{/edit(id=${book.id})}" href="edit.html">Edit</a></td>
-      <td><a th:href="@{/delete(id=${book.id})}" href="books.html">Edit</a></td>
+      <td>
+        <div class="dropdown">
+          <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+            Action
+          </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" th:href="@{/book/edit/{id}(id=${book.id})}"
+               href="edit_book.html">Edit</a>
+            <a class="dropdown-item" th:href="@{/book/delete/{id}(id=${book.id})}"
+               href="books.html">Delete</a>
+          </div>
+        </div>
+      </td>
     </tr>
     </tbody>
   </table>

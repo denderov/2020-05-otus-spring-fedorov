@@ -8,7 +8,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PathVariable;
 import ru.otus.atheneum.dto.BookRow;
 import ru.otus.atheneum.service.BookService;
 import ru.otus.domain.Book;
@@ -32,10 +32,10 @@ public class BookControllerImpl implements BookController {
   }
 
   @Override
-  @GetMapping("/delete")
-  public String deleteBook(Model model, @RequestParam("id") String id) {
+  @GetMapping("/book/delete/{id}")
+  public String deleteBook(Model model, @PathVariable("id") String id) {
     bookService.delete(id);
-    log.info(String.format("Удалена книга с id = %s", id));
+    log.info(String.format("Удаление книги с id = %s", id));
     return "books";
   }
 
