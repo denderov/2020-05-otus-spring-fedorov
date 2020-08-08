@@ -44,4 +44,9 @@ public class BookServiceImpl implements BookService {
     return bookRepository.findAll();
   }
 
+  @Override
+  public Optional<Book> getById(String id) {
+    return bookRepository.findById(id);
+  }
+
 }

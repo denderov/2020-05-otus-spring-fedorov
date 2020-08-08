@@ -16,8 +16,7 @@
   <table id="bookTable" class="table">
     <thead>
     <tr>
-      <th>ID</th>
-      <th>Name</th>
+      <th>Title</th>
       <th>Author</th>
       <th>Genre</th>
       <th>Action</th>
@@ -25,12 +24,11 @@
     </thead>
     <tbody>
     <tr th:each="book : ${books}">
-      <td th:text="${book.id}">1</td>
       <td th:text="${book.title}">title</td>
       <td th:text="${book.author}">author</td>
       <td th:text="${book.genre}">genre</td>
       <td>
-        <div class="dropdown">
+        <div class="dropdown dropleft">
           <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
             Action
           </button>

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.servlet.view.RedirectView;
 import ru.otus.atheneum.dto.BookRow;
 import ru.otus.atheneum.service.BookService;
 import ru.otus.domain.Book;
@@ -33,10 +34,21 @@ public class BookControllerImpl implements BookController {
 
   @Override
   @GetMapping("/book/delete/{id}")
-  public String deleteBook(Model model, @PathVariable("id") String id) {
+  public RedirectView deleteBook(Model model, @PathVariable("id") String id) {
     bookService.delete(id);
     log.info(String.format("Удаление книги с id = %s", id));
-    return "books";
+    return new RedirectView("/", true);
+  }
+
+  @Override
+  @GetMapping("/book/edit/{id}")
+  public String editBook(Model model, @PathVariable("id") String id) {
+    BookRow book = convertEntityToDto(
+        bookService.getById(id)
+            .orElseThrow(
+                () -> new BookControllerException("Нет книги по переданному идентификатору")));
+    model.addAttribute("book", book);
+    return "book_edit";
   }
 
   private BookRow convertEntityToDto(Book book) {

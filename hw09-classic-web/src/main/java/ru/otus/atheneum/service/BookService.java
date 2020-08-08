@@ -17,4 +17,6 @@ public interface BookService {
   void delete(String id);
 
   List<Book> getAll();
+
+  Optional<Book> getById(String id);
 }
