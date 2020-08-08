@@ -35,6 +35,11 @@ public class BookServiceImpl implements BookService {
   }
 
   @Override
+  public void delete(String id) {
+    bookRepository.deleteWithComments(id);
+  }
+
+  @Override
   public List<Book> getAll() {
     return bookRepository.findAll();
   }

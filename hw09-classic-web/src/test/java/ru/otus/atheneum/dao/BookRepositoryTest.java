@@ -79,6 +79,17 @@ class BookRepositoryTest {
     assertThat(books).containsExactly(TestHelper.BOOK_2);
   }
 
+  @DisplayName("удаляет книгу и только ее со всеми комментариями по ID")
+  @Test
+  @DirtiesContext(methodMode = MethodMode.AFTER_METHOD)
+  void shouldDeleteBookWithCommentsById() {
+    Iterable<Book> books = bookRepository.findAll();
+    System.out.println(books);
+    bookRepository.deleteWithComments(TestHelper.BOOK_1.getId());
+    books = bookRepository.findAll();
+    assertThat(books).containsExactly(TestHelper.BOOK_2);
+  }
+
   @DisplayName("изменяет книгу")
   @Test
   @DirtiesContext(methodMode = MethodMode.AFTER_METHOD)

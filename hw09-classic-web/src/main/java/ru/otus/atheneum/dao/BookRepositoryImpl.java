@@ -16,4 +16,10 @@ public class BookRepositoryImpl implements BookRepositoryCustom {
     commentRepository.deleteAllByBook(book);
     bookRepository.delete(book);
   }
+
+  @Override
+  public void deleteWithComments(String id) {
+    commentRepository.deleteAllByBookId(id);
+    bookRepository.deleteById(id);
+  }
 }
