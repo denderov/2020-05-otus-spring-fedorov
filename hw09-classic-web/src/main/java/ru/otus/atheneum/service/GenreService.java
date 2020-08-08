@@ -13,4 +13,6 @@ public interface GenreService {
   void delete(Genre genre);
 
   List<Genre> getAll();
+
+  Optional<Genre> getById(String id);
 }
