@@ -8,3 +8,8 @@ spring:
     change-logs-scan-package:
       - ru.otus.changelog
     runner-type: initializingbean
+server:
+  error:
+    include-message: always
+    include-exception: true
+    include-stacktrace: always
