@@ -3,9 +3,6 @@ spring:
     mongodb:
       port: 0
       database: test
-  shell:
-    interactive:
-      enabled: false
   mongock:
     change-logs-scan-package:
       - ru.otus.testchangelog
