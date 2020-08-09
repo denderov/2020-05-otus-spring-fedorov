@@ -18,6 +18,9 @@ public interface BookController {
   @GetMapping("/book/edit/{id}")
   String editBook(Model model, @PathVariable("id") String id);
 
+  @GetMapping("/book/edit/")
+  String createBook(Model model);
+
   @PostMapping("/book/edit/{id}")
   RedirectView savePerson(
       BookRow bookRow,

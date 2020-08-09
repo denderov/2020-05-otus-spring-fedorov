@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,10 +15,9 @@ import ru.otus.atheneum.dto.BookRow;
 import ru.otus.atheneum.dto.GenreRow;
 import ru.otus.atheneum.service.AuthorService;
 import ru.otus.atheneum.service.BookService;
+import ru.otus.atheneum.service.EntityConverter;
 import ru.otus.atheneum.service.GenreService;
-import ru.otus.domain.Author;
 import ru.otus.domain.Book;
-import ru.otus.domain.Genre;
 
 @Controller
 @Slf4j
@@ -29,12 +27,12 @@ public class BookControllerImpl implements BookController {
   private final BookService bookService;
   private final AuthorService authorService;
   private final GenreService genreService;
-  private final ModelMapper modelMapper;
+  private final EntityConverter entityConverter;
 
   @Override
   @GetMapping("/")
   public String bookList(Model model) {
-    List<BookRow> books = bookService.getAll().stream().map(this::convertEntityToDto)
+    List<BookRow> books = bookService.getAll().stream().map(entityConverter::convertBookEntityToDto)
         .collect(Collectors.toList());
     log.info(books.toString());
     model.addAttribute("books", books);
@@ -56,15 +54,16 @@ public class BookControllerImpl implements BookController {
         .orElseThrow(
             () -> new BookControllerException(
                 String.format("Нет книги по переданному идентификатору %s", id)));
-    BookRow bookRow = convertEntityToDto(book);
-    List<AuthorRow> authors = authorService.getAll().stream().map(this::convertAuthorEntityToDto)
-        .collect(Collectors.toList());
-    List<GenreRow> genres = genreService.getAll().stream().map(this::convertGenreEntityToDto)
-        .collect(Collectors.toList());
+    BookRow bookRow = entityConverter.convertBookEntityToDto(book);
+    prepareModelForEditMapping(model, bookRow);
+    return "book_edit";
+  }
 
-    model.addAttribute("book", bookRow);
-    model.addAttribute("authors", authors);
-    model.addAttribute("genres", genres);
+  @Override
+  @GetMapping("/book/edit")
+  public String createBook(Model model) {
+    BookRow bookRow = new BookRow();
+    prepareModelForEditMapping(model, bookRow);
     return "book_edit";
   }
 
@@ -75,48 +74,20 @@ public class BookControllerImpl implements BookController {
       Model model
   ) {
     log.info(bookRow.toString());
-    bookService.update(convertDtoToEntity(bookRow));
+    bookService.update(entityConverter.convertBookDtoToEntity(bookRow));
     return new RedirectView("/", true);
   }
 
-  private BookRow convertEntityToDto(Book book) {
-    modelMapper.typeMap(Book.class, BookRow.class).addMappings(
-        mapper -> {
-          mapper.map(src -> src.getAuthor().getFullName(), BookRow::setAuthor);
-          mapper.map(src -> src.getGenre().getName(), BookRow::setGenre);
-          mapper.map(src -> src.getAuthor().getId(), BookRow::setAuthorId);
-          mapper.map(src -> src.getGenre().getId(), BookRow::setGenreId);
-        }
-    );
-    return modelMapper.map(book, BookRow.class);
+  private void prepareModelForEditMapping(Model model, BookRow bookRow) {
+    List<AuthorRow> authors = authorService.getAll().stream()
+        .map(entityConverter::convertAuthorEntityToDto)
+        .collect(Collectors.toList());
+    List<GenreRow> genres = genreService.getAll().stream()
+        .map(entityConverter::convertGenreEntityToDto)
+        .collect(Collectors.toList());
+    model.addAttribute("book", bookRow);
+    model.addAttribute("authors", authors);
+    model.addAttribute("genres", genres);
   }
 
-  private Book convertDtoToEntity(BookRow bookRow) {
-    log.info(bookRow.getAuthorId());
-//    modelMapper.getConfiguration().setSkipNullEnabled(true);
-//    modelMapper.typeMap(BookRow.class,Book.class).addMappings(
-//        mapper -> {
-//          mapper.<String>map(src -> src.getAuthorId(),
-//              (dest,v) -> dest.setAuthor(authorService.getById(v).orElseThrow(
-//                    () -> new BookControllerException(
-//                        String.format("Не найден автор по переданному идентификатору %s", v)))));
-//          mapper.<String>map(src -> src.getGenreId(),
-//              (dest,v) -> dest.setGenre(genreService.getById((String) v).orElseThrow(
-//                  () -> new BookControllerException(
-//                      String.format("Не найден жанр по переданному идентификатору %s", v)))));
-//        }
-//    );
-    Book book = modelMapper.map(bookRow, Book.class);
-    book.setAuthor(authorService.getById(bookRow.getAuthorId()).orElseThrow());
-    book.setGenre(genreService.getById(bookRow.getGenreId()).orElseThrow());
-    return book;
-  }
-
-  private AuthorRow convertAuthorEntityToDto(Author author) {
-    return modelMapper.map(author, AuthorRow.class);
-  }
-
-  private GenreRow convertGenreEntityToDto(Genre genre) {
-    return modelMapper.map(genre, GenreRow.class);
-  }
 }
