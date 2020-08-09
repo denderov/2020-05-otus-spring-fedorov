@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8"/>
+  <title>List of all books</title>
+  <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css"/>
+  <script src="/webjars/jquery/jquery.min.js"></script>
+  <script src="/webjars/popper.js/umd/popper.min.js"></script>
+  <script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+<h1>List of books</h1>
+<div class="row col-md-7 table-responsive">
+  <table id="bookTable" class="table">
+    <thead>
+    <tr>
+      <th>Title</th>
+      <th>Author</th>
+      <th>Genre</th>
+      <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="book : ${books}">
+      <td th:text="${book.title}">title</td>
+      <td th:text="${book.author}">author</td>
+      <td th:text="${book.genre}">genre</td>
+      <td>
+        <div class="dropdown dropleft">
+          <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+            Action
+          </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" th:href="@{/book/edit/{id}(id=${book.id})}"
+               href="book_edit.html">Edit</a>
+            <a class="dropdown-item" th:href="@{/book/delete/{id}(id=${book.id})}"
+               href="books.html">Delete</a>
+          </div>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <a href="/book/edit" class="btn btn-primary btn-lg active" role="button"
+     aria-pressed="true">New</a>
+</div>
+</body>
+</html>
