@@ -30,7 +30,7 @@ public class BookController {
   private final EntityConverter entityConverter;
 
   @GetMapping("/")
-  public String bookList(Model model) {
+  public String showBookList(Model model) {
     List<BookRow> books = bookService.getAll().stream().map(entityConverter::convertBookEntityToDto)
         .collect(Collectors.toList());
     log.info(books.toString());
@@ -46,7 +46,7 @@ public class BookController {
   }
 
   @GetMapping("/book/edit/{id}")
-  public String editBook(Model model, @PathVariable("id") String id) {
+  public String showEditBookPage(Model model, @PathVariable("id") String id) {
     Book book = bookService.getById(id)
         .orElseThrow(
             () -> new BookControllerException(
@@ -57,7 +57,7 @@ public class BookController {
   }
 
   @GetMapping("/book/edit")
-  public String createBook(Model model) {
+  public String showCreateBookPage(Model model) {
     BookRow bookRow = new BookRow();
     prepareModelForEditMapping(model, bookRow);
     return "book_edit";
