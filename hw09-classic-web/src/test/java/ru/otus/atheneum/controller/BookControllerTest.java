@@ -2,8 +2,6 @@ package ru.otus.atheneum.controller;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -11,32 +9,39 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.data.mongo.AutoConfigureDataMongo;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.ui.Model;
 import ru.otus.atheneum.TestHelper;
+import ru.otus.atheneum.service.AuthorService;
 import ru.otus.atheneum.service.BookService;
+import ru.otus.atheneum.service.EntityConverter;
+import ru.otus.atheneum.service.EntityConverterImpl;
+import ru.otus.atheneum.service.GenreService;
+import ru.otus.config.WebConfig;
 
-@SpringBootTest
-@AutoConfigureMockMvc
+@WebMvcTest(value = BookController.class)
+@AutoConfigureDataMongo
+@Import({EntityConverterImpl.class, WebConfig.class})
 @DisplayName("Класс BookController ")
 public class BookControllerTest {
 
   @Autowired
   private MockMvc mvc;
 
-  //наверное, нужно юнит тесты класть отдельно, но чтобы код не раздувать, оставим здесь
-  //заодно проверим, как такие тесты вместе уживаются.
-  @Autowired
-  private BookController bookController;
-
   @MockBean
   private BookService bookService;
 
   @MockBean
-  private Model model;
+  private AuthorService authorService;
+
+  @MockBean
+  private GenreService genreService;
+
+  @Autowired
+  private EntityConverter entityConverter;
 
   @Test
   @DisplayName("корректно отражает список книг")
@@ -50,14 +55,5 @@ public class BookControllerTest {
         .andExpect(content().string(containsString("Test_book_2")))
         .andExpect(content().string(containsString("Test_author_2")))
         .andExpect(content().string(containsString("Test_genre_2")));
-  }
-
-  @Test
-  @DisplayName("корректно вызывает удаление книги")
-  void shouldCorrectDeleteBook() {
-    String test_id = TestHelper.BOOK_1.getId();
-    bookController.deleteBook(model, test_id);
-    verify(bookService, times(1))
-        .delete(test_id);
   }
 }
