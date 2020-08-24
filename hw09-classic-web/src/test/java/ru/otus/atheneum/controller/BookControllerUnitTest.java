@@ -39,7 +39,7 @@ public class BookControllerUnitTest {
     BookController bookController = new BookController(bookService, authorService,
         genreService, new EntityConverterImpl(authorService, genreService, new ModelMapper()));
     String test_id = TestHelper.BOOK_1.getId();
-    bookController.deleteBook(model, test_id);
+    bookController.deleteBookById(model, test_id);
     verify(bookService, times(1))
         .delete(test_id);
   }

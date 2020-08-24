@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,8 +39,8 @@ public class BookController {
     return "books";
   }
 
-  @GetMapping("/book/delete/{id}")
-  public RedirectView deleteBook(Model model, @PathVariable("id") String id) {
+  @DeleteMapping("/book/{id}")
+  public RedirectView deleteBookById(Model model, @PathVariable("id") String id) {
     bookService.delete(id);
     log.info(String.format("Удаление книги с id = %s", id));
     return new RedirectView("/", true);

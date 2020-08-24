@@ -8,6 +8,7 @@
   <script src="/webjars/jquery/jquery.min.js"></script>
   <script src="/webjars/popper.js/umd/popper.min.js"></script>
   <script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+  <script type="text/javascript" th:src="@{/js/app.js}"></script>
 </head>
 
 <body>
@@ -35,8 +36,9 @@
           <div class="dropdown-menu">
             <a class="dropdown-item" th:href="@{/book/edit/{id}(id=${book.id})}"
                href="book_edit.html">Edit</a>
-            <a class="dropdown-item" th:href="@{/book/delete/{id}(id=${book.id})}"
-               href="books.html">Delete</a>
+            <div class="delete-book" th:id="${book.id}">
+              <a class="dropdown-item" href="#">Delete</a>
+            </div>
           </div>
         </div>
       </td>
