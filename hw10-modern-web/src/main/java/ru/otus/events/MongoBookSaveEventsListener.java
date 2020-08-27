@@ -13,17 +13,17 @@ import ru.otus.domain.Book;
 @RequiredArgsConstructor
 public class MongoBookSaveEventsListener extends AbstractMongoEventListener<Book> {
 
-  private final BookRepository bookRepository;
+    private final BookRepository bookRepository;
 
-  private final AuthorRepository authorRepository;
+    private final AuthorRepository authorRepository;
 
-  private final GenreRepository genreRepository;
+    private final GenreRepository genreRepository;
 
-  @Override
-  public void onBeforeSave(BeforeSaveEvent<Book> event) {
-    super.onBeforeSave(event);
-    var book = event.getSource();
-    authorRepository.save(book.getAuthor());
-    genreRepository.save(book.getGenre());
-  }
+    @Override
+    public void onBeforeSave(BeforeSaveEvent<Book> event) {
+        super.onBeforeSave(event);
+        var book = event.getSource();
+        authorRepository.save(book.getAuthor());
+        genreRepository.save(book.getGenre());
+    }
 }
