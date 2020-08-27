@@ -30,6 +30,7 @@
     <module>hw02-annotation-based</module>
     <module>hw03-spring-boot</module>
     <module>hw08-mongo</module>
+    <module>hw09-classic-web</module>
   </modules>
 
   <packaging>pom</packaging>
