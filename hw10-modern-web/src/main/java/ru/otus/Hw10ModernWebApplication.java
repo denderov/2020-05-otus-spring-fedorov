@@ -8,10 +8,10 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 @EnableMongock
 @SpringBootApplication
 @EnableConfigurationProperties
-public class Hw09ClassicWebApplication {
+public class Hw10ModernWebApplication {
 
   public static void main(String[] args) {
-    SpringApplication.run(Hw09ClassicWebApplication.class, args);
+    SpringApplication.run(Hw10ModernWebApplication.class, args);
   }
 
 }
