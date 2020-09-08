@@ -14,8 +14,8 @@
 
 <body>
 <h1>List of books</h1>
-<div class="row col-md-7 table-responsive">
-  <table id="bookTable" class="table">
+<div class="row col-md-7 table-responsive bookTable">
+  <table class="table">
     <thead>
     <tr>
       <th>Title</th>
@@ -24,12 +24,32 @@
       <th>Action</th>
     </tr>
     </thead>
-    <tbody id="table_content">
+    <tbody id="tableContent">
 
     </tbody>
   </table>
-  <a href="/book/edit" class="btn btn-primary btn-lg active" role="button"
+  <a href="#" class="btn btn-primary btn-lg active new-book" role="button"
      aria-pressed="true">New</a>
 </div>
+
+<form id="editForm" style="display: none;">
+  <div class="form-group">
+    <input id="id" name="id" type="hidden" class="form-control">
+    <label for="title">Title</label>
+    <input id="title" name="title" type="text" class="form-control" placeholder="Enter title">
+  </div>
+  <div class="form-group">
+    <label for="author">Author</label>
+    <select name="authorId" id="author">
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="genre">Genre</label>
+    <select name="genreId" id="genre">
+    </select>
+  </div>
+  <button type="submit" class="btn btn-primary save-book">Save</button>
+</form>
+
 </body>
 </html>
