@@ -22,6 +22,7 @@ public class EntityConverterImpl implements EntityConverter {
 
   @Override
   public BookRow convertBookEntityToDto(Book book) {
+    log.info(book.toString());
     modelMapper.typeMap(Book.class, BookRow.class).addMappings(
         mapper -> {
           mapper.map(src -> src.getAuthor().getFullName(), BookRow::setAuthor);

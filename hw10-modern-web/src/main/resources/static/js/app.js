@@ -47,7 +47,7 @@ function showAllBooks(json) {
 
   $(".new-book").click(function () {
     $(".bookTable").hide();
-    showEditor(null);
+    showNewEditor();
   });
 
   $(".delete-book").click(function () {
@@ -69,7 +69,13 @@ function showEditor(book_id) {
   $('#editForm').show();
 }
 
+function showNewEditor() {
+  fillBookEditor(JSON.stringify({}))
+  $('#editForm').show();
+}
+
 function fillBookEditor(json) {
+  var tst = json["title"];
   $('#id').empty().attr("value", json["id"]);
   $('#title').empty().attr("value", json["title"]);
   $('#author').empty().attr("value", json["authorId"]);
@@ -79,8 +85,9 @@ function fillBookEditor(json) {
       "/api/authors",
       function (authorJson) {
         for (var i = 0; i < Object.keys(authorJson).length; i++) {
-          $('#author').append('<option value="' + authorJson[i]["id"] + '">'
-              + authorJson[i]["fullName"] + '</option>');
+          $('#author').append('<option value="' + authorJson[i]["id"] + '\"' +
+              ((json["authorId"] == authorJson[i]["id"]) ? ' selected' : '')
+              + '>' + authorJson[i]["fullName"] + '</option>');
         }
       }
   );
@@ -89,7 +96,9 @@ function fillBookEditor(json) {
       "/api/genres",
       function (genreJson) {
         for (var i = 0; i < Object.keys(genreJson).length; i++) {
-          $('#genre').append('<option value="' + genreJson[i]["id"] + '">'
+          $('#genre').append('<option value="' + genreJson[i]["id"] + '\"' +
+              ((json["genreId"] == genreJson[i]["id"]) ? ' selected' : '')
+              + '>'
               + genreJson[i]["name"] + '</option>');
         }
       }

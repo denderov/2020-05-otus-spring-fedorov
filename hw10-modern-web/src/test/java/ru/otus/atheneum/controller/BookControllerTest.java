@@ -8,24 +8,20 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.AutoConfigureDataMongo;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Import;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import ru.otus.atheneum.TestHelper;
 import ru.otus.atheneum.service.AuthorService;
 import ru.otus.atheneum.service.BookService;
 import ru.otus.atheneum.service.EntityConverter;
-import ru.otus.atheneum.service.EntityConverterImpl;
 import ru.otus.atheneum.service.GenreService;
-import ru.otus.config.WebConfig;
 
-@WebMvcTest(value = BookController.class)
 @AutoConfigureDataMongo
-@Import({EntityConverterImpl.class, WebConfig.class})
-@DisplayName("Класс BookController ")
+@RunWith(SpringRunner.class)
 public class BookControllerTest {
 
   @Autowired
@@ -47,7 +43,7 @@ public class BookControllerTest {
   @DisplayName("корректно отражает список книг")
   void shouldCorrectShowBooks() throws Exception {
     given(bookService.getAll()).willReturn(TestHelper.BOOKS);
-    this.mvc.perform(get("/"))
+    this.mvc.perform(get("/api/books"))
         .andExpect(status().isOk())
         .andExpect(content().string(containsString("Test_book_1")))
         .andExpect(content().string(containsString("Test_author_1")))

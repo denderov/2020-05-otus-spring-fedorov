@@ -35,13 +35,6 @@ public class BookController {
     return books;
   }
 
-  @GetMapping("/api/book/{id}")
-  public BookRow showBookById(@PathVariable("id") String id) {
-    BookRow book = entityConverter.convertBookEntityToDto(bookService.getById(id).orElseThrow());
-    log.info(String.format("Возврат книги с id = %s", id));
-    return book;
-  }
-
   @GetMapping("/api/authors")
   public List<AuthorRow> showAuthors() {
     List<AuthorRow> authors = authorService.getAll().stream()
@@ -60,6 +53,13 @@ public class BookController {
     return genres;
   }
 
+  @GetMapping("/api/book/{id}")
+  public BookRow showBookById(@PathVariable("id") String id) {
+    BookRow book = entityConverter.convertBookEntityToDto(bookService.getById(id).orElseThrow());
+    log.info(String.format("Возврат книги с id = %s", id));
+    return book;
+  }
+
   @DeleteMapping("/api/book/{id}")
   public String deleteBookById(@PathVariable("id") String id) {
     bookService.delete(id);
@@ -73,45 +73,5 @@ public class BookController {
     log.info(String.format("Сохранение книги %s", bookRow));
     return "Book saved";
   }
-//
-//  @GetMapping("/book/edit/{id}")
-//  public String showEditBookPage(Model model, @PathVariable("id") String id) {
-//    Book book = bookService.getById(id)
-//        .orElseThrow(
-//            () -> new BookControllerException(
-//                String.format("Нет книги по переданному идентификатору %s", id)));
-//    BookRow bookRow = entityConverter.convertBookEntityToDto(book);
-//    prepareModelForEditMapping(model, bookRow);
-//    return "book_edit";
-//  }
-//
-//  @GetMapping("/book/edit")
-//  public String showCreateBookPage(Model model) {
-//    BookRow bookRow = new BookRow();
-//    prepareModelForEditMapping(model, bookRow);
-//    return "book_edit";
-//  }
-//
-//  @PostMapping("/book/edit")
-//  public RedirectView savePerson(
-//      BookRow bookRow,
-//      Model model
-//  ) {
-//    log.info(bookRow.toString());
-//    bookService.update(entityConverter.convertBookDtoToEntity(bookRow));
-//    return new RedirectView("/", true);
-//  }
-
-//  private void prepareModelForEditMapping(Model model, BookRow bookRow) {
-//    List<AuthorRow> authors = authorService.getAll().stream()
-//        .map(entityConverter::convertAuthorEntityToDto)
-//        .collect(Collectors.toList());
-//    List<GenreRow> genres = genreService.getAll().stream()
-//        .map(entityConverter::convertGenreEntityToDto)
-//        .collect(Collectors.toList());
-//    model.addAttribute("book", bookRow);
-//    model.addAttribute("authors", authors);
-//    model.addAttribute("genres", genres);
-//  }
 
 }
