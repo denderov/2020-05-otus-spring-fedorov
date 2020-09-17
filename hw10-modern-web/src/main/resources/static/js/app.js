@@ -77,12 +77,11 @@ function showNewEditor() {
 function fillBookEditor(json) {
   $('#id').empty().attr("value", json["id"]);
   $('#title').empty().attr("value", json["title"]).val(json["title"]);
-  $('#author').empty().attr("value", json["authorId"]);
-  $('#genre').empty().attr("value", json["genreId"]);
 
   $.get(
       "/api/authors",
       function (authorJson) {
+        $('#author').empty();
         for (var i = 0; i < Object.keys(authorJson).length; i++) {
           $('#author').append('<option value="' + authorJson[i]["id"] + '\"' +
               ((json["authorId"] == authorJson[i]["id"]) ? ' selected' : '')
@@ -94,6 +93,7 @@ function fillBookEditor(json) {
   $.get(
       "/api/genres",
       function (genreJson) {
+        $('#genre').empty();
         for (var i = 0; i < Object.keys(genreJson).length; i++) {
           $('#genre').append('<option value="' + genreJson[i]["id"] + '\"' +
               ((json["genreId"] == genreJson[i]["id"]) ? ' selected' : '')
@@ -103,7 +103,8 @@ function fillBookEditor(json) {
       }
   );
 
-  $('#editForm').submit(function (e) {
+  // $('#editForm').submit(function (e) {
+  $('#editForm').off().on('click', function (e) {
     e.preventDefault();
     $.post("api/book",
         $(this).serialize()).done(function (data) {
