@@ -76,7 +76,7 @@ function showNewEditor() {
 
 function fillBookEditor(json) {
   $('#id').empty().attr("value", json["id"]);
-  $('#title').empty().attr("value", json["title"]);
+  $('#title').empty().attr("value", json["title"]).val(json["title"]);
   $('#author').empty().attr("value", json["authorId"]);
   $('#genre').empty().attr("value", json["genreId"]);
 
