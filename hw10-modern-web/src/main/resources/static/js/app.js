@@ -75,7 +75,6 @@ function showNewEditor() {
 }
 
 function fillBookEditor(json) {
-  var tst = json["title"];
   $('#id').empty().attr("value", json["id"]);
   $('#title').empty().attr("value", json["title"]);
   $('#author').empty().attr("value", json["authorId"]);
@@ -107,12 +106,12 @@ function fillBookEditor(json) {
   $('#editForm').submit(function (e) {
     e.preventDefault();
     $.post("api/book",
-        $(this).serialize());
+        $(this).serialize()).done(function (data) {
+      $.get(
+          "/api/books",
+          showAllBooks
+      );
+    });
     $('#editForm').hide();
-
-    $.get(
-        "/api/books",
-        showAllBooks
-    );
   });
 }
