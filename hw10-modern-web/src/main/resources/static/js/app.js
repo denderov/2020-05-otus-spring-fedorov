@@ -59,6 +59,19 @@ function showAllBooks(json) {
     $(this).closest("tr").remove();
   });
 
+  // $('#editForm').off().on('click', function (e) {
+  $(".save-book").click(function () {
+    // e.preventDefault();
+    $.post("api/book",
+        $(this).serialize()).done(function (data) {
+      $.get(
+          "/api/books",
+          showAllBooks
+      );
+    });
+    $('#editForm').hide();
+  });
+
 }
 
 function showEditor(book_id) {
@@ -103,8 +116,7 @@ function fillBookEditor(json) {
       }
   );
 
-  // $('#editForm').submit(function (e) {
-  $('#editForm').off().on('click', function (e) {
+  $('#editForm').off().on('submit', function (e) {
     e.preventDefault();
     $.post("api/book",
         $(this).serialize()).done(function (data) {
@@ -115,4 +127,5 @@ function fillBookEditor(json) {
     });
     $('#editForm').hide();
   });
+
 }
