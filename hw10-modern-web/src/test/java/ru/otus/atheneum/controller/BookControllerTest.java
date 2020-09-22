@@ -8,36 +8,29 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.AutoConfigureDataMongo;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.web.servlet.MockMvc;
 import ru.otus.atheneum.TestHelper;
-import ru.otus.atheneum.service.AuthorService;
 import ru.otus.atheneum.service.BookService;
 import ru.otus.atheneum.service.EntityConverter;
-import ru.otus.atheneum.service.GenreService;
 
 @AutoConfigureDataMongo
-@RunWith(SpringRunner.class)
+@WebMvcTest
+@ComponentScan({"ru.otus.config", "ru.otus.atheneum.service"})
 public class BookControllerTest {
 
   @Autowired
   private MockMvc mvc;
 
-  @MockBean
-  private BookService bookService;
-
-  @MockBean
-  private AuthorService authorService;
-
-  @MockBean
-  private GenreService genreService;
-
   @Autowired
   private EntityConverter entityConverter;
+
+  @MockBean
+  private BookService bookService;
 
   @Test
   @DisplayName("корректно отражает список книг")
