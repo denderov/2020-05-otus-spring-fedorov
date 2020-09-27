@@ -53,7 +53,7 @@ function showAllBooks(json) {
   $(".delete-book").click(function () {
     var book_id = $(this).attr('id');
     $.ajax({
-      url: "/api/book/" + book_id,
+      url: "/api/books/" + book_id,
       type: "DELETE"
     })
     $(this).closest("tr").remove();
@@ -62,7 +62,7 @@ function showAllBooks(json) {
   // $('#editForm').off().on('click', function (e) {
   $(".save-book").click(function () {
     // e.preventDefault();
-    $.post("api/book",
+    $.post("api/books",
         $(this).serialize()).done(function (data) {
       $.get(
           "/api/books",
@@ -76,7 +76,7 @@ function showAllBooks(json) {
 
 function showEditor(book_id) {
   $.get(
-      "/api/book/" + book_id,
+      "/api/books/" + book_id,
       fillBookEditor
   );
   $('#editForm').show();
@@ -118,7 +118,7 @@ function fillBookEditor(json) {
 
   $('#editForm').off().on('submit', function (e) {
     e.preventDefault();
-    $.post("api/book",
+    $.post("api/books",
         $(this).serialize()).done(function (data) {
       $.get(
           "/api/books",

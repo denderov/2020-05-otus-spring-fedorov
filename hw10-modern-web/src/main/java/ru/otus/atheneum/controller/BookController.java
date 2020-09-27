@@ -53,21 +53,21 @@ public class BookController {
     return genres;
   }
 
-  @GetMapping("/api/book/{id}")
+  @GetMapping("/api/books/{id}")
   public BookRow showBookById(@PathVariable("id") String id) {
     BookRow book = entityConverter.convertBookEntityToDto(bookService.getById(id).orElseThrow());
     log.info(String.format("Возврат книги с id = %s", id));
     return book;
   }
 
-  @DeleteMapping("/api/book/{id}")
+  @DeleteMapping("/api/books/{id}")
   public String deleteBookById(@PathVariable("id") String id) {
     bookService.delete(id);
     log.info(String.format("Удаление книги с id = %s", id));
     return "Book deleted";
   }
 
-  @PostMapping("/api/book")
+  @PostMapping("/api/books")
   public String saveBook(BookRow bookRow) {
     bookService.update(entityConverter.convertBookDtoToEntity(bookRow));
     log.info(String.format("Сохранение книги %s", bookRow));
