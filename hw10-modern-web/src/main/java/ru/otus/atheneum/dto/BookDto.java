@@ -3,7 +3,7 @@ package ru.otus.atheneum.dto;
 import lombok.Data;
 
 @Data
-public class BookRow {
+public class BookDto {
 
   private String id;
   private String title;

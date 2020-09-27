@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.otus.atheneum.dto.AuthorRow;
-import ru.otus.atheneum.dto.BookRow;
-import ru.otus.atheneum.dto.GenreRow;
+import ru.otus.atheneum.dto.AuthorDto;
+import ru.otus.atheneum.dto.BookDto;
+import ru.otus.atheneum.dto.GenreDto;
 import ru.otus.atheneum.service.AuthorService;
 import ru.otus.atheneum.service.BookService;
 import ru.otus.atheneum.service.EntityConverter;
@@ -28,16 +28,16 @@ public class BookController {
   private final EntityConverter entityConverter;
 
   @GetMapping("/api/books")
-  public List<BookRow> showBookList() {
-    List<BookRow> books = bookService.getAll().stream().map(entityConverter::convertBookEntityToDto)
+  public List<BookDto> showBookList() {
+    List<BookDto> books = bookService.getAll().stream().map(entityConverter::convertBookEntityToDto)
         .collect(Collectors.toList());
     log.info(books.toString());
     return books;
   }
 
   @GetMapping("/api/authors")
-  public List<AuthorRow> showAuthors() {
-    List<AuthorRow> authors = authorService.getAll().stream()
+  public List<AuthorDto> showAuthors() {
+    List<AuthorDto> authors = authorService.getAll().stream()
         .map(entityConverter::convertAuthorEntityToDto)
         .collect(Collectors.toList());
     log.info(authors.toString());
@@ -45,8 +45,8 @@ public class BookController {
   }
 
   @GetMapping("/api/genres")
-  public List<GenreRow> showGenres() {
-    List<GenreRow> genres = genreService.getAll().stream()
+  public List<GenreDto> showGenres() {
+    List<GenreDto> genres = genreService.getAll().stream()
         .map(entityConverter::convertGenreEntityToDto)
         .collect(Collectors.toList());
     log.info(genres.toString());
@@ -54,8 +54,8 @@ public class BookController {
   }
 
   @GetMapping("/api/books/{id}")
-  public BookRow showBookById(@PathVariable("id") String id) {
-    BookRow book = entityConverter.convertBookEntityToDto(bookService.getById(id).orElseThrow());
+  public BookDto showBookById(@PathVariable("id") String id) {
+    BookDto book = entityConverter.convertBookEntityToDto(bookService.getById(id).orElseThrow());
     log.info(String.format("Возврат книги с id = %s", id));
     return book;
   }
@@ -68,9 +68,9 @@ public class BookController {
   }
 
   @PostMapping("/api/books")
-  public String saveBook(BookRow bookRow) {
-    bookService.update(entityConverter.convertBookDtoToEntity(bookRow));
-    log.info(String.format("Сохранение книги %s", bookRow));
+  public String saveBook(BookDto bookDto) {
+    bookService.update(entityConverter.convertBookDtoToEntity(bookDto));
+    log.info(String.format("Сохранение книги %s", bookDto));
     return "Book saved";
   }
 
