@@ -83,13 +83,14 @@ function showEditor(book_id) {
 }
 
 function showNewEditor() {
-  fillBookEditor(JSON.stringify({}))
   $('#editForm').show();
+  fillBookEditor(JSON.stringify({}));
 }
 
 function fillBookEditor(json) {
-  $('#id').empty().attr("value", json["id"]);
-  $('#title').empty().attr("value", json["title"]).val(json["title"]);
+  $('#id').empty().attr("value", null).attr("value", json["id"]);
+  $('#title').empty().attr("value", null).attr("value", json["title"]).val(
+      json["title"]);
 
   $.get(
       "/api/authors",
