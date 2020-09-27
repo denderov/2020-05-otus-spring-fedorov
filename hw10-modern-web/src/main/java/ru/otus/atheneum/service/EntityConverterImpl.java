@@ -1,5 +1,7 @@
 package ru.otus.atheneum.service;
 
+import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -52,5 +54,32 @@ public class EntityConverterImpl implements EntityConverter {
   @Override
   public GenreDto convertGenreEntityToDto(Genre genre) {
     return modelMapper.map(genre, GenreDto.class);
+  }
+
+  @Override
+  public List<BookDto> convertBookEntitiesToDto(List<Book> books) {
+    return books.stream().map(this::convertBookEntityToDto)
+        .collect(Collectors.toList());
+  }
+
+  @Override
+  public List<Book> convertBooksDtoToEntities(List<BookDto> booksDto) {
+    return booksDto.stream()
+        .map(this::convertBookDtoToEntity)
+        .collect(Collectors.toList());
+  }
+
+  @Override
+  public List<AuthorDto> convertAuthorEntitiesToDto(List<Author> authors) {
+    return authors.stream()
+        .map(this::convertAuthorEntityToDto)
+        .collect(Collectors.toList());
+  }
+
+  @Override
+  public List<GenreDto> convertGenreEntitiesToDto(List<Genre> genres) {
+    return genres.stream()
+        .map(this::convertGenreEntityToDto)
+        .collect(Collectors.toList());
   }
 }

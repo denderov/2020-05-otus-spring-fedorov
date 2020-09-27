@@ -1,7 +1,6 @@
 package ru.otus.atheneum.controller;
 
 import java.util.List;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -29,26 +28,21 @@ public class BookController {
 
   @GetMapping("/api/books")
   public List<BookDto> showBookList() {
-    List<BookDto> books = bookService.getAll().stream().map(entityConverter::convertBookEntityToDto)
-        .collect(Collectors.toList());
+    List<BookDto> books = entityConverter.convertBookEntitiesToDto(bookService.getAll());
     log.info(books.toString());
     return books;
   }
 
   @GetMapping("/api/authors")
   public List<AuthorDto> showAuthors() {
-    List<AuthorDto> authors = authorService.getAll().stream()
-        .map(entityConverter::convertAuthorEntityToDto)
-        .collect(Collectors.toList());
+    List<AuthorDto> authors = entityConverter.convertAuthorEntitiesToDto(authorService.getAll());
     log.info(authors.toString());
     return authors;
   }
 
   @GetMapping("/api/genres")
   public List<GenreDto> showGenres() {
-    List<GenreDto> genres = genreService.getAll().stream()
-        .map(entityConverter::convertGenreEntityToDto)
-        .collect(Collectors.toList());
+    List<GenreDto> genres = entityConverter.convertGenreEntitiesToDto(genreService.getAll());
     log.info(genres.toString());
     return genres;
   }
