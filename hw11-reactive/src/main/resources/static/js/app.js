@@ -1,7 +1,7 @@
 $(document).ready(function () {
 
   $.get(
-      "/api/books",
+      "/api/flux/books",
       showAllBooks
   );
 });
@@ -52,7 +52,7 @@ function showAllBooks(json) {
   $(".delete-book").click(function () {
     var book_id = $(this).attr('id');
     $.ajax({
-      url: "/api/books/" + book_id,
+      url: "/api/flux/books/" + book_id,
       type: "DELETE"
     })
     $(this).closest("tr").remove();
@@ -61,10 +61,10 @@ function showAllBooks(json) {
   // $('#editForm').off().on('click', function (e) {
   $(".save-book").click(function () {
     // e.preventDefault();
-    $.post("api/books",
+    $.post("api/flux/books",
         $(this).serialize()).done(function (data) {
       $.get(
-          "/api/books",
+          "/api/flux/books",
           showAllBooks
       );
     });
@@ -75,7 +75,7 @@ function showAllBooks(json) {
 
 function showEditor(book_id) {
   $.get(
-      "/api/books/" + book_id,
+      "/api/flux/books/" + book_id,
       fillBookEditor
   );
   $('#editForm').show();
@@ -92,7 +92,7 @@ function fillBookEditor(json) {
       json["title"]);
 
   $.get(
-      "/api/authors",
+      "/api/flux/authors",
       function (authorJson) {
         $('#author').empty();
         for (var i = 0; i < Object.keys(authorJson).length; i++) {
@@ -104,7 +104,7 @@ function fillBookEditor(json) {
   );
 
   $.get(
-      "/api/genres",
+      "/api/flux/genres",
       function (genreJson) {
         $('#genre').empty();
         for (var i = 0; i < Object.keys(genreJson).length; i++) {
@@ -118,10 +118,10 @@ function fillBookEditor(json) {
 
   $('#editForm').off().on('submit', function (e) {
     e.preventDefault();
-    $.post("api/books",
+    $.post("api/flux/books",
         $(this).serialize()).done(function (data) {
       $.get(
-          "/api/books",
+          "/api/flux/books",
           showAllBooks
       );
     });
