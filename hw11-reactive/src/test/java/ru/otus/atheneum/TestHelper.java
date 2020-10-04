@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.List;
 import lombok.experimental.UtilityClass;
+import ru.otus.atheneum.dto.BookDto;
 import ru.otus.domain.Author;
 import ru.otus.domain.Book;
 import ru.otus.domain.Comment;
@@ -67,4 +68,8 @@ public class TestHelper {
   public final Comment COMMENT_3 = new Comment(COMMENT_ID_3, COMMENT_DATE_TIME_3, BOOK_2,
       COMMENT_TEXT_3);
 
+  public final BookDto BOOK_DTO_1 = new BookDto(BOOK_ID_1, BOOK_TITLE_1, AUTHOR_ID_1,
+      AUTHOR_FULL_NAME_1, GENRE_ID_1, GENRE_NAME_1);
+  public static final BookDto BOOK_DTO_2 = new BookDto(BOOK_ID_2, BOOK_TITLE_2, AUTHOR_ID_2,
+      AUTHOR_FULL_NAME_2, GENRE_ID_2, GENRE_NAME_2);
 }

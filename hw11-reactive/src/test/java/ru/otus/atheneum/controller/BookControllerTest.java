@@ -16,7 +16,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.web.servlet.MockMvc;
 import ru.otus.atheneum.TestHelper;
 import ru.otus.atheneum.service.BookService;
-import ru.otus.atheneum.service.EntityConverter;
 
 @AutoConfigureDataMongo
 @WebMvcTest
@@ -25,9 +24,6 @@ public class BookControllerTest {
 
   @Autowired
   private MockMvc mvc;
-
-  @Autowired
-  private EntityConverter entityConverter;
 
   @MockBean
   private BookService bookService;
