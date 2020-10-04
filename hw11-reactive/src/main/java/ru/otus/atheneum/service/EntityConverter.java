@@ -1,6 +1,8 @@
 package ru.otus.atheneum.service;
 
 import java.util.List;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 import ru.otus.atheneum.dto.AuthorDto;
 import ru.otus.atheneum.dto.BookDto;
 import ru.otus.atheneum.dto.GenreDto;
@@ -25,4 +27,14 @@ public interface EntityConverter {
   List<AuthorDto> convertAuthorEntitiesToDto(List<Author> authors);
 
   List<GenreDto> convertGenreEntitiesToDto(List<Genre> genres);
+
+  Mono<AuthorDto> convertAuthorEntityToDto(Mono<Author> author);
+
+  Flux<AuthorDto> convertAuthorEntitiesToDto(Flux<Author> authors);
+
+  Flux<GenreDto> convertGenreEntitiesToDto(Flux<Genre> genres);
+
+  Mono<BookDto> convertBookEntityToDto(Mono<Book> book);
+
+  Flux<BookDto> convertBookEntitiesToDto(Flux<Book> books);
 }

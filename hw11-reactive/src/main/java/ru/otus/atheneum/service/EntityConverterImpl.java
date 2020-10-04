@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 import ru.otus.atheneum.dto.AuthorDto;
 import ru.otus.atheneum.dto.BookDto;
 import ru.otus.atheneum.dto.GenreDto;
@@ -81,5 +83,30 @@ public class EntityConverterImpl implements EntityConverter {
     return genres.stream()
         .map(this::convertGenreEntityToDto)
         .collect(Collectors.toList());
+  }
+
+  @Override
+  public Mono<AuthorDto> convertAuthorEntityToDto(Mono<Author> author) {
+    return author.map(this::convertAuthorEntityToDto);
+  }
+
+  @Override
+  public Flux<AuthorDto> convertAuthorEntitiesToDto(Flux<Author> authors) {
+    return authors.map(this::convertAuthorEntityToDto);
+  }
+
+  @Override
+  public Flux<GenreDto> convertGenreEntitiesToDto(Flux<Genre> genres) {
+    return genres.map(this::convertGenreEntityToDto);
+  }
+
+  @Override
+  public Mono<BookDto> convertBookEntityToDto(Mono<Book> book) {
+    return book.map(this::convertBookEntityToDto);
+  }
+
+  @Override
+  public Flux<BookDto> convertBookEntitiesToDto(Flux<Book> books) {
+    return books.map(this::convertBookEntityToDto);
   }
 }
