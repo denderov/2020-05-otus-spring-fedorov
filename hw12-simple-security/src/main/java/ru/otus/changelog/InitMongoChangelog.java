@@ -9,6 +9,7 @@ import ru.otus.domain.Author;
 import ru.otus.domain.Book;
 import ru.otus.domain.Comment;
 import ru.otus.domain.Genre;
+import ru.otus.domain.Users;
 
 @ChangeLog(order = "001")
 public class InitMongoChangelog {
@@ -22,6 +23,12 @@ public class InitMongoChangelog {
   @ChangeSet(order = "000", id = "dropDB", author = "fedorov", runAlways = true)
   public void dropDB(MongoDatabase database) {
     database.drop();
+  }
+
+  @ChangeSet(order = "0001", id = "initUsers", author = "fedorov", runAlways = true)
+  public void initUsers(MongockTemplate template) {
+    template.save(new Users("admin", "123", "ADMIN"));
+    template.save(new Users("user", "1", "USER"));
   }
 
   @ChangeSet(order = "001", id = "initAuthors", author = "fedorov", runAlways = true)
