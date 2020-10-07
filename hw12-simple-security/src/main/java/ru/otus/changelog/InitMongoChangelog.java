@@ -27,8 +27,8 @@ public class InitMongoChangelog {
 
   @ChangeSet(order = "0001", id = "initUsers", author = "fedorov", runAlways = true)
   public void initUsers(MongockTemplate template) {
-    template.save(new Users("admin", "123", "ADMIN"));
-    template.save(new Users("user", "1", "USER"));
+    template.save(new Users("admin", "admin", "ADMIN"));
+    template.save(new Users("user", "user", "USER"));
   }
 
   @ChangeSet(order = "001", id = "initAuthors", author = "fedorov", runAlways = true)

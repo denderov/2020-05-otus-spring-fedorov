@@ -16,9 +16,6 @@ import ru.otus.atheneum.service.MongoUserService;
 @RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-//  @Autowired
-//  private AccessDeniedHandler accessDeniedHandler;
-
   private final MongoUserService mongoUserService;
 
   @Override
