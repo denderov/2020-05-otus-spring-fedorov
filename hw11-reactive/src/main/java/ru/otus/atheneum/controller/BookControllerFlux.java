@@ -15,10 +15,7 @@ import ru.otus.atheneum.dao.GenreReactiveRepository;
 import ru.otus.atheneum.dto.AuthorDto;
 import ru.otus.atheneum.dto.BookDto;
 import ru.otus.atheneum.dto.GenreDto;
-import ru.otus.atheneum.service.AuthorService;
-import ru.otus.atheneum.service.BookService;
 import ru.otus.atheneum.service.EntityConverter;
-import ru.otus.atheneum.service.GenreService;
 import ru.otus.domain.Book;
 
 @RestController
@@ -26,9 +23,6 @@ import ru.otus.domain.Book;
 @RequiredArgsConstructor
 public class BookControllerFlux {
 
-  private final BookService bookService;
-  private final AuthorService authorService;
-  private final GenreService genreService;
   private final EntityConverter entityConverter;
   private final AuthorReactiveRepository authorRepository;
   private final BookReactiveRepository bookRepository;
