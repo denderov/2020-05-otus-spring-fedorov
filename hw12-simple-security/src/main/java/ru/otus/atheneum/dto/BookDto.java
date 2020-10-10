@@ -1,9 +1,13 @@
 package ru.otus.atheneum.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
-public class BookRow {
+@AllArgsConstructor
+@NoArgsConstructor
+public class BookDto {
 
   private String id;
   private String title;

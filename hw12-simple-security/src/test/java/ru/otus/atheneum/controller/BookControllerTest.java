@@ -1,6 +1,7 @@
 package ru.otus.atheneum.controller;
 
 import static org.hamcrest.Matchers.containsString;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -45,16 +46,15 @@ public class BookControllerTest {
   @MockBean
   private GenreService genreService;
 
-  @Autowired
+  @MockBean
   private EntityConverter entityConverter;
 
-  @Autowired
-  private MongoUserService mongoUserService;
-
   @Test
+  @WithAnonymousUser
   @DisplayName("корректно отражает список книг")
   void shouldCorrectShowBooks() throws Exception {
     given(bookService.getAll()).willReturn(TestHelper.BOOKS);
+    given(entityConverter.convertBookEntitiesToDto(any())).willReturn(TestHelper.BOOK_DTOS);
     this.mvc.perform(get("/"))
         .andExpect(status().isOk())
         .andExpect(content().string(containsString("Test_book_1")))

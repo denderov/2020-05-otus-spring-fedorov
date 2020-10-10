@@ -1,7 +1,6 @@
 package ru.otus.atheneum.controller;
 
 import java.util.List;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -11,9 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.view.RedirectView;
-import ru.otus.atheneum.dto.AuthorRow;
-import ru.otus.atheneum.dto.BookRow;
-import ru.otus.atheneum.dto.GenreRow;
+import ru.otus.atheneum.dto.AuthorDto;
+import ru.otus.atheneum.dto.BookDto;
+import ru.otus.atheneum.dto.GenreDto;
 import ru.otus.atheneum.service.AuthorService;
 import ru.otus.atheneum.service.BookService;
 import ru.otus.atheneum.service.EntityConverter;
@@ -32,8 +31,7 @@ public class BookController {
 
   @GetMapping("/")
   public String showBookList(Model model) {
-    List<BookRow> books = bookService.getAll().stream().map(entityConverter::convertBookEntityToDto)
-        .collect(Collectors.toList());
+    List<BookDto> books = entityConverter.convertBookEntitiesToDto(bookService.getAll());
     log.info(books.toString());
     model.addAttribute("books", books);
     return "books";
@@ -52,36 +50,32 @@ public class BookController {
         .orElseThrow(
             () -> new BookControllerException(
                 String.format("Нет книги по переданному идентификатору %s", id)));
-    BookRow bookRow = entityConverter.convertBookEntityToDto(book);
-    prepareModelForEditMapping(model, bookRow);
+    BookDto bookDto = entityConverter.convertBookEntityToDto(book);
+    prepareModelForEditMapping(model, bookDto);
     return "book_edit";
   }
 
   @GetMapping("/book/edit")
   public String showCreateBookPage(Model model) {
-    BookRow bookRow = new BookRow();
-    prepareModelForEditMapping(model, bookRow);
+    BookDto bookDto = new BookDto();
+    prepareModelForEditMapping(model, bookDto);
     return "book_edit";
   }
 
   @PostMapping("/book/edit")
   public RedirectView savePerson(
-      BookRow bookRow,
+      BookDto bookDto,
       Model model
   ) {
-    log.info(bookRow.toString());
-    bookService.update(entityConverter.convertBookDtoToEntity(bookRow));
+    log.info(bookDto.toString());
+    bookService.update(entityConverter.convertBookDtoToEntity(bookDto));
     return new RedirectView("/", true);
   }
 
-  private void prepareModelForEditMapping(Model model, BookRow bookRow) {
-    List<AuthorRow> authors = authorService.getAll().stream()
-        .map(entityConverter::convertAuthorEntityToDto)
-        .collect(Collectors.toList());
-    List<GenreRow> genres = genreService.getAll().stream()
-        .map(entityConverter::convertGenreEntityToDto)
-        .collect(Collectors.toList());
-    model.addAttribute("book", bookRow);
+  private void prepareModelForEditMapping(Model model, BookDto bookDto) {
+    List<AuthorDto> authors = entityConverter.convertAuthorEntitiesToDto(authorService.getAll());
+    List<GenreDto> genres = entityConverter.convertGenreEntitiesToDto(genreService.getAll());
+    model.addAttribute("book", bookDto);
     model.addAttribute("authors", authors);
     model.addAttribute("genres", genres);
   }

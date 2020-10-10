@@ -1,19 +1,28 @@
 package ru.otus.atheneum.service;
 
-import ru.otus.atheneum.dto.AuthorRow;
-import ru.otus.atheneum.dto.BookRow;
-import ru.otus.atheneum.dto.GenreRow;
+import java.util.List;
+import ru.otus.atheneum.dto.AuthorDto;
+import ru.otus.atheneum.dto.BookDto;
+import ru.otus.atheneum.dto.GenreDto;
 import ru.otus.domain.Author;
 import ru.otus.domain.Book;
 import ru.otus.domain.Genre;
 
 public interface EntityConverter {
 
-  BookRow convertBookEntityToDto(Book book);
+  BookDto convertBookEntityToDto(Book book);
 
-  Book convertBookDtoToEntity(BookRow bookRow);
+  Book convertBookDtoToEntity(BookDto bookDto);
 
-  AuthorRow convertAuthorEntityToDto(Author author);
+  AuthorDto convertAuthorEntityToDto(Author author);
 
-  GenreRow convertGenreEntityToDto(Genre genre);
+  GenreDto convertGenreEntityToDto(Genre genre);
+
+  List<BookDto> convertBookEntitiesToDto(List<Book> books);
+
+  List<Book> convertBooksDtoToEntities(List<BookDto> booksDto);
+
+  List<AuthorDto> convertAuthorEntitiesToDto(List<Author> authors);
+
+  List<GenreDto> convertGenreEntitiesToDto(List<Genre> genres);
 }
