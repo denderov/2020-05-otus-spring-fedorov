@@ -72,4 +72,5 @@ public class TestHelper {
       AUTHOR_FULL_NAME_1, GENRE_ID_1, GENRE_NAME_1);
   public static final BookDto BOOK_DTO_2 = new BookDto(BOOK_ID_2, BOOK_TITLE_2, AUTHOR_ID_2,
       AUTHOR_FULL_NAME_2, GENRE_ID_2, GENRE_NAME_2);
+  public static final List<BookDto> BOOK_DTOS = List.of(BOOK_DTO_1, BOOK_DTO_2);
 }
