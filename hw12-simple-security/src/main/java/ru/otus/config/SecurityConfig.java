@@ -8,15 +8,15 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import ru.otus.atheneum.service.MongoUserService;
 
 @Configuration
 @RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-  private final MongoUserService mongoUserService;
+  private final UserDetailsService detailsService;
 
   @Override
   public void configure(WebSecurity web) {
@@ -28,7 +28,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     http.csrf().disable()
         .authorizeRequests()
         .antMatchers("/book/edit")
-        .hasAnyAuthority("ADMIN", "USER")
+        .hasAnyAuthority("ROLE_ADMIN", "ROLE_USER")
         .antMatchers("/**")
         .hasAuthority("ADMIN")
         .and()
@@ -47,6 +47,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Autowired
   public void configure(AuthenticationManagerBuilder auth) throws Exception {
-    auth.userDetailsService(mongoUserService);
+    auth.userDetailsService(detailsService);
   }
 }

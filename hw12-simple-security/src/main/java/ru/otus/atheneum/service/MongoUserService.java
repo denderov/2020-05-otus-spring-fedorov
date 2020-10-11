@@ -1,9 +1,6 @@
 package ru.otus.atheneum.service;
 
-import java.util.Arrays;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -24,9 +21,10 @@ public class MongoUserService implements UserDetailsService {
     Users user = usersRepository.findByUsername(username)
         .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
-    List<SimpleGrantedAuthority> authorities = Arrays
-        .asList(new SimpleGrantedAuthority(user.getRole()));
-
-    return new User(user.getUsername(), user.getPassword(), authorities);
+    return User.builder()
+        .username(user.getUsername())
+        .password(user.getPassword())
+        .roles(user.getRole())
+        .build();
   }
 }
