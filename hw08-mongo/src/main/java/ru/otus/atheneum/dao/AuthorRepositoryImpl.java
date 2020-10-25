@@ -1,17 +1,16 @@
 package ru.otus.atheneum.dao;
 
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Lazy;
 import ru.otus.domain.Author;
 import ru.otus.domain.Book;
 
+@RequiredArgsConstructor(onConstructor_ = {@Lazy})
 public class AuthorRepositoryImpl implements AuthorRepositoryCustom {
 
-  @Autowired
-  private BookRepository bookRepository;
-
-  @Autowired
-  private AuthorRepository authorRepository;
+  private final BookRepository bookRepository;
+  private final AuthorRepository authorRepository;
 
   @Override
   public void deleteWhenFree(Author author) {

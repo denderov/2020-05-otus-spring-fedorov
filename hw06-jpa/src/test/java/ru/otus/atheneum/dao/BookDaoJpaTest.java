@@ -18,7 +18,7 @@ import ru.otus.domain.Book;
 public class BookDaoJpaTest {
 
   @Autowired
-  BookDao bookDao;
+  private BookDao bookDao;
 
   @DisplayName("возвращает указанную книгу по id")
   @Test

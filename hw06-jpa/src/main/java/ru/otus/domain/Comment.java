@@ -13,10 +13,12 @@ import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Table(name = "COMMENTS")
 @Data
+@ToString(exclude = "book")
 @NoArgsConstructor
 @AllArgsConstructor
 public class Comment {

@@ -32,6 +32,8 @@
     <module>hw08-mongo</module>
     <module>hw09-classic-web</module>
     <module>hw12-simple-security</module>
+    <module>hw10-modern-web</module>
+    <module>hw11-reactive</module>
   </modules>
 
   <packaging>pom</packaging>
