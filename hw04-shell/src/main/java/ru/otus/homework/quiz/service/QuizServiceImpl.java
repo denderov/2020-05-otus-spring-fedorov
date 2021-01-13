@@ -46,4 +46,9 @@ public class QuizServiceImpl implements QuizService {
     quizTestingService.runTest(quizQuestions);
   }
 
+  @Override
+  public boolean isQuizQuestionsLoaded() {
+    return quizQuestions == null;
+  }
+
 }
