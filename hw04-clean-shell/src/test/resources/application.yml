@@ -1,0 +1,11 @@
+quiz:
+  questionCount: 5
+  passPercent: 80
+  locale: en_US
+  name: correct_test
+spring:
+  messages:
+    basename: bundle
+  shell:
+    interactive:
+      enabled: false
