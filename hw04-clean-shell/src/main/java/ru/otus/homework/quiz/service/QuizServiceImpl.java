@@ -26,19 +26,8 @@ public class QuizServiceImpl implements QuizService {
 
   @Loggable
   @Override
-  public void readQuiz() {
-    quizQuestions = quizDao.loadQuizItems();
-  }
-
-  @Loggable
-  @Override
   public void readQuiz(String quizName) {
     quizQuestions = quizDao.loadQuizItems(quizName);
-  }
-
-  @Override
-  public void printQuizQuestions() {
-    quizQuestions.forEach(quizQuestion -> ioService.println(quizQuestion.getQuestion()));
   }
 
   @Override
