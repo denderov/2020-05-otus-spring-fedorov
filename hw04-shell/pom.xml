@@ -43,12 +43,6 @@
     </dependency>
 
     <dependency>
-      <artifactId>spring-boot-configuration-processor</artifactId>
-      <groupId>org.springframework.boot</groupId>
-      <optional>true</optional>
-    </dependency>
-
-    <dependency>
       <artifactId>spring-shell-starter</artifactId>
       <groupId>org.springframework.shell</groupId>
       <version>${spring-shell-starter.version}</version>

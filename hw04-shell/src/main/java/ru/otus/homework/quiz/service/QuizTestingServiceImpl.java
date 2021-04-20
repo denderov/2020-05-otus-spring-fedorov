@@ -21,21 +21,19 @@ import ru.otus.homework.quiz.domain.TestRoom;
 public class QuizTestingServiceImpl implements QuizTestingService {
 
   private final IOService ioService;
-  private final int testQuestionsCount;
-  private final int passPercent;
-  private final Locale locale;
+  private final QuizResultService quizResultService;
   private final MessageSource messageSource;
+  private final QuizProperties quizProperties;
 
   private TestRoom testRoom;
   private QuizSubject quizSubject;
 
-  public QuizTestingServiceImpl(IOService ioService,
+  public QuizTestingServiceImpl(IOService ioService, QuizResultService quizResultService,
       QuizProperties quizProperties, MessageSource messageSource) {
     this.ioService = ioService;
-    this.testQuestionsCount = quizProperties.getQuestionCount();
-    this.passPercent = quizProperties.getPassPercent();
-    this.locale = quizProperties.getLocale();
     this.messageSource = messageSource;
+    this.quizResultService = quizResultService;
+    this.quizProperties = quizProperties;
   }
 
   @Loggable
@@ -50,9 +48,9 @@ public class QuizTestingServiceImpl implements QuizTestingService {
   }
 
   private void createQuizSubject() {
-    ioService.println(messageSource.getMessage("message.firstName", null, locale));
+    ioService.println(messageSource.getMessage("message.firstName", null, quizProperties.getLocale()));
     String firstName = ioService.readLine();
-    ioService.println(messageSource.getMessage("message.lastName", null, locale));
+    ioService.println(messageSource.getMessage("message.lastName", null, quizProperties.getLocale()));
     String lastName = ioService.readLine();
     quizSubject = new QuizSubject(firstName, lastName);
   }
@@ -61,8 +59,8 @@ public class QuizTestingServiceImpl implements QuizTestingService {
   private void createTestRoom(QuizSubject quizSubject, List<QuizQuestion> quizQuestions) {
 
     List<TestQuestion> testQuestions = new Random()
-        .ints(testQuestionsCount * 10, 0, quizQuestions.size())
-        .distinct().limit(testQuestionsCount)
+        .ints(quizProperties.getQuestionCount() * 10, 0, quizQuestions.size())
+        .distinct().limit(quizProperties.getQuestionCount())
         .mapToObj((i) -> new TestQuestion(quizQuestions.get(i)))
         .collect(Collectors.toList());
 
@@ -93,30 +91,7 @@ public class QuizTestingServiceImpl implements QuizTestingService {
   }
 
   private void evaluateResult() {
-    int overallCount = testRoom.getTestQuestions().size();
-    int correctCount = 0;
-    for (TestQuestion testQuestion :
-        testRoom.getTestQuestions()
-    ) {
-      List<QuizAnswer> quizAnswers = testQuestion.getQuizQuestion().getAnswers();
-      long incorrectCount = IntStream.range(0, quizAnswers.size())
-          .filter(
-              (i) -> quizAnswers.get(i).isCorrect()
-                  ^ testQuestion.getReceivedAnswers().contains(i + 1))
-          .count();
-      if (incorrectCount == 0) {
-        correctCount++;
-      }
-    }
-    ioService.println(
-        messageSource
-            .getMessage("message.count",
-                new String[]{String.valueOf(overallCount), String.valueOf(correctCount)}, locale));
-    if (correctCount * 100 / overallCount >= passPercent) {
-      ioService.println(messageSource.getMessage("message.congrats", null, locale));
-    } else {
-      ioService.println(messageSource.getMessage("message.sorry", null, locale));
-    }
+    quizResultService.evaluateResult(testRoom.getTestQuestions());
   }
 
 }
