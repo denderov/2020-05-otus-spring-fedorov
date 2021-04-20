@@ -22,10 +22,8 @@ public class QuizTestingServiceImpl implements QuizTestingService {
 
   private final IOService ioService;
   private final QuizResultService quizResultService;
-  private final int testQuestionsCount;
-  private final int passPercent;
-  private final Locale locale;
   private final MessageSource messageSource;
+  private final QuizProperties quizProperties;
 
   private TestRoom testRoom;
   private QuizSubject quizSubject;
@@ -33,11 +31,9 @@ public class QuizTestingServiceImpl implements QuizTestingService {
   public QuizTestingServiceImpl(IOService ioService, QuizResultService quizResultService,
       QuizProperties quizProperties, MessageSource messageSource) {
     this.ioService = ioService;
-    this.testQuestionsCount = quizProperties.getQuestionCount();
-    this.passPercent = quizProperties.getPassPercent();
-    this.locale = quizProperties.getLocale();
     this.messageSource = messageSource;
     this.quizResultService = quizResultService;
+    this.quizProperties = quizProperties;
   }
 
   @Loggable
@@ -52,9 +48,9 @@ public class QuizTestingServiceImpl implements QuizTestingService {
   }
 
   private void createQuizSubject() {
-    ioService.println(messageSource.getMessage("message.firstName", null, locale));
+    ioService.println(messageSource.getMessage("message.firstName", null, quizProperties.getLocale()));
     String firstName = ioService.readLine();
-    ioService.println(messageSource.getMessage("message.lastName", null, locale));
+    ioService.println(messageSource.getMessage("message.lastName", null, quizProperties.getLocale()));
     String lastName = ioService.readLine();
     quizSubject = new QuizSubject(firstName, lastName);
   }
@@ -63,8 +59,8 @@ public class QuizTestingServiceImpl implements QuizTestingService {
   private void createTestRoom(QuizSubject quizSubject, List<QuizQuestion> quizQuestions) {
 
     List<TestQuestion> testQuestions = new Random()
-        .ints(testQuestionsCount * 10, 0, quizQuestions.size())
-        .distinct().limit(testQuestionsCount)
+        .ints(quizProperties.getQuestionCount() * 10, 0, quizQuestions.size())
+        .distinct().limit(quizProperties.getQuestionCount())
         .mapToObj((i) -> new TestQuestion(quizQuestions.get(i)))
         .collect(Collectors.toList());
 

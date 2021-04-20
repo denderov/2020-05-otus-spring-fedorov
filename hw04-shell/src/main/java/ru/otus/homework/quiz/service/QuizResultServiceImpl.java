@@ -16,16 +16,14 @@ import java.util.stream.IntStream;
 public class QuizResultServiceImpl implements QuizResultService {
 
     private final IOService ioService;
-    private final int passPercent;
-    private final Locale locale;
     private final MessageSource messageSource;
+    private final QuizProperties quizProperties;
     private final QuizResult quizResult;
 
     public QuizResultServiceImpl(IOService ioService, QuizProperties quizProperties, MessageSource messageSource) {
         this.ioService = ioService;
-        this.passPercent = quizProperties.getPassPercent();
-        this.locale = quizProperties.getLocale();
         this.messageSource = messageSource;
+        this.quizProperties = quizProperties;
         this.quizResult = new QuizResult();
     }
 
@@ -50,11 +48,11 @@ public class QuizResultServiceImpl implements QuizResultService {
         ioService.println(
                 messageSource
                         .getMessage("message.count",
-                                new String[]{String.valueOf(quizResult.getOverallCount()), String.valueOf(quizResult.getCorrectCount())}, locale));
-        if (quizResult.getCorrectCount() * 100 / quizResult.getOverallCount() >= passPercent) {
-            ioService.println(messageSource.getMessage("message.congrats", null, locale));
+                                new String[]{String.valueOf(quizResult.getOverallCount()), String.valueOf(quizResult.getCorrectCount())}, quizProperties.getLocale()));
+        if (quizResult.getCorrectCount() * 100 / quizResult.getOverallCount() >= quizProperties.getPassPercent()) {
+            ioService.println(messageSource.getMessage("message.congrats", null, quizProperties.getLocale()));
         } else {
-            ioService.println(messageSource.getMessage("message.sorry", null, locale));
+            ioService.println(messageSource.getMessage("message.sorry", null, quizProperties.getLocale()));
         }
     }
 }
