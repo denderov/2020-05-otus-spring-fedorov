@@ -21,6 +21,7 @@ import ru.otus.homework.quiz.domain.TestRoom;
 public class QuizTestingServiceImpl implements QuizTestingService {
 
   private final IOService ioService;
+  private final QuizResultService quizResultService;
   private final int testQuestionsCount;
   private final int passPercent;
   private final Locale locale;
@@ -29,13 +30,14 @@ public class QuizTestingServiceImpl implements QuizTestingService {
   private TestRoom testRoom;
   private QuizSubject quizSubject;
 
-  public QuizTestingServiceImpl(IOService ioService,
+  public QuizTestingServiceImpl(IOService ioService, QuizResultService quizResultService,
       QuizProperties quizProperties, MessageSource messageSource) {
     this.ioService = ioService;
     this.testQuestionsCount = quizProperties.getQuestionCount();
     this.passPercent = quizProperties.getPassPercent();
     this.locale = quizProperties.getLocale();
     this.messageSource = messageSource;
+    this.quizResultService = quizResultService;
   }
 
   @Loggable
@@ -93,30 +95,7 @@ public class QuizTestingServiceImpl implements QuizTestingService {
   }
 
   private void evaluateResult() {
-    int overallCount = testRoom.getTestQuestions().size();
-    int correctCount = 0;
-    for (TestQuestion testQuestion :
-        testRoom.getTestQuestions()
-    ) {
-      List<QuizAnswer> quizAnswers = testQuestion.getQuizQuestion().getAnswers();
-      long incorrectCount = IntStream.range(0, quizAnswers.size())
-          .filter(
-              (i) -> quizAnswers.get(i).isCorrect()
-                  ^ testQuestion.getReceivedAnswers().contains(i + 1))
-          .count();
-      if (incorrectCount == 0) {
-        correctCount++;
-      }
-    }
-    ioService.println(
-        messageSource
-            .getMessage("message.count",
-                new String[]{String.valueOf(overallCount), String.valueOf(correctCount)}, locale));
-    if (correctCount * 100 / overallCount >= passPercent) {
-      ioService.println(messageSource.getMessage("message.congrats", null, locale));
-    } else {
-      ioService.println(messageSource.getMessage("message.sorry", null, locale));
-    }
+    quizResultService.evaluateResult(testRoom.getTestQuestions());
   }
 
 }
