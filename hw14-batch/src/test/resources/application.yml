@@ -1,0 +1,24 @@
+spring:
+  batch:
+    initialize-schema: always
+    job:
+      enabled: false
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: test
+  datasource:
+    url: jdbc:h2:mem:testdb
+    initialization-mode: always
+  shell:
+    interactive:
+      enabled: false
+mongock:
+  runner-type: InitializingBean
+  change-logs-scan-package:
+    - ru.otus.testchangelog
+
+logging:
+  level:
+    ROOT: INFO
