@@ -8,6 +8,8 @@ import ru.otus.domain.Genre;
 
 public interface BookService {
 
+  long count();
+
   Optional<Book> save(String title, Author author, Genre genre);
 
   void update(Book bookForUpdate);

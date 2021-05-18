@@ -16,6 +16,11 @@ public class BookServiceImpl implements BookService {
   private final BookRepository bookRepository;
 
   @Override
+  public long count() {
+    return bookRepository.count();
+  }
+
+  @Override
   public Optional<Book> save(String title, Author author, Genre genre) {
     Book bookForSave = new Book();
     bookForSave.setTitle(title);
