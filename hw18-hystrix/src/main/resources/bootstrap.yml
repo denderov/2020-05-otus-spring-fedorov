@@ -1,0 +1,6 @@
+hystrix:
+  default:
+    execution:
+      isolation:
+        thread:
+          timeoutInMilliseconds: 500
